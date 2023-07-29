@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.BiblioFinder" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/rose_garnet</item>
+        <item name="colorPrimary">@color/medium_violet_red</item>
         <item name="colorPrimaryVariant">@color/imperial_purple</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
