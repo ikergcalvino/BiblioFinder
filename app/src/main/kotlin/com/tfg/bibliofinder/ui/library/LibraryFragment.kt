@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.ui.gallery
+package com.tfg.bibliofinder.ui.library
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.tfg.bibliofinder.databinding.FragmentGalleryBinding
+import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
 
-class GalleryFragment : Fragment() {
+class LibraryFragment : Fragment() {
 
-    private var _binding: FragmentGalleryBinding? = null
+    private var _binding: FragmentLibraryBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class GalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+        val libraryViewModel =
+            ViewModelProvider(this).get(LibraryViewModel::class.java)
 
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textGallery
-        galleryViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textLibrary
+        libraryViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

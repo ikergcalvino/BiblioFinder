@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.tfg.bibliofinder.ui.home.HomeFragment"
+        android:name="com.tfg.bibliofinder.ui.library.LibraryFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_library" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.tfg.bibliofinder.ui.gallery.GalleryFragment"
+        android:name="com.tfg.bibliofinder.ui.classroom.ClassroomFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_classroom" />
 
     <fragment
         android:id="@+id/nav_slideshow"
