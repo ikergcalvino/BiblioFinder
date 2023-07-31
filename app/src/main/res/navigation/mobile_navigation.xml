@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.tfg.bibliofinder.ui.library.LibraryFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_library"
         tools:layout="@layout/fragment_library" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.tfg.bibliofinder.ui.classroom.ClassroomFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_classroom"
         tools:layout="@layout/fragment_classroom" />
 
     <fragment
