@@ -52,6 +52,30 @@ class ClassroomFragment : Fragment() {
     }
 
     private fun initializeData() {
-        // TODO: Replace with your logic to populate 'classrooms' list with data
+        // TODO: Replace with DB classrooms list.
+        classrooms.addAll(createMockClassroomData())
+        adapter.notifyDataSetChanged()
+    }
+
+    // Mock data for ClassroomFragment
+    private fun createMockClassroomData(): List<Classroom> {
+        val classrooms = mutableListOf<Classroom>()
+        classrooms.add(
+            Classroom(
+                1,
+                "Classroom 101",
+                50,
+                "Lecture Hall"
+            )
+        )
+        classrooms.add(
+            Classroom(
+                2,
+                "Classroom 202",
+                40,
+                "Lab"
+            )
+        )
+        return classrooms
     }
 }

@@ -49,6 +49,42 @@ class LibraryFragment : Fragment() {
     }
 
     private fun initializeData() {
-        // TODO: Replace with your logic to populate 'libraries' list with data
+        // TODO: Replace with DB libraries list.
+        libraries.addAll(createMockLibraryData())
+        adapter.notifyDataSetChanged()
+    }
+
+    // Mock data for LibraryFragment
+    private fun createMockLibraryData(): List<Library> {
+        val libraries = mutableListOf<Library>()
+        libraries.add(
+            Library(
+                1,
+                "Central Library",
+                "9:00 AM - 7:00 PM",
+                100,
+                "123 Main Street",
+                "555-1234",
+                "info@library.com",
+                true,
+                "Public",
+                "City Library"
+            )
+        )
+        libraries.add(
+            Library(
+                2,
+                "University Library",
+                "8:00 AM - 10:00 PM",
+                200,
+                "456 University Ave",
+                "555-5678",
+                "info@unilibrary.com",
+                true,
+                "Academic",
+                "University XYZ"
+            )
+        )
+        return libraries
     }
 }
