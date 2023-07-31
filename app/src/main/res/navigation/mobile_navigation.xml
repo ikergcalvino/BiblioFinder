@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_library" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_classroom"
         android:name="com.tfg.bibliofinder.ui.classroom.ClassroomFragment"
         android:label="@string/menu_classroom"
         tools:layout="@layout/fragment_classroom" />
@@ -25,6 +25,6 @@
 
     <action
         android:id="@+id/action_nav_library_to_nav_gallery"
-        app:destination="@id/nav_gallery" />
+        app:destination="@id/nav_classroom" />
 
 </navigation>
