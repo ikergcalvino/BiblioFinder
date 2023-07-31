@@ -34,11 +34,13 @@ class LibraryFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
-        initializeData()
+
         adapter = LibraryAdapter(libraries) { library ->
             // Handle item click here if needed
         }
         recyclerView.adapter = adapter
+
+        initializeData()
 
         return root
     }

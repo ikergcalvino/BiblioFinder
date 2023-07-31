@@ -13,9 +13,9 @@ class ClassroomAdapter(
 ) : RecyclerView.Adapter<ClassroomAdapter.ClassroomViewHolder>() {
 
     inner class ClassroomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var classroomName: TextView = itemView.findViewById(R.id.library_name)
-        var classroomCapacity: TextView = itemView.findViewById(R.id.library_capacity)
-        var classroomType: TextView = itemView.findViewById(R.id.library_schedule)
+        var classroomName: TextView = itemView.findViewById(R.id.classroom_name)
+        var classroomCapacity: TextView = itemView.findViewById(R.id.classroom_capacity)
+        var classroomType: TextView = itemView.findViewById(R.id.classroom_type)
     }
 
     override fun getItemCount(): Int {

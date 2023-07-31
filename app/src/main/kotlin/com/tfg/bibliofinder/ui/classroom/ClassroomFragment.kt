@@ -27,8 +27,7 @@ class ClassroomFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val classroomViewModel =
-            ViewModelProvider(this)[ClassroomViewModel::class.java]
+        val classroomViewModel = ViewModelProvider(this)[ClassroomViewModel::class.java]
 
         _binding = FragmentClassroomBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -37,11 +36,13 @@ class ClassroomFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
-        initializeData()
+
         adapter = ClassroomAdapter(classrooms) { classroom ->
             // Handle item click here if needed
         }
         recyclerView.adapter = adapter
+
+        initializeData()
 
         return root
     }
