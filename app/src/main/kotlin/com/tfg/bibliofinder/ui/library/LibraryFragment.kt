@@ -41,7 +41,10 @@ class LibraryFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
-        initializeData()
+        // If libraries list is empty, initialize data (prevents duplicating data on configuration changes)
+        if (libraries.isEmpty()) {
+            initializeData()
+        }
 
         return root
     }
