@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
 import com.tfg.bibliofinder.entities.Library
 
@@ -35,13 +37,24 @@ class LibraryFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
 
         adapter = LibraryAdapter(libraries) { library ->
-            // Handle item click here if needed
+            navigateToClassrooms(library)
         }
         recyclerView.adapter = adapter
 
         initializeData()
 
         return root
+    }
+
+    private fun navigateToClassrooms(library: Library) {
+        // You can pass the library ID or any relevant information to the ClassroomFragment here.
+        val bundle = Bundle().apply {
+            putLong("libraryId", library.libraryId)
+            // Add other relevant data if needed.
+        }
+
+        // Navigate to ClassroomFragment with the relevant information.
+        findNavController().navigate(R.id.action_nav_library_to_nav_gallery, bundle)
     }
 
     override fun onDestroyView() {
@@ -60,7 +73,7 @@ class LibraryFragment : Fragment() {
         val libraries = mutableListOf<Library>()
         libraries.add(
             Library(
-                1,
+                1L,
                 "Biblioteca Xoana Capdevielle",
                 "9:00 AM - 7:00 PM",
                 654,
@@ -74,7 +87,7 @@ class LibraryFragment : Fragment() {
         )
         libraries.add(
             Library(
-                2,
+                2L,
                 "Centro Universitario de Riazor",
                 "8:00 AM - 10:00 PM",
                 630,

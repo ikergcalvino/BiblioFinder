@@ -39,7 +39,11 @@ class ClassroomFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
-        initializeData()
+        // Get the library ID from the arguments passed by LibraryFragment
+        val libraryId = arguments?.getLong("libraryId", -1L)
+        if (libraryId != null && libraryId != -1L) {
+            initializeData(libraryId)
+        }
 
         return root
     }
@@ -49,9 +53,11 @@ class ClassroomFragment : Fragment() {
         _binding = null
     }
 
-    private fun initializeData() {
-        // TODO: Replace with DB classrooms list.
-        classrooms.addAll(createMockClassroomData())
+    private fun initializeData(libraryId: Long) {
+        // TODO: Replace with DB classrooms list based on the libraryId.
+        val classroomsForLibrary = createMockClassroomData().filter { it.libraryId == libraryId }
+        classrooms.clear()
+        classrooms.addAll(classroomsForLibrary)
         adapter.notifyDataSetChanged()
     }
 
@@ -60,27 +66,27 @@ class ClassroomFragment : Fragment() {
         val classrooms = mutableListOf<Classroom>()
         classrooms.add(
             Classroom(
-                1, "Sala de Estudio 1", 50, "Área de Estudio en Grupo", 1
+                1L, "Sala de Estudio 1", 50, "Área de Estudio en Grupo", 1L
             )
         )
         classrooms.add(
             Classroom(
-                2, "Sala de Estudio 2", 40, "Área de Trabajo en Silencio", 1
+                2L, "Sala de Estudio 2", 40, "Área de Trabajo en Silencio", 1L
             )
         )
         classrooms.add(
             Classroom(
-                3, "Sala de Reuniones 1", 30, "Sala de Colaboración", 2
+                3L, "Sala de Reuniones 1", 30, "Sala de Colaboración", 2L
             )
         )
         classrooms.add(
             Classroom(
-                4, "Sala de Reuniones 2", 20, "Sala de Estudio Individual", 2
+                4L, "Sala de Reuniones 2", 20, "Sala de Estudio Individual", 2L
             )
         )
         classrooms.add(
             Classroom(
-                5, "Sala de Conferencias", 25, "Sala de Presentaciones", 2
+                5L, "Sala de Conferencias", 25, "Sala de Presentaciones", 2L
             )
         )
         return classrooms
