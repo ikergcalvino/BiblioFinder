@@ -18,14 +18,11 @@ class ClassroomFragment : Fragment() {
     private lateinit var adapter: ClassroomAdapter
     private val classrooms = mutableListOf<Classroom>()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val classroomViewModel = ViewModelProvider(this)[ClassroomViewModel::class.java]
 
@@ -63,18 +60,27 @@ class ClassroomFragment : Fragment() {
         val classrooms = mutableListOf<Classroom>()
         classrooms.add(
             Classroom(
-                1,
-                "Classroom 101",
-                50,
-                "Lecture Hall"
+                1, "Sala de Estudio 1", 50, "Área de Estudio en Grupo", 1
             )
         )
         classrooms.add(
             Classroom(
-                2,
-                "Classroom 202",
-                40,
-                "Lab"
+                2, "Sala de Estudio 2", 40, "Área de Trabajo en Silencio", 1
+            )
+        )
+        classrooms.add(
+            Classroom(
+                3, "Sala de Reuniones 1", 30, "Sala de Colaboración", 2
+            )
+        )
+        classrooms.add(
+            Classroom(
+                4, "Sala de Reuniones 2", 20, "Sala de Estudio Individual", 2
+            )
+        )
+        classrooms.add(
+            Classroom(
+                5, "Sala de Conferencias", 25, "Sala de Presentaciones", 2
             )
         )
         return classrooms

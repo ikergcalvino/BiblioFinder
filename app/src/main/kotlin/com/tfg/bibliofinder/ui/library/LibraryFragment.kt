@@ -18,8 +18,7 @@ class LibraryFragment : Fragment() {
     private lateinit var adapter: LibraryAdapter
     private val libraries = mutableListOf<Library>()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -62,29 +61,29 @@ class LibraryFragment : Fragment() {
         libraries.add(
             Library(
                 1,
-                "Central Library",
+                "Biblioteca Xoana Capdevielle",
                 "9:00 AM - 7:00 PM",
-                100,
-                "123 Main Street",
+                654,
+                "Campus de Elviña",
                 "555-1234",
-                "info@library.com",
+                "info@bibliotecaxoana.com",
                 true,
-                "Public",
-                "City Library"
+                "Pública",
+                "Universidad de A Coruña"
             )
         )
         libraries.add(
             Library(
                 2,
-                "University Library",
+                "Centro Universitario de Riazor",
                 "8:00 AM - 10:00 PM",
-                200,
-                "456 University Ave",
+                630,
+                "Campus de Riazor",
                 "555-5678",
-                "info@unilibrary.com",
+                "info@centrouriazor.com",
                 true,
-                "Academic",
-                "University XYZ"
+                "Académica",
+                "Universidad de A Coruña"
             )
         )
         return libraries
