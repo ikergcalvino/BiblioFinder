@@ -25,7 +25,7 @@ class LibraryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val libraryViewModel = ViewModelProvider(this).get(LibraryViewModel::class.java)
+        val libraryViewModel = ViewModelProvider(this)[LibraryViewModel::class.java]
 
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val root: View = binding.root
