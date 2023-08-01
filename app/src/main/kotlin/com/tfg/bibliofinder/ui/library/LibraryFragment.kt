@@ -57,7 +57,7 @@ class LibraryFragment : Fragment() {
         }
 
         // Navigate to ClassroomFragment with the relevant information.
-        findNavController().navigate(R.id.action_nav_library_to_nav_gallery, bundle)
+        findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
     }
 
     override fun onDestroyView() {

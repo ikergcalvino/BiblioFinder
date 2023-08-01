@@ -11,6 +11,10 @@
         android:label="@string/menu_library"
         tools:layout="@layout/fragment_library" />
 
+    <action
+        android:id="@+id/action_nav_library_to_nav_classroom"
+        app:destination="@id/nav_classroom" />
+
     <fragment
         android:id="@+id/nav_classroom"
         android:name="com.tfg.bibliofinder.ui.classroom.ClassroomFragment"
@@ -18,13 +22,27 @@
         tools:layout="@layout/fragment_classroom" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.tfg.bibliofinder.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_workstation"
+        android:name="com.tfg.bibliofinder.ui.workstation.WorkstationFragment"
+        android:label="@string/menu_workstation"
+        tools:layout="@layout/fragment_workstation" />
 
-    <action
-        android:id="@+id/action_nav_library_to_nav_gallery"
-        app:destination="@id/nav_classroom" />
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.tfg.bibliofinder.ui.login.LoginFragment"
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.tfg.bibliofinder.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_register_nfc"
+        android:name="com.tfg.bibliofinder.ui.nfc.RegisterNFCFragment"
+        android:label="@string/menu_register_nfc"
+        tools:layout="@layout/fragment_register_nfc" />
 
 </navigation>

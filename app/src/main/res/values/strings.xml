@@ -5,9 +5,12 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="menu_library">Bibliotecas</string>
     <string name="menu_classroom">Aulas</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_workstation">Sitios</string>
+    <string name="menu_login">Iniciar sesión</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_logout">Salir</string>
+    <string name="menu_register_nfc">Registrar NFC</string>
 </resources>
