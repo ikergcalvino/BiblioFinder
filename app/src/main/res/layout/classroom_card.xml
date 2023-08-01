@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:contentDescription="TODO"
             android:scaleType="centerCrop"
-            android:src="@drawable/classroom_banner" />
+            android:src="@drawable/banner_classroom" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -19,7 +19,7 @@
             android:layout_height="125dp"
             android:contentDescription="TODO"
             android:scaleType="centerCrop"
-            android:src="@drawable/library_banner" />
+            android:src="@drawable/banner_library" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     android:layout_weight="0.5"
                     android:contentDescription="TODO"
                     android:padding="5dp"
-                    android:src="@drawable/accessible" />
+                    android:src="@drawable/ic_accessible" />
 
                 <ImageView
                     android:id="@+id/library_info"
@@ -81,7 +81,7 @@
                     android:layout_weight="0.5"
                     android:contentDescription="TODO"
                     android:padding="5dp"
-                    android:src="@drawable/information" />
+                    android:src="@drawable/ic_information" />
 
             </LinearLayout>
 
