@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.entities
+package com.tfg.bibliofinder.model
 
 data class Library(
     val libraryId: Long,

@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder
+package com.tfg.bibliofinder.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.ui.library
+package com.tfg.bibliofinder.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
-import com.tfg.bibliofinder.entities.Library
+import com.tfg.bibliofinder.model.Library
+import com.tfg.bibliofinder.view.adapters.LibraryAdapter
+import com.tfg.bibliofinder.viewmodel.LibraryViewModel
 
 class LibraryFragment : Fragment() {
 

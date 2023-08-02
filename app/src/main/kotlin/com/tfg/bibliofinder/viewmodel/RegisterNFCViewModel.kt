@@ -1,13 +1,13 @@
-package com.tfg.bibliofinder.ui.login
+package com.tfg.bibliofinder.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class LoginViewModel : ViewModel() {
+class RegisterNFCViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is login Fragment"
+        value = "This is Register NFC Fragment"
     }
     val text: LiveData<String> = _text
 }

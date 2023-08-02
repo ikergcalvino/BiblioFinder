@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.ui.library
+package com.tfg.bibliofinder.viewmodel
 
 import androidx.lifecycle.ViewModel
 

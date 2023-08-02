@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.ui.workstation
+package com.tfg.bibliofinder.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
+import com.tfg.bibliofinder.viewmodel.WorkstationViewModel
 
 class WorkstationFragment : Fragment() {
 

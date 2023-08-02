@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.ui.login
+package com.tfg.bibliofinder.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,23 +7,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.tfg.bibliofinder.databinding.FragmentLoginBinding
+import com.tfg.bibliofinder.databinding.FragmentProfileBinding
+import com.tfg.bibliofinder.viewmodel.ProfileViewModel
 
-class LoginFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        val textView: TextView = binding.textLogin
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        val textView: TextView = binding.textProfile
         viewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

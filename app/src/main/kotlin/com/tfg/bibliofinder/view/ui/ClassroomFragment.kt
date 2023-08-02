@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.ui.classroom
+package com.tfg.bibliofinder.view.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.databinding.FragmentClassroomBinding
-import com.tfg.bibliofinder.entities.Classroom
+import com.tfg.bibliofinder.model.Classroom
+import com.tfg.bibliofinder.view.adapters.ClassroomAdapter
+import com.tfg.bibliofinder.viewmodel.ClassroomViewModel
 
 class ClassroomFragment : Fragment() {
 
