@@ -30,8 +30,14 @@ class ClassroomAdapter(
 
     override fun onBindViewHolder(classroomViewHolder: ClassroomViewHolder, idx: Int) {
         val classroom = classrooms[idx]
+
         classroomViewHolder.classroomName.text = classroom.name
-        classroomViewHolder.classroomCapacity.text = "Capacity: ${classroom.capacity}"
+
+        val capacityText = classroomViewHolder.itemView.context.getString(
+            R.string.capacity_format, classroom.capacity
+        )
+        classroomViewHolder.classroomCapacity.text = capacityText
+
         classroomViewHolder.classroomType.text = classroom.type
 
         classroomViewHolder.itemView.setOnClickListener {

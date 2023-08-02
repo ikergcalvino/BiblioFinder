@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/library_card"
     android:layout_width="match_parent"
     android:layout_height="250dp"
@@ -17,13 +16,14 @@
             android:id="@+id/library_banner"
             android:layout_width="match_parent"
             android:layout_height="125dp"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/library_banner"
             android:scaleType="centerCrop"
             android:src="@drawable/banner_library" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:padding="10dp">
 
@@ -39,22 +39,19 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
-                    tools:text="Edificio Xoana Capdevielle" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/library_schedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/medium_violet_red"
-                    tools:text="Horario: Lunes a Viernes, 9:00 - 18:00" />
+                    android:textColor="@color/medium_violet_red" />
 
                 <TextView
                     android:id="@+id/library_capacity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/medium_violet_red"
-                    tools:text="Capacidad: 100 personas" />
+                    android:textColor="@color/medium_violet_red" />
 
             </LinearLayout>
 
@@ -69,7 +66,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"
-                    android:contentDescription="TODO"
+                    android:contentDescription="@string/library_isAdapted"
                     android:padding="5dp"
                     android:src="@drawable/ic_accessible" />
 
@@ -79,7 +76,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"
-                    android:contentDescription="TODO"
+                    android:contentDescription="@string/library_info"
                     android:padding="5dp"
                     android:src="@drawable/ic_information" />
 

@@ -21,6 +21,10 @@
         android:label="@string/menu_classroom"
         tools:layout="@layout/fragment_classroom" />
 
+    <action
+        android:id="@+id/action_nav_classroom_to_nav_workstation"
+        app:destination="@id/nav_workstation" />
+
     <fragment
         android:id="@+id/nav_workstation"
         android:name="com.tfg.bibliofinder.view.ui.WorkstationFragment"

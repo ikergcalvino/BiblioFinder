@@ -30,9 +30,14 @@ class LibraryAdapter(
 
     override fun onBindViewHolder(libraryViewHolder: LibraryViewHolder, idx: Int) {
         val library = libraries[idx]
+
         libraryViewHolder.libraryName.text = library.name
         libraryViewHolder.librarySchedule.text = library.schedule
-        libraryViewHolder.libraryCapacity.text = "Capacity: ${library.capacity}"
+
+        val capacityText = libraryViewHolder.itemView.context.getString(
+            R.string.capacity_format, library.capacity
+        )
+        libraryViewHolder.libraryCapacity.text = capacityText
 
         libraryViewHolder.itemView.setOnClickListener {
             onItemClick(library)

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">BiblioFinder</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Encabezado de navegación</string>
+
+    <string name="menu_library">Bibliotecas</string>
+    <string name="menu_classroom">Aulas</string>
+    <string name="menu_workstation">Estacións de traballo</string>
+    <string name="menu_login">Iniciar sesión</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_logout">Pechar sesión</string>
+    <string name="menu_register_nfc">Rexistrar NFC</string>
+    <string name="library_banner">Banner da biblioteca</string>
+    <string name="library_isAdapted">Está Adaptada</string>
+    <string name="library_info">Información da biblioteca</string>
+    <string name="classroom_banner">Banner da aula</string>
+    <string name="capacity_format">Capacidade: %1$d</string>
+    <string name="account">Conta</string>
+</resources>

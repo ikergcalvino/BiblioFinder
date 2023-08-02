@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
 import com.tfg.bibliofinder.model.Library
+import com.tfg.bibliofinder.model.LibraryMockDataProvider
 import com.tfg.bibliofinder.view.adapters.LibraryAdapter
 import com.tfg.bibliofinder.viewmodel.LibraryViewModel
 
@@ -22,7 +23,6 @@ class LibraryFragment : Fragment() {
     private lateinit var adapter: LibraryAdapter
     private val libraries = mutableListOf<Library>()
 
-    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,7 +43,6 @@ class LibraryFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
-        // If libraries list is empty, initialize data (prevents duplicating data on configuration changes)
         if (libraries.isEmpty()) {
             initializeData()
         }
@@ -52,13 +51,11 @@ class LibraryFragment : Fragment() {
     }
 
     private fun navigateToClassrooms(library: Library) {
-        // You can pass the library ID or any relevant information to the ClassroomFragment here.
         val bundle = Bundle().apply {
             putLong("libraryId", library.libraryId)
             // Add other relevant data if needed.
         }
 
-        // Navigate to ClassroomFragment with the relevant information.
         findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
     }
 
@@ -68,42 +65,6 @@ class LibraryFragment : Fragment() {
     }
 
     private fun initializeData() {
-        // TODO: Replace with DB libraries list.
-        libraries.addAll(createMockLibraryData())
-        adapter.notifyDataSetChanged()
-    }
-
-    // Mock data for LibraryFragment
-    private fun createMockLibraryData(): List<Library> {
-        val libraries = mutableListOf<Library>()
-        libraries.add(
-            Library(
-                1L,
-                "Biblioteca Xoana Capdevielle",
-                "9:00 AM - 7:00 PM",
-                654,
-                "Campus de Elviña",
-                "555-1234",
-                "info@bibliotecaxoana.com",
-                true,
-                "Pública",
-                "Universidad de A Coruña"
-            )
-        )
-        libraries.add(
-            Library(
-                2L,
-                "Centro Universitario de Riazor",
-                "8:00 AM - 10:00 PM",
-                630,
-                "Campus de Riazor",
-                "555-5678",
-                "info@centrouriazor.com",
-                true,
-                "Académica",
-                "Universidad de A Coruña"
-            )
-        )
-        return libraries
+        libraries.addAll(LibraryMockDataProvider.getMockLibraries())
     }
 }
