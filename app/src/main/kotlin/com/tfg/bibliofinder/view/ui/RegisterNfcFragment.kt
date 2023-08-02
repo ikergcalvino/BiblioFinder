@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tfg.bibliofinder.databinding.FragmentRegisterNfcBinding
-import com.tfg.bibliofinder.viewmodel.RegisterNFCViewModel
+import com.tfg.bibliofinder.viewmodel.RegisterNfcViewModel
 
-class RegisterNFCFragment : Fragment() {
+class RegisterNfcFragment : Fragment() {
 
     private var _binding: FragmentRegisterNfcBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: RegisterNFCViewModel
+    private lateinit var viewModel: RegisterNfcViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -23,7 +23,7 @@ class RegisterNFCFragment : Fragment() {
         _binding = FragmentRegisterNfcBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel = ViewModelProvider(this)[RegisterNFCViewModel::class.java]
+        viewModel = ViewModelProvider(this)[RegisterNfcViewModel::class.java]
         val textView: TextView = binding.textRegisterNfc
         viewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
