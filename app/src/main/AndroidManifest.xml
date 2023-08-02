@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.NFC" />
+
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -17,20 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BiblioFinder"
         tools:targetApi="31">
+
         <activity
             android:name=".view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".view.NfcActivity"
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
             </intent-filter>
@@ -38,7 +43,9 @@
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
+
         </activity>
+
     </application>
 
 </manifest>

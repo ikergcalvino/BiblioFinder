@@ -1,12 +1,9 @@
 package com.tfg.bibliofinder.view.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.tfg.bibliofinder.databinding.FragmentRegisterNfcBinding
 import com.tfg.bibliofinder.viewmodel.RegisterNfcViewModel
 
@@ -17,19 +14,13 @@ class RegisterNfcFragment : Fragment() {
 
     private lateinit var viewModel: RegisterNfcViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRegisterNfcBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)[RegisterNfcViewModel::class.java]
         val textView: TextView = binding.textRegisterNfc
-        viewModel.text.observe(viewLifecycleOwner) {
+        viewModel.nfcData.observe(viewLifecycleOwner) {
             textView.text = it
         }
-
-        return root
     }
 
     override fun onDestroyView() {
