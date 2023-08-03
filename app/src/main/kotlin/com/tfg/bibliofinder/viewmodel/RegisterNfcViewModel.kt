@@ -6,12 +6,8 @@ import androidx.lifecycle.ViewModel
 
 class RegisterNfcViewModel : ViewModel() {
 
-    private val _nfcData = MutableLiveData<String>()
-
-    val nfcData: LiveData<String> = _nfcData
-
-    // This function will be called when NFC data is detected
-    fun setNfcData(data: String) {
-        _nfcData.value = data
+    private val _text = MutableLiveData<String>().apply {
+        value = "This is NFC Fragment"
     }
+    val text: LiveData<String> = _text
 }
