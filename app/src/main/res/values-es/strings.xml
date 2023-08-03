@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">BiblioFinder</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <!-- Navegación -->
+    <string name="nav_username">Android Studio</string>
+    <string name="nav_email">android.studio@android.com</string>
     <string name="nav_header_desc">Encabezado de navegación</string>
 
+    <!-- Elementos de menú -->
     <string name="menu_library">Bibliotecas</string>
     <string name="menu_classroom">Aulas</string>
     <string name="menu_workstation">Estaciones de trabajo</string>
@@ -11,10 +12,24 @@
     <string name="menu_profile">Perfil</string>
     <string name="menu_logout">Cerrar sesión</string>
     <string name="menu_register_nfc">Registrar NFC</string>
+
+    <!-- Biblioteca -->
     <string name="library_banner">Banner de la biblioteca</string>
     <string name="library_isAdapted">Está Adaptada</string>
     <string name="library_info">Información de la biblioteca</string>
-    <string name="classroom_banner">Banner de un aula</string>
+
+    <!-- Aula -->
+    <string name="classroom_banner">Banner del aula</string>
+
+    <!-- Capacidad -->
     <string name="capacity_format">Capacidad: %1$d</string>
+
+    <!-- Cuenta -->
     <string name="account">Cuenta</string>
+    <string name="password">Contraseña</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="email">Correo electrónico</string>
+    <string name="edit_profile">Editar perfil</string>
+
 </resources>
