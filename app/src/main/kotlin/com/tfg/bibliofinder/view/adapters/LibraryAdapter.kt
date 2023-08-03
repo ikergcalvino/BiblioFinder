@@ -24,7 +24,7 @@ class LibraryAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): LibraryViewHolder {
         val v: View =
-            LayoutInflater.from(viewGroup.context).inflate(R.layout.library_card, viewGroup, false)
+            LayoutInflater.from(viewGroup.context).inflate(R.layout.card_library, viewGroup, false)
         return LibraryViewHolder(v)
     }
 

@@ -24,7 +24,7 @@ class ClassroomAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ClassroomViewHolder {
         val v: View = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.classroom_card, viewGroup, false)
+            .inflate(R.layout.card_classroom, viewGroup, false)
         return ClassroomViewHolder(v)
     }
 
