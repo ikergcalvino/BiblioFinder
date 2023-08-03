@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.viewmodel.ProfileViewModel
 
@@ -21,15 +19,10 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-        val textView: TextView = binding.textProfile
-        viewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        // Your view binding initialization here
 
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {

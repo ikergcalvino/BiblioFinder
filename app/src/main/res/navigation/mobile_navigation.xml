@@ -31,11 +31,10 @@
         android:label="@string/menu_workstation"
         tools:layout="@layout/fragment_workstation" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_login"
-        android:name="com.tfg.bibliofinder.view.ui.LoginFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/activity_login" />
 
     <fragment
         android:id="@+id/nav_profile"
@@ -45,8 +44,8 @@
 
     <fragment
         android:id="@+id/nav_register_nfc"
-        android:name="com.tfg.bibliofinder.view.ui.RegisterNfcFragment"
-        android:label="@string/menu_register_nfc"
-        tools:layout="@layout/fragment_register_nfc" />
+        android:label="@string/menu_register_nfc" />
+    <!-- android:name="com.tfg.bibliofinder.view.ui.RegisterNfcFragment"
+         tools:layout="@layout/fragment_register_nfc" -->
 
 </navigation>

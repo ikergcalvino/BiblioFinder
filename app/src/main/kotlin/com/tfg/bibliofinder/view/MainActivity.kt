@@ -1,5 +1,6 @@
 package com.tfg.bibliofinder.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -35,6 +36,25 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // Handle navigation item clicks
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_login -> {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+
+                else -> {
+                    val navController = findNavController(R.id.nav_host_fragment_content_main)
+                    navController.navigate(menuItem.itemId)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
