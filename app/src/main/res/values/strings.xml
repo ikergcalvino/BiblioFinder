@@ -11,7 +11,7 @@
     <string name="menu_library">Libraries</string>
     <string name="menu_classroom">Classrooms</string>
     <string name="menu_workstation">Workstations</string>
-    <string name="menu_login">Log in</string>
+    <string name="menu_login">Login</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_logout">Log out</string>
     <string name="menu_register_nfc">Register NFC</string>
@@ -31,8 +31,15 @@
     <string name="account">Account</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
-    <string name="login">Login</string>
+    <string name="login">Log in</string>
     <string name="email">Email</string>
     <string name="edit_profile">Edit Profile</string>
+
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="create_one_now">Create one now!</string>
+    <string name="or">Or</string>
+
+    <string name="repeat_password">Repeat your password</string>
+    <string name="sign_up">Sign up</string>
 
 </resources>
