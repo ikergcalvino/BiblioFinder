@@ -38,6 +38,10 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain(8)
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.10.1")
