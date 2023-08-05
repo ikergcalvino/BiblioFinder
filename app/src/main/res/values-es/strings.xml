@@ -33,7 +33,7 @@
     <string name="edit_profile">Editar perfil</string>
 
     <string name="dont_have_an_account">¿No tienes una cuenta?</string>
-    <string name="create_one_now">¡Crea una ahora!</string>
+    <string name="create_one_now"><u>¡Crea una ahora!</u></string>
     <string name="or">O</string>
 
     <string name="repeat_password">Repite tu contraseña</string>

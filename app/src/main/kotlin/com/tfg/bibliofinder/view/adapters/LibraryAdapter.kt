@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
-import com.tfg.bibliofinder.model.Library
+import com.tfg.bibliofinder.model.entities.Library
 
 class LibraryAdapter(
     private val libraries: List<Library>, private val onItemClick: (Library) -> Unit

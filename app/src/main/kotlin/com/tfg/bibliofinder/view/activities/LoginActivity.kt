@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.view
+package com.tfg.bibliofinder.view.activities
 
 import android.content.Intent
 import android.os.Bundle

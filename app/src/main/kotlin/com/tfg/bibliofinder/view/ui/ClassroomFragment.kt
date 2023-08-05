@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentClassroomBinding
-import com.tfg.bibliofinder.model.Classroom
-import com.tfg.bibliofinder.model.ClassroomMockDataProvider
+import com.tfg.bibliofinder.model.entities.Classroom
+import com.tfg.bibliofinder.model.entities.ClassroomMockDataProvider
 import com.tfg.bibliofinder.view.adapters.ClassroomAdapter
 import com.tfg.bibliofinder.viewmodel.ClassroomViewModel
 
@@ -67,7 +67,6 @@ class ClassroomFragment : Fragment() {
 
     private fun initializeData(libraryId: Long) {
         classrooms.addAll(
-            ClassroomMockDataProvider.getMockClassrooms().filter { it.libraryId == libraryId }
-        )
+            ClassroomMockDataProvider.getMockClassrooms().filter { it.libraryId == libraryId })
     }
 }

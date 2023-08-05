@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
-import com.tfg.bibliofinder.model.Library
-import com.tfg.bibliofinder.model.LibraryMockDataProvider
+import com.tfg.bibliofinder.model.entities.Library
+import com.tfg.bibliofinder.model.entities.LibraryMockDataProvider
 import com.tfg.bibliofinder.view.adapters.LibraryAdapter
 import com.tfg.bibliofinder.viewmodel.LibraryViewModel
 
