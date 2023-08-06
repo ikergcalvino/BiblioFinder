@@ -1,0 +1,38 @@
+[
+  {
+    "libraryId": 1,
+    "name": "Biblioteca Xoana Capdevielle (Biblioteca Central)",
+    "schedule": "08.30 h - 21.30 h",
+    "capacity": 654,
+    "address": "Rúa As carballeiras 1, Ed. Xoana Capdevielle, 2º andar - Campus de Elviña, 15071 A Coruña, España",
+    "phone": "+34 881 01 56 74",
+    "email": "informacion.bib@udc.es",
+    "isAdapted": false,
+    "type": "General",
+    "institution": "Campus de A Coruña"
+  },
+  {
+    "libraryId": 2,
+    "name": "Centro Universitario de Riazor",
+    "schedule": "09.00 h - 20.00 h",
+    "capacity": 630,
+    "address": "Av. de Riazor, 54, 15006 A Coruña, España",
+    "phone": "+34 881 01 23 45",
+    "email": "biblioteca.riazor@udc.gal",
+    "isAdapted": true,
+    "type": "General",
+    "institution": "Campus de A Coruña"
+  },
+  {
+    "libraryId": 3,
+    "name": "Biblioteca de la Facultad de Informática",
+    "schedule": "08.45 h - 20.15 h",
+    "capacity": 80,
+    "address": "Campus de Elviña, 15071 A Coruña, España",
+    "phone": "+34 881 01 12 88",
+    "email": "informatica.bib@udc.es",
+    "isAdapted": false,
+    "type": "General",
+    "institution": "Campus de A Coruña"
+  }
+]

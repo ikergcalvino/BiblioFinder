@@ -1,0 +1,62 @@
+[
+  {
+    "workstationId": 1,
+    "state": "Disponible",
+    "classroomId": 1
+  },
+  {
+    "workstationId": 2,
+    "state": "Ocupada",
+    "classroomId": 1
+  },
+  {
+    "workstationId": 3,
+    "state": "Disponible",
+    "classroomId": 2
+  },
+  {
+    "workstationId": 4,
+    "state": "Disponible",
+    "classroomId": 2
+  },
+  {
+    "workstationId": 5,
+    "state": "Disponible",
+    "classroomId": 3
+  },
+  {
+    "workstationId": 6,
+    "state": "Ocupada",
+    "classroomId": 3
+  },
+  {
+    "workstationId": 7,
+    "state": "Disponible",
+    "classroomId": 4
+  },
+  {
+    "workstationId": 8,
+    "state": "Disponible",
+    "classroomId": 4
+  },
+  {
+    "workstationId": 9,
+    "state": "Disponible",
+    "classroomId": 5
+  },
+  {
+    "workstationId": 10,
+    "state": "Disponible",
+    "classroomId": 5
+  },
+  {
+    "workstationId": 11,
+    "state": "Ocupada",
+    "classroomId": 6
+  },
+  {
+    "workstationId": 12,
+    "state": "Disponible",
+    "classroomId": 6
+  }
+]
