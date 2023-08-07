@@ -29,11 +29,18 @@ class AuthenticationManager(private val context: Context) {
     suspend fun performLogin(username: String, password: String) {
         val user = database.userDao().getUserByEmail(username)
         if (user != null && user.password == password) {
-            // Guardar el ID del usuario en SharedPreferences
             sharedPreferences.edit().putLong("loggedInUserId", user.userId).apply()
 
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
+    }
+
+    fun performLogout() {
+        sharedPreferences.edit().remove("loggedInUserId").apply()
+
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
     }
 }

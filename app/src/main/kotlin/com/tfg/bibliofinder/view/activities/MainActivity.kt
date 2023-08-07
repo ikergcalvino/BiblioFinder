@@ -20,6 +20,7 @@ import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.Classroom
 import com.tfg.bibliofinder.model.entities.Library
 import com.tfg.bibliofinder.model.entities.Workstation
+import com.tfg.bibliofinder.model.util.AuthenticationManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var database: AppDatabase
+    private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         database = AppDatabase.getInstance(this)
-        val sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
         initializeData(sharedPrefs)
 
@@ -67,6 +69,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_logout -> {
+                    val authManager = AuthenticationManager(this)
+                    authManager.performLogout()
+                    true
+                }
+
                 else -> {
                     navController.navigate(menuItem.itemId)
                     drawerLayout.closeDrawers()
@@ -77,13 +85,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDrawer(navView: NavigationView, isLoggedIn: Boolean) {
-
         if (isLoggedIn) {
             navView.inflateMenu(R.menu.drawer_logged_in)
         } else {
             navView.inflateMenu(R.menu.drawer_not_logged_in)
         }
-
     }
 
     private fun initializeData(sharedPrefs: SharedPreferences) {
