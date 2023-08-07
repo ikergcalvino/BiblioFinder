@@ -43,4 +43,27 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
+
+    suspend fun loadInitialData(
+        libraries: List<Library>, classrooms: List<Classroom>, workstations: List<Workstation>
+    ) {
+        val libraryDao = libraryDao()
+        val classroomDao = classroomDao()
+        val workstationDao = workstationDao()
+
+        // Insert libraries
+        for (library in libraries) {
+            libraryDao.insertLibrary(library)
+        }
+
+        // Insert classrooms
+        for (classroom in classrooms) {
+            classroomDao.insertClassroom(classroom)
+        }
+
+        // Insert workstations
+        for (workstation in workstations) {
+            workstationDao.insertWorkstation(workstation)
+        }
+    }
 }

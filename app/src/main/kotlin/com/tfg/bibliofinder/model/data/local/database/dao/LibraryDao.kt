@@ -1,5 +1,6 @@
 package com.tfg.bibliofinder.model.data.local.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,7 +13,7 @@ import com.tfg.bibliofinder.model.entities.Library
 interface LibraryDao {
 
     // Operaciones de Inserción (Create)
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLibrary(library: Library)
 
     // Operaciones de Consulta (Read)
@@ -27,5 +28,7 @@ interface LibraryDao {
     @Delete
     suspend fun deleteLibrary(library: Library)
 
-    // Otros métodos DAO relacionados con Library si los necesitas
+    // Otros métodos DAO relacionados con Library
+    @Query("SELECT * FROM Library")
+    fun getAllLibrariesLiveData(): LiveData<List<Library>>
 }

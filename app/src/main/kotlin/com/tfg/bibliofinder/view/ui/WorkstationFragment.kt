@@ -8,18 +8,25 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
-import com.tfg.bibliofinder.viewmodel.WorkstationViewModel
+import com.tfg.bibliofinder.model.data.local.database.AppDatabase
+import com.tfg.bibliofinder.viewmodel.ViewModelFactory
+import com.tfg.bibliofinder.viewmodel.viewmodels.WorkstationViewModel
 
 class WorkstationFragment : Fragment() {
 
     private var _binding: FragmentWorkstationBinding? = null
+    private lateinit var database: AppDatabase
 
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val workstationViewModel = ViewModelProvider(this)[WorkstationViewModel::class.java]
+
+        database = AppDatabase.getInstance(requireContext())
+
+        val workstationViewModel =
+            ViewModelProvider(this, ViewModelFactory(database))[WorkstationViewModel::class.java]
 
         _binding = FragmentWorkstationBinding.inflate(inflater, container, false)
         val root: View = binding.root

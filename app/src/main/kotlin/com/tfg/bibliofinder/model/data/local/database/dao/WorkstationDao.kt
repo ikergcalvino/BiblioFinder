@@ -12,7 +12,7 @@ import com.tfg.bibliofinder.model.entities.Workstation
 interface WorkstationDao {
 
     // Operaciones de Inserción (Create)
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorkstation(workstation: Workstation)
 
     // Operaciones de Consulta (Read)

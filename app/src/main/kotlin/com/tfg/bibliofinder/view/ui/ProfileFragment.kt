@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
-import com.tfg.bibliofinder.viewmodel.ProfileViewModel
+import com.tfg.bibliofinder.viewmodel.viewmodels.ProfileViewModel
 
 class ProfileFragment : Fragment() {
 

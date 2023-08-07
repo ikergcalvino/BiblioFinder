@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentClassroomBinding
+import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.Classroom
-import com.tfg.bibliofinder.model.entities.ClassroomMockDataProvider
 import com.tfg.bibliofinder.view.adapters.ClassroomAdapter
-import com.tfg.bibliofinder.viewmodel.ClassroomViewModel
+import com.tfg.bibliofinder.viewmodel.ViewModelFactory
+import com.tfg.bibliofinder.viewmodel.viewmodels.ClassroomViewModel
 
 class ClassroomFragment : Fragment() {
 
     private var _binding: FragmentClassroomBinding? = null
+    private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ClassroomAdapter
     private val classrooms = mutableListOf<Classroom>()
@@ -28,7 +30,11 @@ class ClassroomFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val classroomViewModel = ViewModelProvider(this)[ClassroomViewModel::class.java]
+
+        database = AppDatabase.getInstance(requireContext())
+
+        val classroomViewModel =
+            ViewModelProvider(this, ViewModelFactory(database))[ClassroomViewModel::class.java]
 
         _binding = FragmentClassroomBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -45,7 +51,12 @@ class ClassroomFragment : Fragment() {
 
         val libraryId = arguments?.getLong("libraryId", -1L)
         if (libraryId != null && libraryId != -1L) {
-            initializeData(libraryId)
+            classroomViewModel.getClassroomsInLibrary(libraryId)
+                .observe(viewLifecycleOwner) { classrooms ->
+                    this.classrooms.clear()
+                    this.classrooms.addAll(classrooms)
+                    adapter.notifyDataSetChanged()
+                }
         }
 
         return root
@@ -65,8 +76,4 @@ class ClassroomFragment : Fragment() {
         _binding = null
     }
 
-    private fun initializeData(libraryId: Long) {
-        classrooms.addAll(
-            ClassroomMockDataProvider.getMockClassrooms().filter { it.libraryId == libraryId })
-    }
 }

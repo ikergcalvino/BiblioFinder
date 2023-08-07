@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
+import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.Library
-import com.tfg.bibliofinder.model.entities.LibraryMockDataProvider
 import com.tfg.bibliofinder.view.adapters.LibraryAdapter
-import com.tfg.bibliofinder.viewmodel.LibraryViewModel
+import com.tfg.bibliofinder.viewmodel.ViewModelFactory
+import com.tfg.bibliofinder.viewmodel.viewmodels.LibraryViewModel
 
 class LibraryFragment : Fragment() {
 
     private var _binding: FragmentLibraryBinding? = null
+    private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: LibraryAdapter
     private val libraries = mutableListOf<Library>()
@@ -28,7 +30,11 @@ class LibraryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val libraryViewModel = ViewModelProvider(this)[LibraryViewModel::class.java]
+
+        database = AppDatabase.getInstance(requireContext())
+
+        val libraryViewModel =
+            ViewModelProvider(this, ViewModelFactory(database))[LibraryViewModel::class.java]
 
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -43,8 +49,10 @@ class LibraryFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
-        if (libraries.isEmpty()) {
-            initializeData()
+        libraryViewModel.allLibraries.observe(viewLifecycleOwner) { libraries ->
+            this.libraries.clear()
+            this.libraries.addAll(libraries)
+            adapter.notifyDataSetChanged()
         }
 
         return root
@@ -53,7 +61,6 @@ class LibraryFragment : Fragment() {
     private fun navigateToClassrooms(library: Library) {
         val bundle = Bundle().apply {
             putLong("libraryId", library.libraryId)
-            // Add other relevant data if needed.
         }
 
         findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
@@ -62,9 +69,5 @@ class LibraryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun initializeData() {
-        libraries.addAll(LibraryMockDataProvider.getMockLibraries())
     }
 }

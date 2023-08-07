@@ -1,37 +1,42 @@
 package com.tfg.bibliofinder.view.activities
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.databinding.ActivityRegistrationBinding
+import com.tfg.bibliofinder.model.entities.User
+import com.tfg.bibliofinder.model.util.AuthenticationManager
+import kotlinx.coroutines.launch
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
+    private lateinit var authenticationManager: AuthenticationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Your registration activity initialization code here
+        authenticationManager = AuthenticationManager(this)
 
-        // Assuming you have a "Register" button in your registration layout
         binding.buttonRegister.setOnClickListener {
-            // Perform registration logic here
+            val email = binding.textEmail.text.toString()
+            val password = binding.textPassword.text.toString()
 
-            // After successful registration, call the login function
-            performLogin()
+            lifecycleScope.launch {
+                val existingUser = authenticationManager.getUserByEmail(email)
 
-            // Navigate back to the main activity
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish() // Optional: Close the RegistrationActivity if needed
+                if (existingUser != null) {
+                    // User already exists, show an error or handle accordingly
+                } else {
+                    val newUser = User(email = email, password = password)
+                    authenticationManager.insertUser(newUser)
+
+                    authenticationManager.performLogin(email, password)
+                    finish()
+                }
+            }
         }
-    }
-
-    private fun performLogin() {
-        // Call your login logic here
-        // You can reuse the isValidCredentials function or implement your own logic
     }
 }

@@ -12,7 +12,7 @@ import com.tfg.bibliofinder.model.entities.User
 interface UserDao {
 
     // Operaciones de Inserción (Create)
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertUser(user: User)
 
     // Operaciones de Consulta (Read)
