@@ -49,9 +49,7 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        val isLoggedIn = sharedPrefs.contains("loggedInUserId")
-
-        updateDrawer(navView, isLoggedIn)
+        selectDrawer(navView)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_library, R.id.nav_profile), drawerLayout
@@ -84,7 +82,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateDrawer(navView: NavigationView, isLoggedIn: Boolean) {
+    private fun selectDrawer(navView: NavigationView) {
+        val isLoggedIn = sharedPrefs.contains("loggedInUserId")
+        navView.menu.clear()
+
         if (isLoggedIn) {
             navView.inflateMenu(R.menu.drawer_logged_in)
         } else {
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeData(sharedPrefs: SharedPreferences) {
         val dataLoaded = sharedPrefs.getBoolean("dataLoaded", false)
+
         if (!dataLoaded) {
             val gson = Gson()
 
