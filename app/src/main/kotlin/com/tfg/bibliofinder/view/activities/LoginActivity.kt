@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.databinding.ActivityLoginBinding
 import com.tfg.bibliofinder.model.util.AuthenticationManager
+import com.tfg.bibliofinder.model.util.MessageUtil
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -24,12 +25,18 @@ class LoginActivity : AppCompatActivity() {
             val username = binding.textEmail.text.toString()
             val password = binding.textPassword.text.toString()
 
+            if (username.isEmpty() || password.isEmpty()) {
+                MessageUtil.showSnackbar(binding.root, "Please enter your email and password")
+                return@setOnClickListener
+            }
+
             lifecycleScope.launch {
                 if (authenticationManager.isValidCredentials(username, password)) {
                     authenticationManager.performLogin(username, password)
+                    MessageUtil.showToast(applicationContext, "You have successfully logged in")
                     finish()
                 } else {
-                    // Display an error message
+                    MessageUtil.showSnackbar(binding.root, "Incorrect email or password")
                 }
             }
         }
