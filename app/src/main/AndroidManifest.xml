@@ -41,16 +41,6 @@
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar" />
 
-        <!-- <activity
-            android:name=".view.NfcActivity"
-            android:exported="true"
-            android:theme="@style/Theme.BiblioFinder.NoActionBar" /> -->
-
-        <!-- <activity
-            android:name=".view.UserActivity"
-            android:exported="true"
-            android:theme="@style/Theme.BiblioFinder.NoActionBar" /> -->
-
     </application>
 
 </manifest>
