@@ -1,62 +1,98 @@
 [
   {
     "workstationId": 1,
-    "state": "Disponible",
-    "classroomId": 1
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 1,
+    "userId": null
   },
   {
     "workstationId": 2,
-    "state": "Ocupada",
-    "classroomId": 1
+    "state": "OCCUPIED",
+    "date": null,
+    "startTime": null,
+    "classroomId": 1,
+    "userId": null
   },
   {
     "workstationId": 3,
-    "state": "Disponible",
-    "classroomId": 2
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 2,
+    "userId": null
   },
   {
     "workstationId": 4,
-    "state": "Disponible",
-    "classroomId": 2
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 2,
+    "userId": null
   },
   {
     "workstationId": 5,
-    "state": "Disponible",
-    "classroomId": 3
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 3,
+    "userId": null
   },
   {
     "workstationId": 6,
-    "state": "Ocupada",
-    "classroomId": 3
+    "state": "OCCUPIED",
+    "date": null,
+    "startTime": null,
+    "classroomId": 3,
+    "userId": null
   },
   {
     "workstationId": 7,
-    "state": "Disponible",
-    "classroomId": 4
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 4,
+    "userId": null
   },
   {
     "workstationId": 8,
-    "state": "Disponible",
-    "classroomId": 4
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 4,
+    "userId": null
   },
   {
     "workstationId": 9,
-    "state": "Disponible",
-    "classroomId": 5
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 5,
+    "userId": null
   },
   {
     "workstationId": 10,
-    "state": "Disponible",
-    "classroomId": 5
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 5,
+    "userId": null
   },
   {
     "workstationId": 11,
-    "state": "Ocupada",
-    "classroomId": 6
+    "state": "OCCUPIED",
+    "date": null,
+    "startTime": null,
+    "classroomId": 6,
+    "userId": null
   },
   {
     "workstationId": 12,
-    "state": "Disponible",
-    "classroomId": 6
+    "state": "AVAILABLE",
+    "date": null,
+    "startTime": null,
+    "classroomId": 6,
+    "userId": null
   }
 ]

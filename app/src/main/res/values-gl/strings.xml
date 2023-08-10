@@ -36,7 +36,6 @@
     <string name="full_name">Nome completo</string>
     <string name="phone_number">Número de teléfono</string>
     <string name="current_booking">Reserva actual</string>
-    <string name="historical_bookings">Reservas anteriores</string>
     <string name="occupied_site">Sitio ocupado</string>
     <string name="save_changes">Gardar cambios</string>
 

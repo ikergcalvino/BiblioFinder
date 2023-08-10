@@ -36,7 +36,6 @@
     <string name="full_name">Full Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="current_booking">Current Booking</string>
-    <string name="historical_bookings">Historical Bookings</string>
     <string name="occupied_site">Occupied Site</string>
     <string name="save_changes">Save Changes</string>
 
