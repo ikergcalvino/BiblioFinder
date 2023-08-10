@@ -12,23 +12,21 @@ import com.tfg.bibliofinder.model.entities.Classroom
 @Dao
 interface ClassroomDao {
 
-    // Operaciones de Inserción (Create)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertClassroom(classroom: Classroom)
 
-    // Operaciones de Consulta (Read)
+    @Query("SELECT * FROM Classroom WHERE classroomId = :classroomId")
+    suspend fun getClassroomById(classroomId: Long): Classroom?
+
     @Query("SELECT * FROM Classroom WHERE libraryId = :libraryId")
     suspend fun getClassroomsInLibrary(libraryId: Long): List<Classroom>
 
-    // Operaciones de Actualización (Update)
+    @Query("SELECT * FROM Classroom WHERE libraryId = :libraryId")
+    fun getClassroomsInLibraryLiveData(libraryId: Long): LiveData<List<Classroom>>
+
     @Update
     suspend fun updateClassroom(classroom: Classroom)
 
-    // Operaciones de Eliminación (Delete)
     @Delete
     suspend fun deleteClassroom(classroom: Classroom)
-
-    // Otros métodos DAO relacionados con Classroom
-    @Query("SELECT * FROM Classroom WHERE libraryId = :libraryId")
-    fun getClassroomsInLibraryLiveData(libraryId: Long): LiveData<List<Classroom>>
 }

@@ -12,23 +12,21 @@ import com.tfg.bibliofinder.model.entities.Library
 @Dao
 interface LibraryDao {
 
-    // Operaciones de Inserción (Create)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLibrary(library: Library)
 
-    // Operaciones de Consulta (Read)
+    @Query("SELECT * FROM Library WHERE libraryId = :libraryId")
+    suspend fun getLibraryById(libraryId: Long): Library?
+
     @Query("SELECT * FROM Library")
     suspend fun getAllLibraries(): List<Library>
 
-    // Operaciones de Actualización (Update)
+    @Query("SELECT * FROM Library")
+    fun getAllLibrariesLiveData(): LiveData<List<Library>>
+
     @Update
     suspend fun updateLibrary(library: Library)
 
-    // Operaciones de Eliminación (Delete)
     @Delete
     suspend fun deleteLibrary(library: Library)
-
-    // Otros métodos DAO relacionados con Library
-    @Query("SELECT * FROM Library")
-    fun getAllLibrariesLiveData(): LiveData<List<Library>>
 }
