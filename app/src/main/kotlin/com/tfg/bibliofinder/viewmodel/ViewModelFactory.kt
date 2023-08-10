@@ -21,7 +21,7 @@ class ViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Fa
             }
 
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel() as T
+                ProfileViewModel(database) as T
             }
 
             modelClass.isAssignableFrom(WorkstationViewModel::class.java) -> {

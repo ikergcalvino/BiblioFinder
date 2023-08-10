@@ -1,10 +1,14 @@
 <resources>
+
+    <!-- Información de la aplicación -->
+    <string name="app_name" translatable="false">BiblioFinder</string>
+
     <!-- Navegación -->
     <string name="nav_username">Android Studio</string>
     <string name="nav_email">android.studio@android.com</string>
     <string name="nav_header_desc">Encabezado de navegación</string>
 
-    <!-- Elementos de menú -->
+    <!-- Elementos del menú -->
     <string name="menu_library">Bibliotecas</string>
     <string name="menu_classroom">Aulas</string>
     <string name="menu_workstation">Estaciones de trabajo</string>
@@ -13,9 +17,32 @@
     <string name="menu_logout">Cerrar sesión</string>
     <string name="menu_register_nfc">Registrar NFC</string>
 
+    <!-- Cuenta -->
+    <string name="account">Cuenta</string>
+    <string name="password">Contraseña</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="email">Correo electrónico</string>
+
+    <!-- Registro -->
+    <string name="dont_have_an_account">¿No tienes una cuenta?</string>
+    <string name="create_one_now"><u>¡Crea una ahora!</u></string>
+    <string name="or">O</string>
+    <string name="repeat_password">Repite tu contraseña</string>
+    <string name="sign_up">Registrarse</string>
+
+    <!-- Perfil -->
+    <string name="profile_picture">Imagen de perfil: Avatar de usuario</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="current_booking">Reserva actual</string>
+    <string name="historical_bookings">Reservas anteriores</string>
+    <string name="occupied_site">Sitio ocupado</string>
+    <string name="save_changes">Guardar cambios</string>
+
     <!-- Biblioteca -->
     <string name="library_banner">Banner de la biblioteca</string>
-    <string name="library_isAdapted">Está Adaptada</string>
+    <string name="library_isAdapted">Adaptada</string>
     <string name="library_info">Información de la biblioteca</string>
 
     <!-- Aula -->
@@ -23,20 +50,5 @@
 
     <!-- Capacidad -->
     <string name="capacity_format">Capacidad: %1$d</string>
-
-    <!-- Cuenta -->
-    <string name="account">Cuenta</string>
-    <string name="password">Contraseña</string>
-    <string name="username">Nombre de usuario</string>
-    <string name="login">Iniciar sesión</string>
-    <string name="email">Correo electrónico</string>
-    <string name="edit_profile">Editar perfil</string>
-
-    <string name="dont_have_an_account">¿No tienes una cuenta?</string>
-    <string name="create_one_now"><u>¡Crea una ahora!</u></string>
-    <string name="or">O</string>
-
-    <string name="repeat_password">Repite tu contraseña</string>
-    <string name="sign_up">Registrarse</string>
 
 </resources>
