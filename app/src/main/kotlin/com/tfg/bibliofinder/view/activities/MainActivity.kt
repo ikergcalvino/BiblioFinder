@@ -24,7 +24,6 @@ import com.tfg.bibliofinder.model.util.AuthenticationManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         database = AppDatabase.getInstance(this)
         sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
-        initializeData(sharedPrefs)
+        initializeData()
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
@@ -49,7 +48,11 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        selectDrawer(navView)
+        navView.inflateMenu(R.menu.main_drawer)
+
+        val isLoggedIn = sharedPrefs.contains("loggedInUserId")
+
+        updateDrawer(isLoggedIn)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_library, R.id.nav_profile), drawerLayout
@@ -82,41 +85,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun selectDrawer(navView: NavigationView) {
-        val isLoggedIn = sharedPrefs.contains("loggedInUserId")
-        navView.menu.clear()
+    private fun updateDrawer(isLoggedIn: Boolean) {
+        val navView: NavigationView = binding.navView
 
         if (isLoggedIn) {
-            navView.inflateMenu(R.menu.drawer_logged_in)
+            navView.menu.findItem(R.id.nav_login).isVisible = false
+            navView.menu.findItem(R.id.nav_profile).isVisible = true
+            navView.menu.findItem(R.id.nav_logout).isVisible = true
         } else {
-            navView.inflateMenu(R.menu.drawer_not_logged_in)
+            navView.menu.findItem(R.id.nav_login).isVisible = true
+            navView.menu.findItem(R.id.nav_profile).isVisible = false
+            navView.menu.findItem(R.id.nav_logout).isVisible = false
         }
     }
 
-    private fun initializeData(sharedPrefs: SharedPreferences) {
-        val dataLoaded = sharedPrefs.getBoolean("dataLoaded", false)
+    private fun initializeData() {
+        val gson = Gson()
 
-        if (!dataLoaded) {
-            val gson = Gson()
+        val librariesJson = readJsonFile(R.raw.libraries)
+        val librariesType = object : TypeToken<List<Library>>() {}.type
+        val libraries = gson.fromJson<List<Library>>(librariesJson, librariesType)
 
-            val librariesJson = readJsonFile(R.raw.libraries)
-            val librariesType = object : TypeToken<List<Library>>() {}.type
-            val libraries = gson.fromJson<List<Library>>(librariesJson, librariesType)
+        val classroomsJson = readJsonFile(R.raw.classrooms)
+        val classroomsType = object : TypeToken<List<Classroom>>() {}.type
+        val classrooms = gson.fromJson<List<Classroom>>(classroomsJson, classroomsType)
 
-            val classroomsJson = readJsonFile(R.raw.classrooms)
-            val classroomsType = object : TypeToken<List<Classroom>>() {}.type
-            val classrooms = gson.fromJson<List<Classroom>>(classroomsJson, classroomsType)
+        val workstationsJson = readJsonFile(R.raw.workstations)
+        val workstationsType = object : TypeToken<List<Workstation>>() {}.type
+        val workstations = gson.fromJson<List<Workstation>>(workstationsJson, workstationsType)
 
-            val workstationsJson = readJsonFile(R.raw.workstations)
-            val workstationsType = object : TypeToken<List<Workstation>>() {}.type
-            val workstations = gson.fromJson<List<Workstation>>(workstationsJson, workstationsType)
-
-            CoroutineScope(Dispatchers.IO).launch {
-                database.loadInitialData(libraries, classrooms, workstations)
-                withContext(Dispatchers.Main) {
-                    sharedPrefs.edit().putBoolean("dataLoaded", true).apply()
-                }
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            database.loadInitialData(libraries, classrooms, workstations)
         }
     }
 

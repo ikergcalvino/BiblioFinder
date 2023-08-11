@@ -70,12 +70,13 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_accessible" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/library_info"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/library_info"
                     android:padding="5dp"
                     android:src="@drawable/ic_information" />
