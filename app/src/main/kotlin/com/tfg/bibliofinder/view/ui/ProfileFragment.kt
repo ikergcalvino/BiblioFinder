@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.model.data.local.database.AppDatabase
+import com.tfg.bibliofinder.model.util.MessageUtil
 import com.tfg.bibliofinder.viewmodel.ViewModelFactory
 import com.tfg.bibliofinder.viewmodel.viewmodels.ProfileViewModel
 
@@ -50,6 +51,9 @@ class ProfileFragment : Fragment() {
             val newPhone = binding.phoneValue.text.toString()
 
             viewModel.updateUserDetails(loggedInUserId, newName, newPhone)
+
+            val message = "Data saved successfully."
+            MessageUtil.showToast(requireContext(), message)
         }
 
         return binding.root
