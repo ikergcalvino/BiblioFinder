@@ -32,7 +32,11 @@ class LibraryAdapter(
         val library = libraries[idx]
 
         libraryViewHolder.libraryName.text = library.name
-        libraryViewHolder.librarySchedule.text = library.schedule
+
+        val scheduleText = libraryViewHolder.itemView.context.getString(
+            R.string.schedule_format, library.openingTime, library.closingTime
+        )
+        libraryViewHolder.librarySchedule.text = scheduleText
 
         val capacityText = libraryViewHolder.itemView.context.getString(
             R.string.capacity_format, library.capacity

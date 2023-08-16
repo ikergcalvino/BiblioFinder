@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 data class Library(
     @PrimaryKey(autoGenerate = true) val libraryId: Long = 0,
     val name: String,
-    val schedule: String,
+    val openingTime: String,
+    val closingTime: String,
     val capacity: Int,
     val address: String,
     val phone: String? = null,
