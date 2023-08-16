@@ -38,11 +38,13 @@
     <string name="current_booking">Reserva actual</string>
     <string name="occupied_site">Sitio ocupado</string>
     <string name="save_changes">Guardar cambios</string>
+    <string name="no_reservations_or_occupancy">Sin reservas u ocupación.</string>
 
     <!-- Biblioteca -->
     <string name="library_banner">Banner de la biblioteca</string>
     <string name="library_isAdapted">Adaptada</string>
     <string name="library_info">Información de la biblioteca</string>
+    <string name="schedule_format">Horario: %s - %s</string>
 
     <!-- Aula -->
     <string name="classroom_banner">Banner del aula</string>

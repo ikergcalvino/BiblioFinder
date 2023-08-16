@@ -38,11 +38,13 @@
     <string name="current_booking">Current Booking</string>
     <string name="occupied_site">Occupied Site</string>
     <string name="save_changes">Save Changes</string>
+    <string name="no_reservations_or_occupancy">No reservations or occupancy.</string>
 
     <!-- Library -->
     <string name="library_banner">Library Banner</string>
     <string name="library_isAdapted">Is Adapted</string>
     <string name="library_info">Library Information</string>
+    <string name="schedule_format">Schedule: %s - %s</string>
 
     <!-- Classroom -->
     <string name="classroom_banner">Classroom Banner</string>
