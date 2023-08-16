@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.User
+import com.tfg.bibliofinder.model.entities.Workstation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -12,6 +13,15 @@ class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
 
     private val _user = MutableLiveData<User?>()
     val user: MutableLiveData<User?> = _user
+
+    private val _workstation = MutableLiveData<Workstation?>()
+    val workstation: MutableLiveData<Workstation?> = _workstation
+
+    private val _libraryName = MutableLiveData<String?>()
+    val libraryName: MutableLiveData<String?> = _libraryName
+
+    private val _classroomName = MutableLiveData<String?>()
+    val classroomName: MutableLiveData<String?> = _classroomName
 
     fun loadUserData(userId: Long) {
         viewModelScope.launch {
@@ -29,6 +39,22 @@ class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
                 user.phone = newPhone
                 database.userDao().updateUser(user)
             }
+        }
+    }
+
+    fun loadWorkstationDetails(userId: Long) {
+        viewModelScope.launch {
+            val workstation = database.workstationDao().getWorkstationByUser(userId)
+            if (workstation != null) {
+                val classroomName =
+                    database.classroomDao().getClassroomById(workstation.classroomId)?.name
+                _classroomName.postValue(classroomName)
+
+                val libraryName =
+                    database.libraryDao().getLibraryById(workstation.classroomId)?.name
+                _libraryName.postValue(libraryName)
+            }
+            _workstation.postValue(workstation)
         }
     }
 }

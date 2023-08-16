@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.model.data.local.database.AppDatabase
+import com.tfg.bibliofinder.model.entities.Workstation
 import com.tfg.bibliofinder.model.util.MessageUtil
 import com.tfg.bibliofinder.viewmodel.ViewModelFactory
 import com.tfg.bibliofinder.viewmodel.viewmodels.ProfileViewModel
@@ -36,6 +38,7 @@ class ProfileFragment : Fragment() {
             ViewModelProvider(this, ViewModelFactory(database))[ProfileViewModel::class.java]
 
         val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0)
+
         viewModel.loadUserData(loggedInUserId)
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
@@ -43,6 +46,38 @@ class ProfileFragment : Fragment() {
                 binding.usernameValue.setText(user.name ?: "")
                 binding.emailValue.text = user.email
                 binding.phoneValue.setText(user.phone ?: "")
+            }
+        }
+
+        viewModel.loadWorkstationDetails(loggedInUserId)
+
+        viewModel.workstation.observe(viewLifecycleOwner) { workstation ->
+            if (workstation?.userId == null) {
+                binding.infoText.text = getString(R.string.current_booking)
+
+                binding.emptyCard.visibility = View.VISIBLE
+                binding.bookedCard.visibility = View.GONE
+                binding.occupiedCard.visibility = View.GONE
+            } else {
+                if (workstation.state == Workstation.WorkstationState.BOOKED) {
+                    binding.infoText.text = getString(R.string.current_booking)
+
+                    binding.emptyCard.visibility = View.GONE
+                    binding.bookedCard.visibility = View.VISIBLE
+                    binding.occupiedCard.visibility = View.GONE
+
+                    binding.bookedTitle.text = viewModel.libraryName.value
+                    binding.bookedText.text = viewModel.classroomName.value
+                } else if (workstation.state == Workstation.WorkstationState.OCCUPIED) {
+                    binding.infoText.text = getString(R.string.occupied_site)
+
+                    binding.emptyCard.visibility = View.GONE
+                    binding.bookedCard.visibility = View.GONE
+                    binding.occupiedCard.visibility = View.VISIBLE
+
+                    binding.occupiedTitle.text = viewModel.libraryName.value
+                    binding.occupiedText.text = viewModel.classroomName.value
+                }
             }
         }
 
