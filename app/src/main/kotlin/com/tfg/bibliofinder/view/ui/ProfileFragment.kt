@@ -1,6 +1,7 @@
 package com.tfg.bibliofinder.view.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.Workstation
 import com.tfg.bibliofinder.model.util.MessageUtil
+import com.tfg.bibliofinder.view.activities.NfcActivity
 import com.tfg.bibliofinder.viewmodel.ViewModelFactory
 import com.tfg.bibliofinder.viewmodel.viewmodels.ProfileViewModel
 
@@ -89,6 +92,20 @@ class ProfileFragment : Fragment() {
 
             val message = "Data saved successfully."
             MessageUtil.showToast(requireContext(), message)
+        }
+
+        binding.nfcButton.setOnClickListener {
+            val intent = Intent(requireContext(), NfcActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.leaveButton.setOnClickListener {
+            // Update the Workstation parameters
+            val newWorkstation = viewModel.workstation.value?.copy(userId = null)
+            viewModel.updateWorkstationDetails(newWorkstation)
+
+            // Refresh the fragment by replacing it with itself
+            findNavController().navigate(R.id.nav_profile)
         }
 
         return binding.root

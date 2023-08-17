@@ -46,15 +46,19 @@ class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
         viewModelScope.launch {
             val workstation = database.workstationDao().getWorkstationByUser(userId)
             if (workstation != null) {
-                val classroomName =
-                    database.classroomDao().getClassroomById(workstation.classroomId)?.name
-                _classroomName.postValue(classroomName)
+                val classroom = database.classroomDao().getClassroomById(workstation.classroomId)
+                _classroomName.postValue(classroom?.name)
 
-                val libraryName =
-                    database.libraryDao().getLibraryById(workstation.classroomId)?.name
-                _libraryName.postValue(libraryName)
+                val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
+                _libraryName.postValue(library?.name)
             }
             _workstation.postValue(workstation)
+        }
+    }
+
+    fun updateWorkstationDetails(updatedWorkstation: Workstation?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            updatedWorkstation?.let { database.workstationDao().updateWorkstation(it) }
         }
     }
 }
