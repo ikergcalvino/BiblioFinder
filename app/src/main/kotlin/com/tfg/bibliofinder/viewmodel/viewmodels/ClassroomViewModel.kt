@@ -8,7 +8,6 @@ import com.tfg.bibliofinder.model.entities.Classroom
 class ClassroomViewModel(private val database: AppDatabase) : ViewModel() {
 
     fun getClassroomsInLibrary(libraryId: Long): LiveData<List<Classroom>> {
-        return database.classroomDao().getClassroomsInLibraryLiveData(libraryId)
+        return database.classroomDao().getClassroomsInLibrary(libraryId)
     }
-
 }

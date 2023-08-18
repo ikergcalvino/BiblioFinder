@@ -7,6 +7,5 @@ import com.tfg.bibliofinder.model.entities.Library
 
 class LibraryViewModel(database: AppDatabase) : ViewModel() {
 
-    val allLibraries: LiveData<List<Library>> = database.libraryDao().getAllLibrariesLiveData()
-
+    val allLibraries: LiveData<List<Library>> = database.libraryDao().getAllLibraries()
 }

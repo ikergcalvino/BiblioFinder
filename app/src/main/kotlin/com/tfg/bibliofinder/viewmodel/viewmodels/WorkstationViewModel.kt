@@ -1,13 +1,34 @@
 package com.tfg.bibliofinder.viewmodel.viewmodels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.tfg.bibliofinder.model.data.local.database.AppDatabase
+import com.tfg.bibliofinder.model.entities.Workstation
+import kotlinx.coroutines.launch
 
-class WorkstationViewModel : ViewModel() {
+class WorkstationViewModel(private val database: AppDatabase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is workstation Fragment"
+    var openingTime: String? = null
+    var closingTime: String? = null
+
+    fun getWorkstationsInClassroom(classroomId: Long): LiveData<List<Workstation>> {
+        return database.workstationDao().getWorkstationsInClassroom(classroomId)
     }
-    val text: LiveData<String> = _text
+
+    fun loadOpeningAndClosingTime(classroomId: Long) {
+        viewModelScope.launch {
+            val classroom = database.classroomDao().getClassroomById(classroomId)
+            val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
+            openingTime = library?.openingTime
+            closingTime = library?.closingTime
+        }
+    }
+
+    fun reserveWorkstation(workstation: Workstation) {
+        viewModelScope.launch {
+            val updatedWorkstation = workstation.copy(state = Workstation.WorkstationState.BOOKED)
+            database.workstationDao().updateWorkstation(updatedWorkstation)
+        }
+    }
 }

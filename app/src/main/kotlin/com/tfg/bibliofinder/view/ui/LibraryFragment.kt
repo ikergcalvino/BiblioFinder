@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,7 @@ class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
+    private lateinit var libraryViewModel: LibraryViewModel
     private lateinit var adapter: LibraryAdapter
     private val libraries = mutableListOf<Library>()
 
@@ -33,8 +33,7 @@ class LibraryFragment : Fragment() {
 
         database = AppDatabase.getInstance(requireContext())
 
-        val libraryViewModel =
-            ViewModelProvider(this, ViewModelFactory(database))[LibraryViewModel::class.java]
+        libraryViewModel = ViewModelFactory.createViewModel(database)
 
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         val root: View = binding.root

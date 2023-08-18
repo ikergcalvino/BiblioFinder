@@ -17,11 +17,8 @@ class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
     private val _workstation = MutableLiveData<Workstation?>()
     val workstation: MutableLiveData<Workstation?> = _workstation
 
-    private val _libraryName = MutableLiveData<String?>()
-    val libraryName: MutableLiveData<String?> = _libraryName
-
-    private val _classroomName = MutableLiveData<String?>()
-    val classroomName: MutableLiveData<String?> = _classroomName
+    private val _libraryAndClassroom = MutableLiveData<Pair<String?, String?>>()
+    val libraryAndClassroom: MutableLiveData<Pair<String?, String?>> = _libraryAndClassroom
 
     fun loadUserData(userId: Long) {
         viewModelScope.launch {
@@ -47,10 +44,8 @@ class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
             val workstation = database.workstationDao().getWorkstationByUser(userId)
             if (workstation != null) {
                 val classroom = database.classroomDao().getClassroomById(workstation.classroomId)
-                _classroomName.postValue(classroom?.name)
-
                 val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
-                _libraryName.postValue(library?.name)
+                _libraryAndClassroom.postValue(Pair(library?.name, classroom?.name))
             }
             _workstation.postValue(workstation)
         }

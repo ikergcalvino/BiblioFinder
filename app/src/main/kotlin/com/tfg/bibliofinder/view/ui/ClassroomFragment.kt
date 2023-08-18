@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,7 @@ class ClassroomFragment : Fragment() {
     private var _binding: FragmentClassroomBinding? = null
     private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
+    private lateinit var classroomViewModel: ClassroomViewModel
     private lateinit var adapter: ClassroomAdapter
     private val classrooms = mutableListOf<Classroom>()
 
@@ -33,8 +33,7 @@ class ClassroomFragment : Fragment() {
 
         database = AppDatabase.getInstance(requireContext())
 
-        val classroomViewModel =
-            ViewModelProvider(this, ViewModelFactory(database))[ClassroomViewModel::class.java]
+        classroomViewModel = ViewModelFactory.createViewModel(database)
 
         _binding = FragmentClassroomBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -65,7 +64,6 @@ class ClassroomFragment : Fragment() {
     private fun navigateToWorkstations(classroom: Classroom) {
         val bundle = Bundle().apply {
             putLong("classroomId", classroom.classroomId)
-            // Add other relevant data if needed.
         }
 
         findNavController().navigate(R.id.action_nav_classroom_to_nav_workstation, bundle)

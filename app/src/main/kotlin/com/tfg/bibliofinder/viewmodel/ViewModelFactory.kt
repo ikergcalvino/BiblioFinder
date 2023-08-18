@@ -10,6 +10,7 @@ import com.tfg.bibliofinder.viewmodel.viewmodels.WorkstationViewModel
 
 class ViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Factory {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(LibraryViewModel::class.java) -> {
@@ -25,10 +26,17 @@ class ViewModelFactory(private val database: AppDatabase) : ViewModelProvider.Fa
             }
 
             modelClass.isAssignableFrom(WorkstationViewModel::class.java) -> {
-                WorkstationViewModel() as T
+                WorkstationViewModel(database) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+        }
+    }
+
+    companion object {
+        // Función genérica para crear ViewModels con la base de datos
+        inline fun <reified T : ViewModel> createViewModel(database: AppDatabase): T {
+            return ViewModelFactory(database).create(T::class.java)
         }
     }
 }
