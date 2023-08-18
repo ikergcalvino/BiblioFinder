@@ -1,5 +1,6 @@
 package com.tfg.bibliofinder.model.data.local.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,7 +22,7 @@ interface WorkstationDao {
     suspend fun getWorkstationByUser(userId: Long): Workstation?
 
     @Query("SELECT * FROM Workstation WHERE classroomId = :classroomId")
-    suspend fun getWorkstationsInClassroom(classroomId: Long): List<Workstation>
+    fun getWorkstationsInClassroom(classroomId: Long): LiveData<List<Workstation>>
 
     @Query("SELECT * FROM Workstation WHERE state = :state")
     suspend fun getWorkstationsByState(state: Workstation.WorkstationState): List<Workstation>

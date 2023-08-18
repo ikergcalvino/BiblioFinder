@@ -19,10 +19,7 @@ interface LibraryDao {
     suspend fun getLibraryById(libraryId: Long): Library?
 
     @Query("SELECT * FROM Library")
-    suspend fun getAllLibraries(): List<Library>
-
-    @Query("SELECT * FROM Library")
-    fun getAllLibrariesLiveData(): LiveData<List<Library>>
+    fun getAllLibraries(): LiveData<List<Library>>
 
     @Update
     suspend fun updateLibrary(library: Library)

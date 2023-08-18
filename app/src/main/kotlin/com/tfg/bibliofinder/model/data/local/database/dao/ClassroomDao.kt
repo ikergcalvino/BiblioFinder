@@ -19,10 +19,7 @@ interface ClassroomDao {
     suspend fun getClassroomById(classroomId: Long): Classroom?
 
     @Query("SELECT * FROM Classroom WHERE libraryId = :libraryId")
-    suspend fun getClassroomsInLibrary(libraryId: Long): List<Classroom>
-
-    @Query("SELECT * FROM Classroom WHERE libraryId = :libraryId")
-    fun getClassroomsInLibraryLiveData(libraryId: Long): LiveData<List<Classroom>>
+    fun getClassroomsInLibrary(libraryId: Long): LiveData<List<Classroom>>
 
     @Update
     suspend fun updateClassroom(classroom: Classroom)
