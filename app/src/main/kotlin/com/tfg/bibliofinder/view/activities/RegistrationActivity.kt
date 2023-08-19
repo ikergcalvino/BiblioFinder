@@ -12,14 +12,14 @@ import kotlinx.coroutines.launch
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
-    private lateinit var authenticationManager: AuthenticationManager
+    private lateinit var authManager: AuthenticationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        authenticationManager = AuthenticationManager(this)
+        authManager = AuthenticationManager(this)
 
         binding.buttonRegister.setOnClickListener {
             val email = binding.textEmail.text.toString()
@@ -32,22 +32,22 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private suspend fun registerUser(email: String, password: String) {
-        if (!authenticationManager.isValidEmail(email)) {
+        if (!authManager.isValidEmail(email)) {
             MessageUtil.showSnackbar(binding.root, "Invalid email format")
-        } else if (!authenticationManager.isPasswordValid(password)) {
+        } else if (!authManager.isPasswordValid(password)) {
             MessageUtil.showSnackbar(
                 binding.root,
                 "Password must have at least 12 characters including uppercase, lowercase, and numbers"
             )
         } else {
-            val user = authenticationManager.getUserByEmail(email)
+            val user = authManager.getUserByEmail(email)
             if (user != null) {
                 MessageUtil.showSnackbar(binding.root, "Email is already in use")
             } else {
                 val newUser =
-                    User(email = email, password = authenticationManager.hashPassword(password))
-                authenticationManager.insertUser(newUser)
-                authenticationManager.performLogin(email, password)
+                    User(email = email, password = authManager.hashPassword(password))
+                authManager.insertUser(newUser)
+                authManager.performLogin(email, password)
                 MessageUtil.showToast(applicationContext, "Registration successful. Welcome!")
                 finish()
             }

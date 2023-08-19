@@ -18,43 +18,39 @@ import com.tfg.bibliofinder.viewmodel.viewmodels.LibraryViewModel
 
 class LibraryFragment : Fragment() {
 
+    private val libraries = mutableListOf<Library>()
     private var _binding: FragmentLibraryBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var adapter: LibraryAdapter
     private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
-    private lateinit var libraryViewModel: LibraryViewModel
-    private lateinit var adapter: LibraryAdapter
-    private val libraries = mutableListOf<Library>()
-
-    private val binding get() = _binding!!
+    private lateinit var viewModel: LibraryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         database = AppDatabase.getInstance(requireContext())
-
-        libraryViewModel = ViewModelFactory.createViewModel(database)
-
+        viewModel = ViewModelFactory.createViewModel(database)
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = LibraryAdapter(libraries) { library ->
             navigateToClassrooms(library)
         }
         recyclerView.adapter = adapter
 
-        libraryViewModel.allLibraries.observe(viewLifecycleOwner) { libraries ->
+        viewModel.allLibraries.observe(viewLifecycleOwner) { libraries ->
             this.libraries.clear()
             this.libraries.addAll(libraries)
             adapter.notifyDataSetChanged()
         }
 
-        return root
+        return binding.root
     }
 
     private fun navigateToClassrooms(library: Library) {

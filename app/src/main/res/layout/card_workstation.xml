@@ -43,7 +43,6 @@
             android:id="@+id/book_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
             android:padding="16dp"
             android:src="@drawable/ic_book" />
 

@@ -20,14 +20,17 @@ class WorkstationViewModel(private val database: AppDatabase) : ViewModel() {
         viewModelScope.launch {
             val classroom = database.classroomDao().getClassroomById(classroomId)
             val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
+
             openingTime = library?.openingTime
             closingTime = library?.closingTime
         }
     }
 
-    fun reserveWorkstation(workstation: Workstation) {
+    fun reserveWorkstation(workstation: Workstation, userId: Long) {
         viewModelScope.launch {
-            val updatedWorkstation = workstation.copy(state = Workstation.WorkstationState.BOOKED)
+            val updatedWorkstation =
+                workstation.copy(state = Workstation.WorkstationState.BOOKED, userId = userId)
+
             database.workstationDao().updateWorkstation(updatedWorkstation)
         }
     }

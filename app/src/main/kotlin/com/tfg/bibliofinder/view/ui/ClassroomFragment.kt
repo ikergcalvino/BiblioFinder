@@ -18,47 +18,42 @@ import com.tfg.bibliofinder.viewmodel.viewmodels.ClassroomViewModel
 
 class ClassroomFragment : Fragment() {
 
+    private val classrooms = mutableListOf<Classroom>()
     private var _binding: FragmentClassroomBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var adapter: ClassroomAdapter
     private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
-    private lateinit var classroomViewModel: ClassroomViewModel
-    private lateinit var adapter: ClassroomAdapter
-    private val classrooms = mutableListOf<Classroom>()
-
-    private val binding get() = _binding!!
+    private lateinit var viewModel: ClassroomViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         database = AppDatabase.getInstance(requireContext())
-
-        classroomViewModel = ViewModelFactory.createViewModel(database)
-
+        viewModel = ViewModelFactory.createViewModel(database)
         _binding = FragmentClassroomBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = ClassroomAdapter(classrooms) { classroom ->
             navigateToWorkstations(classroom)
         }
         recyclerView.adapter = adapter
 
-        val libraryId = arguments?.getLong("libraryId", -1L)
-        if (libraryId != null && libraryId != -1L) {
-            classroomViewModel.getClassroomsInLibrary(libraryId)
-                .observe(viewLifecycleOwner) { classrooms ->
-                    this.classrooms.clear()
-                    this.classrooms.addAll(classrooms)
-                    adapter.notifyDataSetChanged()
-                }
+        val libraryId = arguments?.getLong("libraryId", 0L)
+        if (libraryId != null && libraryId != 0L) {
+            viewModel.getClassroomsInLibrary(libraryId).observe(viewLifecycleOwner) { classrooms ->
+                this.classrooms.clear()
+                this.classrooms.addAll(classrooms)
+                adapter.notifyDataSetChanged()
+            }
         }
 
-        return root
+        return binding.root
     }
 
     private fun navigateToWorkstations(classroom: Classroom) {
@@ -73,5 +68,4 @@ class ClassroomFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

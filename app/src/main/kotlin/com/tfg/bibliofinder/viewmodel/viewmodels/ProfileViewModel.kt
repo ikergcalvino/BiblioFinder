@@ -31,22 +31,21 @@ class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val user = database.userDao().getUserById(userId)
 
-            if (user != null) {
-                user.name = newName
-                user.phone = newPhone
-                database.userDao().updateUser(user)
-            }
+            user?.name = newName
+            user?.phone = newPhone
+
+            user?.let { database.userDao().updateUser(it) }
         }
     }
 
     fun loadWorkstationDetails(userId: Long) {
         viewModelScope.launch {
             val workstation = database.workstationDao().getWorkstationByUser(userId)
-            if (workstation != null) {
-                val classroom = database.classroomDao().getClassroomById(workstation.classroomId)
-                val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
-                _libraryAndClassroom.postValue(Pair(library?.name, classroom?.name))
-            }
+            val classroom =
+                workstation?.let { database.classroomDao().getClassroomById(it.classroomId) }
+            val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
+
+            _libraryAndClassroom.postValue(Pair(library?.name, classroom?.name))
             _workstation.postValue(workstation)
         }
     }

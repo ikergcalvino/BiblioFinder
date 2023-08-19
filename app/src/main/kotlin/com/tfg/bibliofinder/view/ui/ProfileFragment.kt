@@ -21,38 +21,34 @@ import com.tfg.bibliofinder.viewmodel.viewmodels.ProfileViewModel
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
-    private lateinit var database: AppDatabase
-    private lateinit var profileViewModel: ProfileViewModel
-    private lateinit var sharedPrefs: SharedPreferences
-
     private val binding get() = _binding!!
+
+    private lateinit var database: AppDatabase
+    private lateinit var viewModel: ProfileViewModel
+    private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         database = AppDatabase.getInstance(requireContext())
+        viewModel = ViewModelFactory.createViewModel(database)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0L)
 
-        profileViewModel = ViewModelFactory.createViewModel(database)
+        viewModel.loadUserData(loggedInUserId)
 
-        val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0)
-
-        profileViewModel.loadUserData(loggedInUserId)
-
-        profileViewModel.user.observe(viewLifecycleOwner) { user ->
-            if (user != null) {
-                binding.usernameValue.setText(user.name ?: "")
-                binding.emailValue.text = user.email
-                binding.phoneValue.setText(user.phone ?: "")
-            }
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            binding.usernameValue.setText(user?.name ?: "")
+            binding.emailValue.text = user?.email
+            binding.phoneValue.setText(user?.phone ?: "")
         }
 
-        profileViewModel.loadWorkstationDetails(loggedInUserId)
+        viewModel.loadWorkstationDetails(loggedInUserId)
 
-        profileViewModel.workstation.observe(viewLifecycleOwner) { workstation ->
+        viewModel.workstation.observe(viewLifecycleOwner) { workstation ->
             if (workstation?.userId == null) {
                 binding.infoText.text = getString(R.string.current_booking)
 
@@ -67,8 +63,8 @@ class ProfileFragment : Fragment() {
                     binding.bookedCard.visibility = View.VISIBLE
                     binding.occupiedCard.visibility = View.GONE
 
-                    binding.bookedTitle.text = profileViewModel.libraryAndClassroom.value?.first
-                    binding.bookedText.text = profileViewModel.libraryAndClassroom.value?.second
+                    binding.bookedTitle.text = viewModel.libraryAndClassroom.value?.first
+                    binding.bookedText.text = viewModel.libraryAndClassroom.value?.second
                 } else if (workstation.state == Workstation.WorkstationState.OCCUPIED) {
                     binding.infoText.text = getString(R.string.occupied_site)
 
@@ -76,8 +72,8 @@ class ProfileFragment : Fragment() {
                     binding.bookedCard.visibility = View.GONE
                     binding.occupiedCard.visibility = View.VISIBLE
 
-                    binding.occupiedTitle.text = profileViewModel.libraryAndClassroom.value?.first
-                    binding.occupiedText.text = profileViewModel.libraryAndClassroom.value?.second
+                    binding.occupiedTitle.text = viewModel.libraryAndClassroom.value?.first
+                    binding.occupiedText.text = viewModel.libraryAndClassroom.value?.second
                 }
             }
         }
@@ -86,10 +82,9 @@ class ProfileFragment : Fragment() {
             val newName = binding.usernameValue.text.toString()
             val newPhone = binding.phoneValue.text.toString()
 
-            profileViewModel.updateUserDetails(loggedInUserId, newName, newPhone)
+            viewModel.updateUserDetails(loggedInUserId, newName, newPhone)
 
-            val message = "Data saved successfully."
-            MessageUtil.showToast(requireContext(), message)
+            MessageUtil.showToast(requireContext(), "Data saved successfully.")
         }
 
         binding.nfcButton.setOnClickListener {
@@ -98,11 +93,9 @@ class ProfileFragment : Fragment() {
         }
 
         binding.leaveButton.setOnClickListener {
-            // Update the Workstation parameters
-            val newWorkstation = profileViewModel.workstation.value?.copy(userId = null)
-            profileViewModel.updateWorkstationDetails(newWorkstation)
+            val newWorkstation = viewModel.workstation.value?.copy(userId = null)
+            viewModel.updateWorkstationDetails(newWorkstation)
 
-            // Refresh the fragment by replacing it with itself
             findNavController().navigate(R.id.nav_profile)
         }
 

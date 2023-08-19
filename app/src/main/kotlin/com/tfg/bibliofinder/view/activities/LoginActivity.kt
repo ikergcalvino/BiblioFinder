@@ -12,14 +12,14 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var authenticationManager: AuthenticationManager
+    private lateinit var authManager: AuthenticationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        authenticationManager = AuthenticationManager(this)
+        authManager = AuthenticationManager(this)
 
         binding.buttonLogin.setOnClickListener {
             val username = binding.textEmail.text.toString()
@@ -31,8 +31,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             lifecycleScope.launch {
-                if (authenticationManager.isValidCredentials(username, password)) {
-                    authenticationManager.performLogin(username, password)
+                if (authManager.isValidCredentials(username, password)) {
+                    authManager.performLogin(username, password)
                     MessageUtil.showToast(applicationContext, "You have successfully logged in")
                     finish()
                 } else {
