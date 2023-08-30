@@ -50,6 +50,12 @@
     <string name="classroom_banner">Classroom Banner</string>
 
     <!-- Capacity -->
-    <string name="capacity_format">Capacity: %1$d</string>
+    <string name="free_spaces_format">Free Spaces: %1$d</string>
+
+    <string name="AVAILABLE">AVAILABLE</string>
+    <string name="OCCUPIED">OCCUPIED</string>
+    <string name="BOOKED">BOOKED</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
 
 </resources>

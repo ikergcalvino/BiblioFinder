@@ -11,9 +11,24 @@ class WorkstationAdapter(
 
     override fun bindItem(view: View, item: Workstation) {
         val workstationTitle: TextView = view.findViewById(R.id.workstation_title)
-        val workstationText: TextView = view.findViewById(R.id.workstation_text)
-
         workstationTitle.text = item.workstationId.toString()
-        workstationText.text = item.state.toString()
+
+        val workstationText: TextView = view.findViewById(R.id.workstation_state)
+        when (item.state) {
+            Workstation.WorkstationState.AVAILABLE -> {
+                workstationText.setTextColor(view.context.getColor(R.color.available))
+                workstationText.text = view.context.getString(R.string.AVAILABLE)
+            }
+
+            Workstation.WorkstationState.OCCUPIED -> {
+                workstationText.setTextColor(view.context.getColor(R.color.occupied))
+                workstationText.text = view.context.getString(R.string.OCCUPIED)
+            }
+
+            Workstation.WorkstationState.BOOKED -> {
+                workstationText.setTextColor(view.context.getColor(R.color.booked))
+                workstationText.text = view.context.getString(R.string.BOOKED)
+            }
+        }
     }
 }

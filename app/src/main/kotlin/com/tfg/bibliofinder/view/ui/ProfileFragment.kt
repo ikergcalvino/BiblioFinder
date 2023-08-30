@@ -38,15 +38,13 @@ class ProfileFragment : Fragment() {
 
         val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0L)
 
-        viewModel.loadUserData(loggedInUserId)
+        viewModel.loadUserAndWorkstationData(loggedInUserId)
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
             binding.usernameValue.setText(user?.name ?: "")
             binding.emailValue.text = user?.email
             binding.phoneValue.setText(user?.phone ?: "")
         }
-
-        viewModel.loadWorkstationDetails(loggedInUserId)
 
         viewModel.workstation.observe(viewLifecycleOwner) { workstation ->
             if (workstation?.userId == null) {
@@ -92,9 +90,20 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.cancelButton.setOnClickListener {
+            val updatedWorkstation = viewModel.workstation.value?.copy(
+                state = Workstation.WorkstationState.AVAILABLE, dateTime = null, userId = null
+            )
+            viewModel.updateWorkstationDetails(updatedWorkstation)
+
+            findNavController().navigate(R.id.nav_profile)
+        }
+
         binding.leaveButton.setOnClickListener {
-            val newWorkstation = viewModel.workstation.value?.copy(userId = null)
-            viewModel.updateWorkstationDetails(newWorkstation)
+            val updatedWorkstation = viewModel.workstation.value?.copy(
+                state = Workstation.WorkstationState.AVAILABLE, userId = null
+            )
+            viewModel.updateWorkstationDetails(updatedWorkstation)
 
             findNavController().navigate(R.id.nav_profile)
         }

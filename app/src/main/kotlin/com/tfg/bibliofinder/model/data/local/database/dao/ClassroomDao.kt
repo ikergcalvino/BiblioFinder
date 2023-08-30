@@ -21,6 +21,9 @@ interface ClassroomDao {
     @Query("SELECT * FROM Classroom WHERE libraryId = :libraryId")
     fun getClassroomsInLibrary(libraryId: Long): LiveData<List<Classroom>>
 
+    @Query("SELECT COUNT(*) FROM Workstation WHERE classroomId = :classroomId AND state = 'AVAILABLE'")
+    suspend fun getNumberOfAvailableWorkstationsInClassroom(classroomId: Long): Int
+
     @Update
     suspend fun updateClassroom(classroom: Classroom)
 

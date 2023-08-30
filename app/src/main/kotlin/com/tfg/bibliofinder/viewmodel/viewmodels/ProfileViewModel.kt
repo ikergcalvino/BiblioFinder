@@ -11,42 +11,31 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
 
-    private val _user = MutableLiveData<User?>()
-    val user: MutableLiveData<User?> = _user
+    val user = MutableLiveData<User?>()
+    val workstation = MutableLiveData<Workstation?>()
+    val libraryAndClassroom = MutableLiveData<Pair<String?, String?>>()
 
-    private val _workstation = MutableLiveData<Workstation?>()
-    val workstation: MutableLiveData<Workstation?> = _workstation
-
-    private val _libraryAndClassroom = MutableLiveData<Pair<String?, String?>>()
-    val libraryAndClassroom: MutableLiveData<Pair<String?, String?>> = _libraryAndClassroom
-
-    fun loadUserData(userId: Long) {
+    fun loadUserAndWorkstationData(userId: Long) {
         viewModelScope.launch {
             val user = database.userDao().getUserById(userId)
-            _user.value = user
-        }
-    }
+            this@ProfileViewModel.user.value = user
 
-    fun updateUserDetails(userId: Long, newName: String, newPhone: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val user = database.userDao().getUserById(userId)
-
-            user?.name = newName
-            user?.phone = newPhone
-
-            user?.let { database.userDao().updateUser(it) }
-        }
-    }
-
-    fun loadWorkstationDetails(userId: Long) {
-        viewModelScope.launch {
             val workstation = database.workstationDao().getWorkstationByUser(userId)
             val classroom =
                 workstation?.let { database.classroomDao().getClassroomById(it.classroomId) }
             val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
 
-            _libraryAndClassroom.postValue(Pair(library?.name, classroom?.name))
-            _workstation.postValue(workstation)
+            libraryAndClassroom.postValue(Pair(library?.name, classroom?.name))
+            this@ProfileViewModel.workstation.postValue(workstation)
+        }
+    }
+
+    fun updateUserDetails(userId: Long, newName: String, newPhone: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val updatedUser =
+                database.userDao().getUserById(userId)?.copy(name = newName, phone = newPhone)
+
+            updatedUser?.let { database.userDao().updateUser(it) }
         }
     }
 

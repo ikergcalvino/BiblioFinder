@@ -11,14 +11,14 @@ class ClassroomAdapter(
 
     override fun bindItem(view: View, item: Classroom) {
         val classroomName: TextView = view.findViewById(R.id.classroom_name)
-        val classroomCapacity: TextView = view.findViewById(R.id.classroom_capacity)
-        val classroomType: TextView = view.findViewById(R.id.classroom_type)
-
         classroomName.text = item.name
-        val capacityText = view.context.getString(
-            R.string.capacity_format, item.capacity
+
+        val classroomCapacity: TextView = view.findViewById(R.id.classroom_capacity)
+        classroomCapacity.text = view.context.getString(
+            R.string.free_spaces_format, item.capacity
         )
-        classroomCapacity.text = capacityText
+
+        val classroomType: TextView = view.findViewById(R.id.classroom_type)
         classroomType.text = item.type
     }
 }

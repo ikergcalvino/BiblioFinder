@@ -2,96 +2,84 @@
   {
     "workstationId": 1,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 1,
     "userId": null
   },
   {
     "workstationId": 2,
     "state": "OCCUPIED",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 1,
     "userId": null
   },
   {
     "workstationId": 3,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 2,
     "userId": null
   },
   {
     "workstationId": 4,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 2,
     "userId": null
   },
   {
     "workstationId": 5,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 3,
     "userId": null
   },
   {
     "workstationId": 6,
     "state": "OCCUPIED",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 3,
     "userId": null
   },
   {
     "workstationId": 7,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 4,
     "userId": null
   },
   {
     "workstationId": 8,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 4,
     "userId": null
   },
   {
     "workstationId": 9,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 5,
     "userId": null
   },
   {
     "workstationId": 10,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 5,
     "userId": null
   },
   {
     "workstationId": 11,
     "state": "OCCUPIED",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 6,
     "userId": null
   },
   {
     "workstationId": 12,
     "state": "AVAILABLE",
-    "date": null,
-    "startTime": null,
+    "dateTime": null,
     "classroomId": 6,
     "userId": null
   }

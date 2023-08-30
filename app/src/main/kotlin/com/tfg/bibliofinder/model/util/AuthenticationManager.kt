@@ -14,6 +14,16 @@ class AuthenticationManager(private val context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
+    fun isValidEmail(email: String): Boolean {
+        val regexPattern = Regex("^[A-Za-z0-9+_.-]+@(.+)\$")
+        return regexPattern.matches(email)
+    }
+
+    fun isValidPassword(password: String): Boolean {
+        val passwordPattern = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{12,}\$")
+        return passwordPattern.matches(password)
+    }
+
     suspend fun getUserByEmail(email: String): User? {
         return database.userDao().getUserByEmail(email)
     }
@@ -22,8 +32,17 @@ class AuthenticationManager(private val context: Context) {
         database.userDao().insertUser(newUser)
     }
 
-    suspend fun isValidCredentials(username: String, password: String): Boolean {
-        val user = database.userDao().getUserByEmail(username)
+    fun hashPassword(password: String): String {
+        // TODO: Implement your preferred password hashing mechanism here
+        // For example, you can use SHA-256 hashing algorithm.
+        // Note: In practice, you should use a proper password hashing library like bcrypt.
+        val md = MessageDigest.getInstance("SHA-256")
+        val bytes = md.digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
+    }
+
+    suspend fun isValidCredentials(email: String, password: String): Boolean {
+        val user = database.userDao().getUserByEmail(email)
         return user != null && user.password == hashPassword(password)
     }
 
@@ -38,25 +57,6 @@ class AuthenticationManager(private val context: Context) {
     fun performLogout() {
         sharedPreferences.edit().remove("loggedInUserId").apply()
         startMainActivity()
-    }
-
-    fun isValidEmail(email: String): Boolean {
-        val regexPattern = Regex("^[A-Za-z0-9+_.-]+@(.+)\$")
-        return regexPattern.matches(email)
-    }
-
-    fun isPasswordValid(password: String): Boolean {
-        val passwordPattern = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{12,}\$")
-        return passwordPattern.matches(password)
-    }
-
-    fun hashPassword(password: String): String {
-        // TODO: Implement your preferred password hashing mechanism here
-        // For example, you can use SHA-256 hashing algorithm.
-        // Note: In practice, you should use a proper password hashing library like bcrypt.
-        val md = MessageDigest.getInstance("SHA-256")
-        val bytes = md.digest(password.toByteArray())
-        return bytes.joinToString("") { "%02x".format(it) }
     }
 
     private fun startMainActivity() {

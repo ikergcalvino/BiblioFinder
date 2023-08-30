@@ -34,7 +34,7 @@ class RegistrationActivity : AppCompatActivity() {
     private suspend fun registerUser(email: String, password: String) {
         if (!authManager.isValidEmail(email)) {
             MessageUtil.showSnackbar(binding.root, "Invalid email format")
-        } else if (!authManager.isPasswordValid(password)) {
+        } else if (!authManager.isValidPassword(password)) {
             MessageUtil.showSnackbar(
                 binding.root,
                 "Password must have at least 12 characters including uppercase, lowercase, and numbers"

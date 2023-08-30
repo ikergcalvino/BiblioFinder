@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -67,46 +66,66 @@ class WorkstationFragment : Fragment() {
     private fun showTimePickerDialog(workstation: Workstation) {
         val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0L)
 
-        if (loggedInUserId != 0L) {
-
-            val libraryOpeningTime = viewModel.openingTime
-            val libraryClosingTime = viewModel.closingTime
-
-            val minHour = libraryOpeningTime?.substringBefore(":")?.toInt() ?: 0
-            val minMinute = libraryOpeningTime?.substringAfter(":")?.toInt() ?: 0
-
-            val maxHour = libraryClosingTime?.substringBefore(":")?.toInt() ?: 23
-            val maxMinute = libraryClosingTime?.substringAfter(":")?.toInt() ?: 59
-
-            val currentTime = Calendar.getInstance()
-            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val minute = currentTime.get(Calendar.MINUTE)
-
-            val timePickerDialog = TimePickerDialog(
-                requireContext(), { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
-                    if ((selectedHour > minHour || (selectedHour == minHour && selectedMinute >= minMinute)) && (selectedHour < maxHour || (selectedHour == maxHour && selectedMinute <= maxMinute))) {
-                        if (workstation.state == Workstation.WorkstationState.AVAILABLE) {
-                            viewModel.reserveWorkstation(workstation, loggedInUserId)
-                        } else {
-                            MessageUtil.showSnackbar(
-                                binding.root, "Este sitio ya está ocupado o reservado previamente."
-                            )
-                        }
-                    } else {
-                        // Mostrar un mensaje de error o notificación si se selecciona una hora fuera de los límites.
-                        MessageUtil.showSnackbar(
-                            binding.root,
-                            "La reserva no se puede realizar fuera del horario permitido."
-                        )
-                    }
-                }, hour, minute, true
-            )
-            timePickerDialog.show()
-        } else {
-            MessageUtil.showSnackbar(
-                binding.root, "Debes estar logueado para hacer una reserva."
-            )
+        if (loggedInUserId == 0L) {
+            MessageUtil.showSnackbar(binding.root, "Debes estar logueado para hacer una reserva.")
+            return
         }
+
+        val (minHour, minMinute) = getLibraryTime(viewModel.openingTime, 0, 0)
+        val (maxHour, maxMinute) = getLibraryTime(viewModel.closingTime, 23, 59)
+
+        val currentTime = Calendar.getInstance()
+        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = currentTime.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            requireContext(), { _, selectedHour, selectedMinute ->
+                val selectedTime = getSelectedTime(selectedHour, selectedMinute)
+
+                val libraryOpeningTime = getSelectedTime(minHour, minMinute)
+                val libraryClosingTime = getSelectedTime(maxHour, maxMinute)
+
+                if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
+                    // Si la hora seleccionada está fuera del horario de apertura y cierre
+                    MessageUtil.showSnackbar(
+                        binding.root,
+                        "La reserva no se puede realizar fuera del horario permitido."
+                    )
+                    return@TimePickerDialog
+                }
+
+                if (selectedTime.before(currentTime)) {
+                    // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
+                    selectedTime.add(Calendar.DAY_OF_MONTH, 1)
+                }
+
+                workstation.dateTime = selectedTime.time.toString()
+
+                if (workstation.state == Workstation.WorkstationState.AVAILABLE) {
+                    viewModel.reserveWorkstation(workstation, loggedInUserId)
+                } else {
+                    MessageUtil.showSnackbar(
+                        binding.root, "Este sitio ya está ocupado o reservado previamente."
+                    )
+                }
+            }, currentHour, currentMinute, true
+        )
+        timePickerDialog.show()
+    }
+
+    private fun getSelectedTime(selectedHour: Int, selectedMinute: Int): Calendar {
+        return Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, selectedHour)
+            set(Calendar.MINUTE, selectedMinute)
+        }
+    }
+
+    private fun getLibraryTime(
+        hourMinute: String?, defaultHour: Int, defaultMinute: Int
+    ): Pair<Int, Int> {
+        val hour = hourMinute?.substringBefore(":")?.toIntOrNull() ?: defaultHour
+        val minute = hourMinute?.substringAfter(":")?.toIntOrNull() ?: defaultMinute
+        return Pair(hour, minute)
     }
 
     override fun onDestroyView() {

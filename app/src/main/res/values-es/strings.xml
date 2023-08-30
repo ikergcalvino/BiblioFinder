@@ -50,6 +50,6 @@
     <string name="classroom_banner">Banner del aula</string>
 
     <!-- Capacidad -->
-    <string name="capacity_format">Capacidad: %1$d</string>
+    <string name="free_spaces_format">Espacios libres: %1$d</string>
 
 </resources>

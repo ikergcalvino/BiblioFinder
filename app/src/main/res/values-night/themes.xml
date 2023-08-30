@@ -6,9 +6,9 @@
         <item name="colorPrimaryVariant">@color/imperial_purple</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/eerie_black</item>
+        <item name="colorSecondary">@color/dark_charcoal</item>
         <item name="colorSecondaryVariant">@color/eerie_black</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
