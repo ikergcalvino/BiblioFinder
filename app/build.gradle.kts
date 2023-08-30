@@ -70,4 +70,5 @@ dependencies {
     implementation("androidx.room:room-paging:$roomVersion")
 
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.mindrot:jbcrypt:0.4")
 }
