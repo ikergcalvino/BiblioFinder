@@ -14,6 +14,5 @@ data class Library(
     val phone: String? = null,
     val email: String? = null,
     val isAdapted: Boolean,
-    val type: String,
     val institution: String
 )

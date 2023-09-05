@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
-        val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0L)
+        val loggedInUserId = sharedPrefs.getLong("userId", 0L)
 
         viewModel.loadUserAndWorkstationData(loggedInUserId)
 
@@ -80,6 +80,8 @@ class ProfileFragment : Fragment() {
             val newName = binding.usernameValue.text.toString()
             val newPhone = binding.phoneValue.text.toString()
 
+            sharedPrefs.edit().putString("userName", newName).apply()
+
             viewModel.updateUserDetails(loggedInUserId, newName, newPhone)
 
             MessageUtil.showToast(requireContext(), "Data saved successfully.")
@@ -91,24 +93,23 @@ class ProfileFragment : Fragment() {
         }
 
         binding.cancelButton.setOnClickListener {
-            val updatedWorkstation = viewModel.workstation.value?.copy(
-                state = Workstation.WorkstationState.AVAILABLE, dateTime = null, userId = null
-            )
-            viewModel.updateWorkstationDetails(updatedWorkstation)
-
-            findNavController().navigate(R.id.nav_profile)
+            releaseWorkstation()
         }
 
         binding.leaveButton.setOnClickListener {
-            val updatedWorkstation = viewModel.workstation.value?.copy(
-                state = Workstation.WorkstationState.AVAILABLE, userId = null
-            )
-            viewModel.updateWorkstationDetails(updatedWorkstation)
-
-            findNavController().navigate(R.id.nav_profile)
+            releaseWorkstation()
         }
 
         return binding.root
+    }
+
+    private fun releaseWorkstation() {
+        val updatedWorkstation = viewModel.workstation.value?.copy(
+            state = Workstation.WorkstationState.AVAILABLE, dateTime = null, userId = null
+        )
+        viewModel.updateWorkstationDetails(updatedWorkstation)
+
+        findNavController().navigate(R.id.nav_profile)
     }
 
     override fun onDestroyView() {

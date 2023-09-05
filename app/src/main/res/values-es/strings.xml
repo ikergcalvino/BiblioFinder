@@ -1,17 +1,12 @@
 <resources>
 
-    <!-- Información de la aplicación -->
+    <!-- Nombre de la aplicación -->
     <string name="app_name" translatable="false">BiblioFinder</string>
 
-    <!-- Navegación -->
-    <string name="nav_username">Android Studio</string>
-    <string name="nav_email">android.studio@android.com</string>
-    <string name="nav_header_desc">Encabezado de navegación</string>
-
-    <!-- Elementos del menú -->
+    <!-- Menús -->
     <string name="menu_library">Bibliotecas</string>
     <string name="menu_classroom">Aulas</string>
-    <string name="menu_workstation">Estaciones de trabajo</string>
+    <string name="menu_workstation">Puestos de Trabajo</string>
     <string name="menu_login">Iniciar sesión</string>
     <string name="menu_profile">Perfil</string>
     <string name="menu_logout">Cerrar sesión</string>
@@ -28,28 +23,55 @@
     <string name="dont_have_an_account">¿No tienes una cuenta?</string>
     <string name="create_one_now"><u>¡Crea una ahora!</u></string>
     <string name="or">O</string>
-    <string name="repeat_password">Repite tu contraseña</string>
+    <string name="repeat_password">Repetir contraseña</string>
     <string name="sign_up">Registrarse</string>
 
     <!-- Perfil -->
-    <string name="profile_picture">Imagen de perfil: Avatar de usuario</string>
+    <string name="profile_picture">Foto de perfil: Avatar de usuario</string>
     <string name="full_name">Nombre completo</string>
     <string name="phone_number">Número de teléfono</string>
     <string name="current_booking">Reserva actual</string>
     <string name="occupied_site">Sitio ocupado</string>
     <string name="save_changes">Guardar cambios</string>
-    <string name="no_reservations_or_occupancy">Sin reservas u ocupación.</string>
+    <string name="no_reservations_or_occupancy">No hay reservas ni ocupación.</string>
 
     <!-- Biblioteca -->
-    <string name="library_banner">Banner de la biblioteca</string>
+    <string name="library_banner">Banner de Biblioteca</string>
     <string name="library_isAdapted">Adaptada</string>
-    <string name="library_info">Información de la biblioteca</string>
+    <string name="library_info">Información de la Biblioteca</string>
     <string name="schedule_format">Horario: %s - %s</string>
 
     <!-- Aula -->
-    <string name="classroom_banner">Banner del aula</string>
-
-    <!-- Capacidad -->
+    <string name="classroom_banner">Banner de Aula</string>
     <string name="free_spaces_format">Espacios libres: %1$d</string>
+
+    <!-- Estado -->
+    <string name="AVAILABLE">DISPONIBLE</string>
+    <string name="OCCUPIED">OCUPADO</string>
+    <string name="BOOKED">RESERVADO</string>
+
+    <!-- Contacto -->
+    <string name="address">Dirección</string>
+    <string name="phone">Teléfono</string>
+    <string name="institution">Institución</string>
+
+    <string name="invalid_email_format">Formato de correo electrónico no válido</string>
+    <string name="invalid_password_format">La contraseña debe tener al menos 12 caracteres, incluyendo mayúsculas, minúsculas y números</string>
+    <string name="email_already_in_use">El correo electrónico ya está en uso</string>
+    <string name="registration_successful">Registro exitoso. ¡Bienvenido!</string>
+    <string name="please_enter_email_password">Por favor, ingrese su correo electrónico y contraseña</string>
+    <string name="login_successful">Ha iniciado sesión con éxito</string>
+    <string name="incorrect_email_password">Correo electrónico o contraseña incorrectos</string>
+    <string name="must_be_logged_in">Debes estar conectado para hacer una reserva.</string>
+    <string name="already_have_reservation">Ya tienes una reserva.</string>
+    <string name="reservation_outside_allowed_hours">La reserva no se puede hacer fuera del horario permitido.</string>
+    <string name="workstation_already_occupied_or_reserved">Este sitio ya está ocupado o reservado previamente.</string>
+    <string name="libraries_name_ascending">Nombre (Ascendente)</string>
+    <string name="libraries_name_descending">Nombre (Descendente)</string>
+    <string name="libraries_opening_time">Hora de Apertura</string>
+    <string name="libraries_closing_time">Hora de Cierre</string>
+    <string name="libraries_capacity">Capacidad</string>
+    <string name="libraries_adapted_for_disabilities">Adaptado para Discapacidades</string>
+    <string name="libraries_by_institution">Por Institución</string>
 
 </resources>

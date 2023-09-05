@@ -8,7 +8,7 @@
         android:id="@+id/library_card_front"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         app:cardBackgroundColor="@drawable/selector_card_background"
         app:cardCornerRadius="16dp">
 
@@ -95,7 +95,7 @@
         android:id="@+id/library_card_back"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:visibility="gone"
         app:cardBackgroundColor="@drawable/selector_card_background"
         app:cardCornerRadius="16dp">
@@ -161,6 +161,19 @@
 
             <TextView
                 android:id="@+id/library_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/institution"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/library_institution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic" />

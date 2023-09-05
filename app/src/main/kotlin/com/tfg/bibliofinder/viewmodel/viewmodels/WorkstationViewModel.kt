@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.Workstation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class WorkstationViewModel(private val database: AppDatabase) : ViewModel() {
@@ -14,6 +16,13 @@ class WorkstationViewModel(private val database: AppDatabase) : ViewModel() {
 
     fun getWorkstationsInClassroom(classroomId: Long): LiveData<List<Workstation>> {
         return database.workstationDao().getWorkstationsInClassroom(classroomId)
+    }
+
+    suspend fun hasUserBooking(userId: Long): Boolean {
+        return viewModelScope.async(Dispatchers.IO) {
+            val workstation = database.workstationDao().getWorkstationByUser(userId)
+            workstation != null
+        }.await()
     }
 
     fun loadOpeningAndClosingTime(classroomId: Long) {

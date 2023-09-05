@@ -1,9 +1,8 @@
 package com.tfg.bibliofinder.view.adapters
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import com.tfg.bibliofinder.R
+import com.tfg.bibliofinder.databinding.CardLibraryBinding
 import com.tfg.bibliofinder.model.entities.Library
 
 class LibraryAdapter(
@@ -11,33 +10,22 @@ class LibraryAdapter(
 ) : BaseAdapter<Library>(libraries, onItemClick, null, R.layout.card_library) {
 
     override fun bindItem(view: View, item: Library) {
-        val libraryName: TextView = view.findViewById(R.id.library_name)
-        libraryName.text = item.name
+        val binding = CardLibraryBinding.bind(view)
+        val context = view.context
 
-        val librarySchedule: TextView = view.findViewById(R.id.library_schedule)
-        librarySchedule.text = view.context.getString(
+        binding.libraryName.text = item.name
+        binding.librarySchedule.text = context.getString(
             R.string.schedule_format, item.openingTime, item.closingTime
         )
-
-        val libraryFreeSpaces: TextView = view.findViewById(R.id.library_free_spaces)
-        libraryFreeSpaces.text = view.context.getString(
+        binding.libraryFreeSpaces.text = context.getString(
             R.string.free_spaces_format, item.capacity
         )
 
-        val iconAdapted: ImageView = view.findViewById(R.id.library_isAdapted)
-        if (item.isAdapted) {
-            iconAdapted.visibility = View.VISIBLE
-        } else {
-            iconAdapted.visibility = View.INVISIBLE
-        }
+        binding.libraryIsAdapted.visibility = if (item.isAdapted) View.VISIBLE else View.INVISIBLE
 
-        val libraryAddress: TextView = view.findViewById(R.id.library_address)
-        libraryAddress.text = item.address
-
-        val libraryPhone: TextView = view.findViewById(R.id.library_phone)
-        libraryPhone.text = item.phone
-
-        val libraryEmail: TextView = view.findViewById(R.id.library_email)
-        libraryEmail.text = item.email
+        binding.libraryAddress.text = item.address
+        binding.libraryPhone.text = item.phone
+        binding.libraryEmail.text = item.email
+        binding.libraryInstitution.text = item.institution
     }
 }

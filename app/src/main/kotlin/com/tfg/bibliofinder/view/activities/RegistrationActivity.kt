@@ -3,6 +3,7 @@ package com.tfg.bibliofinder.view.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityRegistrationBinding
 import com.tfg.bibliofinder.model.entities.User
 import com.tfg.bibliofinder.model.util.AuthenticationManager
@@ -32,23 +33,26 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private suspend fun registerUser(email: String, password: String) {
-        if (!authManager.isValidEmail(email)) {
-            MessageUtil.showSnackbar(binding.root, "Invalid email format")
-        } else if (!authManager.isValidPassword(password)) {
-            MessageUtil.showSnackbar(
-                binding.root,
-                "Password must have at least 12 characters including uppercase, lowercase, and numbers"
+        when {
+            !authManager.isValidEmail(email) -> MessageUtil.showSnackbar(
+                binding.root, getString(R.string.invalid_email_format)
             )
-        } else {
-            val user = authManager.getUserByEmail(email)
-            if (user != null) {
-                MessageUtil.showSnackbar(binding.root, "Email is already in use")
-            } else {
-                val newUser =
-                    User(email = email, password = authManager.hashPassword(password))
+
+            !authManager.isValidPassword(password) -> MessageUtil.showSnackbar(
+                binding.root, getString(R.string.invalid_password_format)
+            )
+
+            authManager.getUserByEmail(email) != null -> MessageUtil.showSnackbar(
+                binding.root, getString(R.string.email_already_in_use)
+            )
+
+            else -> {
+                val newUser = User(email = email, password = authManager.hashPassword(password))
                 authManager.insertUser(newUser)
                 authManager.performLogin(email, password)
-                MessageUtil.showToast(applicationContext, "Registration successful. Welcome!")
+                MessageUtil.showToast(
+                    applicationContext, getString(R.string.registration_successful)
+                )
                 finish()
             }
         }

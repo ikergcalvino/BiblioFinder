@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
 import com.tfg.bibliofinder.model.data.local.database.AppDatabase
 import com.tfg.bibliofinder.model.entities.Workstation
@@ -18,6 +19,9 @@ import com.tfg.bibliofinder.model.util.MessageUtil
 import com.tfg.bibliofinder.view.adapters.WorkstationAdapter
 import com.tfg.bibliofinder.viewmodel.ViewModelFactory
 import com.tfg.bibliofinder.viewmodel.viewmodels.WorkstationViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WorkstationFragment : Fragment() {
 
@@ -45,7 +49,7 @@ class WorkstationFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = WorkstationAdapter(workstations) { workstation ->
-            showTimePickerDialog(workstation)
+            handleWorkstationReservation(workstation)
         }
         recyclerView.adapter = adapter
 
@@ -63,14 +67,26 @@ class WorkstationFragment : Fragment() {
         return binding.root
     }
 
-    private fun showTimePickerDialog(workstation: Workstation) {
-        val loggedInUserId = sharedPrefs.getLong("loggedInUserId", 0L)
+    private fun handleWorkstationReservation(workstation: Workstation) {
+        val loggedInUserId = sharedPrefs.getLong("userId", 0L)
 
         if (loggedInUserId == 0L) {
-            MessageUtil.showSnackbar(binding.root, "Debes estar logueado para hacer una reserva.")
+            MessageUtil.showSnackbar(binding.root, getString(R.string.must_be_logged_in))
             return
         }
 
+        CoroutineScope(Dispatchers.Main).launch {
+            val hasBooking = viewModel.hasUserBooking(loggedInUserId)
+
+            if (hasBooking) {
+                MessageUtil.showSnackbar(binding.root, getString(R.string.already_have_reservation))
+            } else {
+                reserveWorkstationTimeSlot(workstation, loggedInUserId)
+            }
+        }
+    }
+
+    private fun reserveWorkstationTimeSlot(workstation: Workstation, userId: Long) {
         val (minHour, minMinute) = getLibraryTime(viewModel.openingTime, 0, 0)
         val (maxHour, maxMinute) = getLibraryTime(viewModel.closingTime, 23, 59)
 
@@ -88,8 +104,7 @@ class WorkstationFragment : Fragment() {
                 if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
                     // Si la hora seleccionada está fuera del horario de apertura y cierre
                     MessageUtil.showSnackbar(
-                        binding.root,
-                        "La reserva no se puede realizar fuera del horario permitido."
+                        binding.root, getString(R.string.reservation_outside_allowed_hours)
                     )
                     return@TimePickerDialog
                 }
@@ -102,10 +117,10 @@ class WorkstationFragment : Fragment() {
                 workstation.dateTime = selectedTime.time.toString()
 
                 if (workstation.state == Workstation.WorkstationState.AVAILABLE) {
-                    viewModel.reserveWorkstation(workstation, loggedInUserId)
+                    viewModel.reserveWorkstation(workstation, userId)
                 } else {
                     MessageUtil.showSnackbar(
-                        binding.root, "Este sitio ya está ocupado o reservado previamente."
+                        binding.root, getString(R.string.workstation_already_occupied_or_reserved)
                     )
                 }
             }, currentHour, currentMinute, true

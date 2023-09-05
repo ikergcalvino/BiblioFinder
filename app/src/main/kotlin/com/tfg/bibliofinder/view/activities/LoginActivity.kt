@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityLoginBinding
 import com.tfg.bibliofinder.model.util.AuthenticationManager
 import com.tfg.bibliofinder.model.util.MessageUtil
@@ -22,28 +23,32 @@ class LoginActivity : AppCompatActivity() {
         authManager = AuthenticationManager(this)
 
         binding.buttonLogin.setOnClickListener {
-            val username = binding.textEmail.text.toString()
-            val password = binding.textPassword.text.toString()
-
-            if (username.isEmpty() || password.isEmpty()) {
-                MessageUtil.showSnackbar(binding.root, "Please enter your email and password")
-                return@setOnClickListener
-            }
-
-            lifecycleScope.launch {
-                if (authManager.isValidCredentials(username, password)) {
-                    authManager.performLogin(username, password)
-                    MessageUtil.showToast(applicationContext, "You have successfully logged in")
-                    finish()
-                } else {
-                    MessageUtil.showSnackbar(binding.root, "Incorrect email or password")
-                }
-            }
+            attemptLogin()
         }
 
         binding.createNewAccount.setOnClickListener {
             val registrationIntent = Intent(this, RegistrationActivity::class.java)
             startActivity(registrationIntent)
+        }
+    }
+
+    private fun attemptLogin() {
+        val username = binding.textEmail.text.toString()
+        val password = binding.textPassword.text.toString()
+
+        if (username.isEmpty() || password.isEmpty()) {
+            MessageUtil.showSnackbar(binding.root, getString(R.string.please_enter_email_password))
+            return
+        }
+
+        lifecycleScope.launch {
+            if (authManager.isValidCredentials(username, password)) {
+                authManager.performLogin(username, password)
+                MessageUtil.showToast(applicationContext, getString(R.string.login_successful))
+                finish()
+            } else {
+                MessageUtil.showSnackbar(binding.root, getString(R.string.incorrect_email_password))
+            }
         }
     }
 }

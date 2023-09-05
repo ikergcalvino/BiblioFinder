@@ -9,8 +9,7 @@
     "phone": "+34 881 01 56 74",
     "email": "informacion.bib@udc.es",
     "isAdapted": false,
-    "type": "General",
-    "institution": "Campus de A Coruña"
+    "institution": "Universidade da Coruña"
   },
   {
     "libraryId": 2,
@@ -22,8 +21,7 @@
     "phone": "+34 881 01 23 45",
     "email": "biblioteca.riazor@udc.gal",
     "isAdapted": true,
-    "type": "General",
-    "institution": "Campus de A Coruña"
+    "institution": "Universidade da Coruña"
   },
   {
     "libraryId": 3,
@@ -35,7 +33,6 @@
     "phone": "+34 881 01 12 88",
     "email": "informatica.bib@udc.es",
     "isAdapted": false,
-    "type": "General",
-    "institution": "Campus de A Coruña"
+    "institution": "Universidade da Coruña"
   }
 ]

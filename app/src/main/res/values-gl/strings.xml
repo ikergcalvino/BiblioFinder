@@ -1,17 +1,12 @@
 <resources>
 
-    <!-- Información da aplicación -->
+    <!-- Nome da aplicación -->
     <string name="app_name" translatable="false">BiblioFinder</string>
 
-    <!-- Navegación -->
-    <string name="nav_username">Android Studio</string>
-    <string name="nav_email">android.studio@android.com</string>
-    <string name="nav_header_desc">Cabeceira de navegación</string>
-
-    <!-- Elementos do menú -->
+    <!-- Menús -->
     <string name="menu_library">Bibliotecas</string>
     <string name="menu_classroom">Aulas</string>
-    <string name="menu_workstation">Estacións de traballo</string>
+    <string name="menu_workstation">Postos de Traballo</string>
     <string name="menu_login">Iniciar sesión</string>
     <string name="menu_profile">Perfil</string>
     <string name="menu_logout">Pechar sesión</string>
@@ -25,31 +20,58 @@
     <string name="email">Correo electrónico</string>
 
     <!-- Rexistro -->
-    <string name="dont_have_an_account">Non tes unha conta?</string>
-    <string name="create_one_now"><u>Crea unha agora!</u></string>
+    <string name="dont_have_an_account">¿Non tes unha conta?</string>
+    <string name="create_one_now"><u>¡Crea unha agora!</u></string>
     <string name="or">Ou</string>
-    <string name="repeat_password">Repite o teu contrasinal</string>
+    <string name="repeat_password">Repetir contrasinal</string>
     <string name="sign_up">Rexistrarse</string>
 
     <!-- Perfil -->
-    <string name="profile_picture">Imaxe de perfil: Avatar de usuario</string>
+    <string name="profile_picture">Foto de perfil: Avatar de usuario</string>
     <string name="full_name">Nome completo</string>
     <string name="phone_number">Número de teléfono</string>
     <string name="current_booking">Reserva actual</string>
     <string name="occupied_site">Sitio ocupado</string>
     <string name="save_changes">Gardar cambios</string>
-    <string name="no_reservations_or_occupancy">Sen reservas ou ocupación.</string>
+    <string name="no_reservations_or_occupancy">Non hai reservas nin ocupación.</string>
 
     <!-- Biblioteca -->
-    <string name="library_banner">Banner da biblioteca</string>
+    <string name="library_banner">Banner de Biblioteca</string>
     <string name="library_isAdapted">Adaptada</string>
-    <string name="library_info">Información da biblioteca</string>
+    <string name="library_info">Información da Biblioteca</string>
     <string name="schedule_format">Horario: %s - %s</string>
 
     <!-- Aula -->
-    <string name="classroom_banner">Banner da aula</string>
-
-    <!-- Capacidade -->
+    <string name="classroom_banner">Banner de Aula</string>
     <string name="free_spaces_format">Espazos libres: %1$d</string>
+
+    <!-- Estado -->
+    <string name="AVAILABLE">DISPOÑIBLE</string>
+    <string name="OCCUPIED">OCUPADO</string>
+    <string name="BOOKED">RESERVADO</string>
+
+    <!-- Contacto -->
+    <string name="address">Dirección</string>
+    <string name="phone">Teléfono</string>
+    <string name="institution">Institución</string>
+
+    <string name="invalid_email_format">Formato de correo electrónico non válido</string>
+    <string name="invalid_password_format">O contrasinal debe ter polo menos 12 caracteres, incluíndo maiúsculas, minúsculas e números</string>
+    <string name="email_already_in_use">O correo electrónico xa está en uso</string>
+    <string name="registration_successful">Rexistro con éxito. Benvido!</string>
+    <string name="please_enter_email_password">Por favor, introduce o teu correo electrónico e contrasinal</string>
+    <string name="login_successful">Iniciaches sesión con éxito</string>
+    <string name="incorrect_email_password">Correo electrónico ou contrasinal incorrectos</string>
+    <string name="must_be_logged_in">Debes estar conectado para facer unha reserva.</string>
+    <string name="already_have_reservation">Xa tes unha reserva.</string>
+    <string name="reservation_outside_allowed_hours">A reserva non se pode facer fóra das horas permitidas.</string>
+    <string name="workstation_already_occupied_or_reserved">Este sitio xa está ocupado ou previamente reservado.</string>
+    <string name="libraries_name_ascending">Nome (Ascendente)</string>
+    <string name="libraries_name_descending">Nome (Descendente)</string>
+    <string name="libraries_opening_time">Hora de Apertura</string>
+    <string name="libraries_closing_time">Hora de Peche</string>
+    <string name="libraries_capacity">Capacidade</string>
+    <string name="libraries_adapted_for_disabilities">Adaptado para Discapacidades</string>
+    <string name="libraries_by_institution">Por Institución</string>
 
 </resources>

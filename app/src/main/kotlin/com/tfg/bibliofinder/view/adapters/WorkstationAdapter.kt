@@ -1,8 +1,9 @@
 package com.tfg.bibliofinder.view.adapters
 
 import android.view.View
-import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.tfg.bibliofinder.R
+import com.tfg.bibliofinder.databinding.CardWorkstationBinding
 import com.tfg.bibliofinder.model.entities.Workstation
 
 class WorkstationAdapter(
@@ -10,25 +11,18 @@ class WorkstationAdapter(
 ) : BaseAdapter<Workstation>(workstations, null, onBookClick, R.layout.card_workstation) {
 
     override fun bindItem(view: View, item: Workstation) {
-        val workstationTitle: TextView = view.findViewById(R.id.workstation_title)
-        workstationTitle.text = item.workstationId.toString()
+        val binding = CardWorkstationBinding.bind(view)
+        val context = view.context
 
-        val workstationText: TextView = view.findViewById(R.id.workstation_state)
-        when (item.state) {
-            Workstation.WorkstationState.AVAILABLE -> {
-                workstationText.setTextColor(view.context.getColor(R.color.available))
-                workstationText.text = view.context.getString(R.string.AVAILABLE)
-            }
+        binding.workstationTitle.text = item.workstationId.toString()
 
-            Workstation.WorkstationState.OCCUPIED -> {
-                workstationText.setTextColor(view.context.getColor(R.color.occupied))
-                workstationText.text = view.context.getString(R.string.OCCUPIED)
-            }
-
-            Workstation.WorkstationState.BOOKED -> {
-                workstationText.setTextColor(view.context.getColor(R.color.booked))
-                workstationText.text = view.context.getString(R.string.BOOKED)
-            }
+        val workstationText = binding.workstationState
+        val colorResId = when (item.state) {
+            Workstation.WorkstationState.AVAILABLE -> R.color.available
+            Workstation.WorkstationState.OCCUPIED -> R.color.occupied
+            Workstation.WorkstationState.BOOKED -> R.color.booked
         }
+        workstationText.setTextColor(ContextCompat.getColor(context, colorResId))
+        workstationText.text = item.state.toString()
     }
 }
