@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_library"
-        android:name="com.tfg.bibliofinder.view.ui.LibraryFragment"
+        android:name="com.tfg.bibliofinder.screens.library.LibraryFragment"
         android:label="@string/menu_library"
         tools:layout="@layout/fragment_library" />
 
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/nav_classroom"
-        android:name="com.tfg.bibliofinder.view.ui.ClassroomFragment"
+        android:name="com.tfg.bibliofinder.screens.classroom.ClassroomFragment"
         android:label="@string/menu_classroom"
         tools:layout="@layout/fragment_classroom" />
 
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/nav_workstation"
-        android:name="com.tfg.bibliofinder.view.ui.WorkstationFragment"
+        android:name="com.tfg.bibliofinder.screens.workstation.WorkstationFragment"
         android:label="@string/menu_workstation"
         tools:layout="@layout/fragment_workstation" />
 
@@ -38,8 +38,18 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.tfg.bibliofinder.view.ui.ProfileFragment"
+        android:name="com.tfg.bibliofinder.screens.profile.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <action
+        android:id="@+id/action_nav_profile_to_nav_nfc"
+        app:destination="@id/nav_nfc" />
+
+    <fragment
+        android:id="@+id/nav_nfc"
+        android:name="com.tfg.bibliofinder.screens.nfc.NfcFragment"
+        android:label="@string/nfc_reading"
+        tools:layout="@layout/fragment_nfc" />
 
 </navigation>

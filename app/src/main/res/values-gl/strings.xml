@@ -73,5 +73,7 @@
     <string name="libraries_capacity">Capacidade</string>
     <string name="libraries_adapted_for_disabilities">Adaptado para Discapacidades</string>
     <string name="libraries_by_institution">Por Institución</string>
+    <string name="nfc_reading">Lectura NFC</string>
+    <string name="scan_an_nfc_tag_to_continue">Escanea unha etiqueta NFC para continuar</string>
 
 </resources>

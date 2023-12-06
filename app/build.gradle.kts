@@ -71,4 +71,5 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.mindrot:jbcrypt:0.4")
+    implementation("com.airbnb.android:lottie:6.1.0")
 }
