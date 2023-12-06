@@ -8,8 +8,11 @@ import com.tfg.bibliofinder.entities.Workstation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class WorkstationViewModel(private val database: AppDatabase) : ViewModel() {
+class WorkstationViewModel : ViewModel(), KoinComponent {
+    private val database: AppDatabase by inject()
 
     var openingTime: String? = null
     var closingTime: String? = null

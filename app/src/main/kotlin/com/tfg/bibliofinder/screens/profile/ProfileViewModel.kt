@@ -8,8 +8,11 @@ import com.tfg.bibliofinder.entities.User
 import com.tfg.bibliofinder.entities.Workstation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class ProfileViewModel(private val database: AppDatabase) : ViewModel() {
+class ProfileViewModel : ViewModel(), KoinComponent {
+    private val database: AppDatabase by inject()
 
     val user = MutableLiveData<User?>()
     val workstation = MutableLiveData<Workstation?>()

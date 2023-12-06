@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.Classroom
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class ClassroomViewModel(private val database: AppDatabase) : ViewModel() {
+class ClassroomViewModel : ViewModel(), KoinComponent {
+    private val database: AppDatabase by inject()
 
     fun getClassroomsInLibrary(libraryId: Long): LiveData<List<Classroom>> {
         return database.classroomDao().getClassroomsInLibrary(libraryId)

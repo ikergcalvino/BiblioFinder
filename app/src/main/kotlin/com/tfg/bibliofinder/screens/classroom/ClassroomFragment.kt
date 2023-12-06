@@ -9,10 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
-import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.FragmentClassroomBinding
 import com.tfg.bibliofinder.entities.Classroom
-import com.tfg.bibliofinder.util.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ClassroomFragment : Fragment() {
 
@@ -21,16 +20,12 @@ class ClassroomFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: ClassroomAdapter
-    private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: ClassroomViewModel
+    private val viewModel: ClassroomViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
-        database = AppDatabase.getInstance(requireContext())
-        viewModel = ViewModelFactory.createViewModel(database)
         _binding = FragmentClassroomBinding.inflate(inflater, container, false)
 
         recyclerView = binding.recyclerView

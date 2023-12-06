@@ -9,30 +9,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.tfg.bibliofinder.R
-import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.util.MessageUtil
-import com.tfg.bibliofinder.util.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var database: AppDatabase
-    private lateinit var viewModel: ProfileViewModel
     private lateinit var sharedPrefs: SharedPreferences
+    private val viewModel: ProfileViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
-        database = AppDatabase.getInstance(requireContext())
-        viewModel = ViewModelFactory.createViewModel(database)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
+        sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         val loggedInUserId = sharedPrefs.getLong("userId", 0L)
 
         viewModel.loadUserAndWorkstationData(loggedInUserId)

@@ -12,14 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
-import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.util.MessageUtil
-import com.tfg.bibliofinder.util.ViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WorkstationFragment : Fragment() {
 
@@ -28,18 +27,15 @@ class WorkstationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: WorkstationAdapter
-    private lateinit var database: AppDatabase
     private lateinit var recyclerView: RecyclerView
     private lateinit var sharedPrefs: SharedPreferences
-    private lateinit var viewModel: WorkstationViewModel
+    private val viewModel: WorkstationViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-
-        database = AppDatabase.getInstance(requireContext())
-        viewModel = ViewModelFactory.createViewModel(database)
         _binding = FragmentWorkstationBinding.inflate(inflater, container, false)
+
         sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
         recyclerView = binding.recyclerView
