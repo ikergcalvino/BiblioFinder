@@ -2,6 +2,7 @@ package com.tfg.bibliofinder.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
@@ -10,7 +11,8 @@ import androidx.room.PrimaryKey
         parentColumns = ["classroomId"],
         childColumns = ["classroomId"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index("classroomId")]
 )
 data class Workstation(
     @PrimaryKey(autoGenerate = true) val workstationId: Long = 0,
