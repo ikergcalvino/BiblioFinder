@@ -10,6 +10,7 @@ data class Library(
     val openingTime: String,
     val closingTime: String,
     val capacity: Int,
+    var freeSpaces: Int,
     val address: String,
     val phone: String? = null,
     val email: String? = null,

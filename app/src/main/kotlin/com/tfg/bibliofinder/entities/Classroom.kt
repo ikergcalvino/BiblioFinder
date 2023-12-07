@@ -17,6 +17,7 @@ data class Classroom(
     @PrimaryKey(autoGenerate = true) val classroomId: Long = 0,
     val name: String,
     val capacity: Int,
+    var freeSpaces: Int,
     val type: String,
     val libraryId: Long
 )

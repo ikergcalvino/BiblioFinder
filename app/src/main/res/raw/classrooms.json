@@ -3,6 +3,7 @@
     "classroomId": 1,
     "name": "Aula de estudio",
     "capacity": 30,
+    "freeSpaces": 30,
     "type": "Estudio",
     "libraryId": 1
   },
@@ -10,6 +11,7 @@
     "classroomId": 2,
     "name": "Aula de trabajo en grupo",
     "capacity": 20,
+    "freeSpaces": 20,
     "type": "Grupo",
     "libraryId": 1
   },
@@ -17,6 +19,7 @@
     "classroomId": 3,
     "name": "Aula de estudio",
     "capacity": 25,
+    "freeSpaces": 25,
     "type": "Estudio",
     "libraryId": 2
   },
@@ -24,6 +27,7 @@
     "classroomId": 4,
     "name": "Aula de trabajo en grupo",
     "capacity": 15,
+    "freeSpaces": 15,
     "type": "Grupo",
     "libraryId": 2
   },
@@ -31,6 +35,7 @@
     "classroomId": 5,
     "name": "Aula de estudio",
     "capacity": 35,
+    "freeSpaces": 35,
     "type": "Estudio",
     "libraryId": 3
   },
@@ -38,6 +43,7 @@
     "classroomId": 6,
     "name": "Aula de trabajo en grupo",
     "capacity": 18,
+    "freeSpaces": 18,
     "type": "Grupo",
     "libraryId": 3
   }
