@@ -26,9 +26,10 @@ class WorkstationFragment : Fragment() {
     private var _binding: FragmentWorkstationBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sharedPrefs: SharedPreferences
+
     private lateinit var adapter: WorkstationAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var sharedPrefs: SharedPreferences
     private val viewModel: WorkstationViewModel by viewModel()
 
     override fun onCreateView(
@@ -50,7 +51,7 @@ class WorkstationFragment : Fragment() {
         val classroomId = arguments?.getLong("classroomId", 0L)
         if (classroomId != null && classroomId != 0L) {
             viewModel.loadOpeningAndClosingTime(classroomId)
-            viewModel.getWorkstationsInClassroom(classroomId)
+            viewModel.getWorkstationsByClassroom(classroomId)
                 .observe(viewLifecycleOwner) { workstations ->
                     this.workstations.clear()
                     this.workstations.addAll(workstations)
@@ -81,19 +82,19 @@ class WorkstationFragment : Fragment() {
     }
 
     private fun reserveWorkstationTimeSlot(workstation: Workstation, userId: Long) {
-        val (minHour, minMinute) = getLibraryTime(viewModel.openingTime, 0, 0)
-        val (maxHour, maxMinute) = getLibraryTime(viewModel.closingTime, 23, 59)
-
         val currentTime = Calendar.getInstance()
         val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
         val currentMinute = currentTime.get(Calendar.MINUTE)
 
+        val libraryOpeningTime = viewModel.openingTime
+        val libraryClosingTime = viewModel.closingTime
+
         val timePickerDialog = TimePickerDialog(
             requireContext(), { _, selectedHour, selectedMinute ->
-                val selectedTime = getSelectedTime(selectedHour, selectedMinute)
-
-                val libraryOpeningTime = getSelectedTime(minHour, minMinute)
-                val libraryClosingTime = getSelectedTime(maxHour, maxMinute)
+                val selectedTime = Calendar.getInstance().apply {
+                    set(Calendar.HOUR_OF_DAY, selectedHour)
+                    set(Calendar.MINUTE, selectedMinute)
+                }
 
                 if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
                     // Si la hora seleccionada está fuera del horario de apertura y cierre
@@ -112,6 +113,8 @@ class WorkstationFragment : Fragment() {
 
                 if (workstation.state == Workstation.WorkstationState.AVAILABLE) {
                     viewModel.reserveWorkstation(workstation, userId)
+
+                    MessageUtil.showToast(requireContext(), "OK")
                 } else {
                     MessageUtil.showSnackbar(
                         binding.root, getString(R.string.workstation_already_occupied_or_reserved)
@@ -120,21 +123,6 @@ class WorkstationFragment : Fragment() {
             }, currentHour, currentMinute, true
         )
         timePickerDialog.show()
-    }
-
-    private fun getSelectedTime(selectedHour: Int, selectedMinute: Int): Calendar {
-        return Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, selectedHour)
-            set(Calendar.MINUTE, selectedMinute)
-        }
-    }
-
-    private fun getLibraryTime(
-        hourMinute: String?, defaultHour: Int, defaultMinute: Int
-    ): Pair<Int, Int> {
-        val hour = hourMinute?.substringBefore(":")?.toIntOrNull() ?: defaultHour
-        val minute = hourMinute?.substringAfter(":")?.toIntOrNull() ?: defaultMinute
-        return Pair(hour, minute)
     }
 
     override fun onDestroyView() {

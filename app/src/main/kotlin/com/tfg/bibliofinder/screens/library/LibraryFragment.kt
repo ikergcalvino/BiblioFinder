@@ -35,7 +35,9 @@ class LibraryFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = LibraryAdapter(libraries) { library ->
-            navigateToClassrooms(library)
+            val bundle = Bundle().apply { putLong("libraryId", library.libraryId) }
+
+            findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
         }
         recyclerView.adapter = adapter
 
@@ -62,7 +64,7 @@ class LibraryFragment : Fragment() {
                 getString(R.string.libraries_name_descending) to { libraries.sortByDescending { it.name } },
                 getString(R.string.libraries_opening_time) to { libraries.sortBy { it.openingTime } },
                 getString(R.string.libraries_closing_time) to { libraries.sortBy { it.closingTime } },
-                getString(R.string.libraries_capacity) to { libraries.sortBy { it.capacity } },
+                getString(R.string.libraries_free_spaces) to { libraries.sortByDescending { it.freeSpaces } },
                 getString(R.string.libraries_adapted_for_disabilities) to { libraries.sortByDescending { it.isAdapted } },
                 getString(R.string.libraries_by_institution) to { libraries.sortBy { it.institution } })
 
@@ -80,14 +82,6 @@ class LibraryFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-    }
-
-    private fun navigateToClassrooms(library: Library) {
-        val bundle = Bundle().apply {
-            putLong("libraryId", library.libraryId)
-        }
-
-        findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
     }
 
     override fun onDestroyView() {

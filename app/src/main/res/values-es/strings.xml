@@ -43,7 +43,7 @@
 
     <!-- Aula -->
     <string name="classroom_banner">Banner de Aula</string>
-    <string name="free_spaces_format">Espacios libres: %1$d</string>
+    <string name="free_spaces_format">Espacios libres: %1$d / %2$d</string>
 
     <!-- Estado -->
     <string name="AVAILABLE">DISPONIBLE</string>
@@ -71,6 +71,7 @@
     <string name="libraries_opening_time">Hora de Apertura</string>
     <string name="libraries_closing_time">Hora de Cierre</string>
     <string name="libraries_capacity">Capacidad</string>
+    <string name="libraries_free_spaces">Espacios libres</string>
     <string name="libraries_adapted_for_disabilities">Adaptado para Discapacidades</string>
     <string name="libraries_by_institution">Por Institución</string>
     <string name="nfc_reading">Lectura NFC</string>

@@ -16,7 +16,7 @@ class ClassroomAdapter(
 
         binding.classroomName.text = item.name
         binding.classroomCapacity.text = context.getString(
-            R.string.free_spaces_format, item.capacity
+            R.string.free_spaces_format, item.freeSpaces, item.capacity
         )
         binding.classroomType.text = item.type
     }

@@ -33,13 +33,15 @@ class ClassroomFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = ClassroomAdapter(classrooms) { classroom ->
-            navigateToWorkstations(classroom)
+            val bundle = Bundle().apply { putLong("classroomId", classroom.classroomId) }
+
+            findNavController().navigate(R.id.action_nav_classroom_to_nav_workstation, bundle)
         }
         recyclerView.adapter = adapter
 
         val libraryId = arguments?.getLong("libraryId", 0L)
         if (libraryId != null && libraryId != 0L) {
-            viewModel.getClassroomsInLibrary(libraryId).observe(viewLifecycleOwner) { classrooms ->
+            viewModel.getClassroomsByLibrary(libraryId).observe(viewLifecycleOwner) { classrooms ->
                 this.classrooms.clear()
                 this.classrooms.addAll(classrooms)
                 adapter.notifyDataSetChanged()
@@ -47,14 +49,6 @@ class ClassroomFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    private fun navigateToWorkstations(classroom: Classroom) {
-        val bundle = Bundle().apply {
-            putLong("classroomId", classroom.classroomId)
-        }
-
-        findNavController().navigate(R.id.action_nav_classroom_to_nav_workstation, bundle)
     }
 
     override fun onDestroyView() {

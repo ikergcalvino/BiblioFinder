@@ -22,10 +22,7 @@ interface WorkstationDao {
     suspend fun getWorkstationByUser(userId: Long): Workstation?
 
     @Query("SELECT * FROM Workstation WHERE classroomId = :classroomId")
-    fun getWorkstationsInClassroom(classroomId: Long): LiveData<List<Workstation>>
-
-    @Query("SELECT * FROM Workstation WHERE state = :state")
-    suspend fun getWorkstationsByState(state: Workstation.WorkstationState): List<Workstation>
+    fun getWorkstationsByClassroom(classroomId: Long): LiveData<List<Workstation>>
 
     @Update
     suspend fun updateWorkstation(workstation: Workstation)
