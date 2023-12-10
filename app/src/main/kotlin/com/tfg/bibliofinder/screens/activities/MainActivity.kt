@@ -1,6 +1,5 @@
 package com.tfg.bibliofinder.screens.activities
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,7 +17,6 @@ import com.google.gson.reflect.TypeToken
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.ActivityMainBinding
-import com.tfg.bibliofinder.di.biblioFinderModule
 import com.tfg.bibliofinder.entities.Classroom
 import com.tfg.bibliofinder.entities.Library
 import com.tfg.bibliofinder.entities.Workstation
@@ -28,29 +26,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var sharedPrefs: SharedPreferences
 
     private val database: AppDatabase by inject()
+    private val sharedPrefs: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        startKoin {
-            androidContext(this@MainActivity)
-            modules(biblioFinderModule)
-        }
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        sharedPrefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
         setSupportActionBar(binding.appBarMain.toolbar)
 

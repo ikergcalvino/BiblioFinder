@@ -1,7 +1,6 @@
 package com.tfg.bibliofinder.screens.workstation
 
 import android.app.TimePickerDialog
-import android.content.Context
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
@@ -18,6 +17,7 @@ import com.tfg.bibliofinder.util.MessageUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WorkstationFragment : Fragment() {
@@ -26,18 +26,16 @@ class WorkstationFragment : Fragment() {
     private var _binding: FragmentWorkstationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var sharedPrefs: SharedPreferences
-
     private lateinit var adapter: WorkstationAdapter
     private lateinit var recyclerView: RecyclerView
+
+    private val sharedPrefs: SharedPreferences by inject()
     private val viewModel: WorkstationViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWorkstationBinding.inflate(inflater, container, false)
-
-        sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
 
         recyclerView = binding.recyclerView
         recyclerView.setHasFixedSize(true)

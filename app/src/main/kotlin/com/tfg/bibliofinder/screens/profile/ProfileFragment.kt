@@ -1,6 +1,5 @@
 package com.tfg.bibliofinder.screens.profile
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.util.MessageUtil
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
@@ -19,7 +19,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var sharedPrefs: SharedPreferences
+    private val sharedPrefs: SharedPreferences by inject()
     private val viewModel: ProfileViewModel by viewModel()
 
     override fun onCreateView(
@@ -27,7 +27,6 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        sharedPrefs = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         val loggedInUserId = sharedPrefs.getLong("userId", 0L)
 
         viewModel.loadUserAndWorkstationData(loggedInUserId)

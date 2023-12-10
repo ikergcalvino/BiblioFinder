@@ -6,13 +6,14 @@ import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.User
 import com.tfg.bibliofinder.screens.activities.MainActivity
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.mindrot.jbcrypt.BCrypt
 
-class AuthenticationManager(private val context: Context) {
+class AuthenticationManager(private val context: Context) : KoinComponent {
 
-    private val database: AppDatabase = AppDatabase.getInstance(context)
-    private val sharedPrefs: SharedPreferences =
-        context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+    private val database: AppDatabase by inject()
+    private val sharedPrefs: SharedPreferences by inject()
 
     fun isValidEmail(email: String): Boolean = Regex("^[A-Za-z0-9+_.-]+@(.+)\$").matches(email)
 
