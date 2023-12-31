@@ -1,33 +1,44 @@
 package com.tfg.bibliofinder.screens.activities
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.tech.Ndef
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityNfcBinding
 
-class NfcActivity : AppCompatActivity() {
+class NfcActivity : Activity() {
 
+    private var nfcAdapter: NfcAdapter? = null
     private lateinit var binding: ActivityNfcBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNfcBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val isNightMode =
+            (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+        if (isNightMode) binding.nfcReader.setAnimation(R.raw.nfc_reader_night)
+        else binding.nfcReader.setAnimation(R.raw.nfc_reader_day)
+
+        binding.nfcReader.playAnimation()
+
+        checkNfcStatus()
     }
 
     override fun onResume() {
         super.onResume()
-
-        checkNfcStatus()
 
         val pendingIntent = PendingIntent.getActivity(
             this,
@@ -35,25 +46,20 @@ class NfcActivity : AppCompatActivity() {
             Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
             PendingIntent.FLAG_MUTABLE
         )
-
         val intentFiltersArray = arrayOf(IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED))
-
         val techListsArray = arrayOf(arrayOf(Ndef::class.java.name))
-        getNfcAdapter()?.enableForegroundDispatch(
+        nfcAdapter?.enableForegroundDispatch(
             this, pendingIntent, intentFiltersArray, techListsArray
         )
     }
 
-    private fun getNfcAdapter(): NfcAdapter? {
-        return NfcAdapter.getDefaultAdapter(this)
-    }
-
     private fun checkNfcStatus() {
-        val nfcAdapter = getNfcAdapter()
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this, "Este dispositivo no admite NFC", Toast.LENGTH_SHORT).show()
             finish()
-        } else if (!nfcAdapter.isEnabled) {
+        }
+        if (!nfcAdapter!!.isEnabled) {
             showNfcEnableDialog()
         }
     }
@@ -84,9 +90,21 @@ class NfcActivity : AppCompatActivity() {
                     val records = messages[0]?.records
                     if (!records.isNullOrEmpty()) {
                         val payload = records[0].payload
+
                         val payloadWithoutHeader = payload.copyOfRange(3, payload.size)
                         val text = String(payloadWithoutHeader, Charsets.UTF_8)
-                        Log.d("NFC", "Texto recibido: $text")
+
+                        binding.nfcReader.setAnimation(R.raw.nfc_success)
+                        binding.nfcReader.playAnimation()
+
+                        binding.nfcReader.setAnimation(R.raw.nfc_fail)
+                        binding.nfcReader.playAnimation()
+
+                        Handler().postDelayed({
+                            val intentMain = Intent(this, MainActivity::class.java)
+                            startActivity(intentMain)
+                            finish()
+                        }, 5000)
                     }
                 }
             }

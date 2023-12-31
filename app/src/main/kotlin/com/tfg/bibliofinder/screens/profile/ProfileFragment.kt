@@ -1,5 +1,6 @@
 package com.tfg.bibliofinder.screens.profile
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.entities.Workstation
+import com.tfg.bibliofinder.screens.activities.NfcActivity
 import com.tfg.bibliofinder.util.MessageUtil
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -79,7 +81,8 @@ class ProfileFragment : Fragment() {
         }
 
         binding.nfcButton.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_profile_to_nav_nfc)
+            val nfcIntent = Intent(requireContext(), NfcActivity::class.java)
+            startActivity(nfcIntent)
         }
 
         binding.cancelButton.setOnClickListener {
