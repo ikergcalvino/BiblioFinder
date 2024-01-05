@@ -12,19 +12,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.tfg.bibliofinder.R
-import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.ActivityMainBinding
-import com.tfg.bibliofinder.entities.Classroom
-import com.tfg.bibliofinder.entities.Library
-import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.util.AuthenticationManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val database: AppDatabase by inject()
     private val sharedPrefs: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +67,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        initializeData()
     }
 
     override fun onResume() {
@@ -101,32 +88,6 @@ class MainActivity : AppCompatActivity() {
         menu.findItem(R.id.nav_login).isVisible = !isLoggedIn
         menu.findItem(R.id.nav_profile).isVisible = isLoggedIn
         menu.findItem(R.id.nav_logout).isVisible = isLoggedIn
-    }
-
-    private fun initializeData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val gson = Gson()
-
-            val librariesJson = readJsonFile(R.raw.libraries)
-            val librariesType = object : TypeToken<List<Library>>() {}.type
-            val libraries = gson.fromJson<List<Library>>(librariesJson, librariesType)
-
-            val classroomsJson = readJsonFile(R.raw.classrooms)
-            val classroomsType = object : TypeToken<List<Classroom>>() {}.type
-            val classrooms = gson.fromJson<List<Classroom>>(classroomsJson, classroomsType)
-
-            val workstationsJson = readJsonFile(R.raw.workstations)
-            val workstationsType = object : TypeToken<List<Workstation>>() {}.type
-            val workstations = gson.fromJson<List<Workstation>>(workstationsJson, workstationsType)
-
-            withContext(Dispatchers.Main) {
-                database.loadInitialData(libraries, classrooms, workstations)
-            }
-        }
-    }
-
-    private fun readJsonFile(resourceId: Int): String {
-        return resources.openRawResource(resourceId).bufferedReader().use { it.readText() }
     }
 
     override fun onSupportNavigateUp(): Boolean {
