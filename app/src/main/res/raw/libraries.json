@@ -5,7 +5,7 @@
     "openingTime": "08:30",
     "closingTime": "21:30",
     "capacity": 654,
-    "freeSpaces": 654,
+    "freeSpaces": 651,
     "address": "Rúa As Carballeiras 1, Ed. Xoana Capdevielle, 2º andar - Campus de Elviña, 15071 A Coruña, España",
     "phone": "+34 881 01 56 74",
     "email": "informacion.bib@udc.es",
@@ -18,11 +18,11 @@
     "openingTime": "09:00",
     "closingTime": "20:00",
     "capacity": 630,
-    "freeSpaces": 630,
+    "freeSpaces": 628,
     "address": "Av. de Riazor, 54, 15006 A Coruña, España",
     "phone": "+34 881 01 23 45",
     "email": "biblioteca.riazor@udc.gal",
-    "isAdapted": true,
+    "isAdapted": false,
     "institution": "Universidade da Coruña"
   },
   {
@@ -31,11 +31,11 @@
     "openingTime": "08:45",
     "closingTime": "20:15",
     "capacity": 80,
-    "freeSpaces": 80,
+    "freeSpaces": 78,
     "address": "Campus de Elviña, 15071 A Coruña, España",
     "phone": "+34 881 01 12 88",
     "email": "informatica.bib@udc.es",
-    "isAdapted": false,
+    "isAdapted": true,
     "institution": "Universidade da Coruña"
   }
 ]

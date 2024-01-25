@@ -11,14 +11,14 @@
     "state": "OCCUPIED",
     "dateTime": null,
     "classroomId": 1,
-    "userId": null
+    "userId": 2
   },
   {
     "workstationId": 3,
-    "state": "AVAILABLE",
+    "state": "BOOKED",
     "dateTime": null,
-    "classroomId": 2,
-    "userId": null
+    "classroomId": 1,
+    "userId": 3
   },
   {
     "workstationId": 4,
@@ -31,56 +31,56 @@
     "workstationId": 5,
     "state": "AVAILABLE",
     "dateTime": null,
-    "classroomId": 3,
+    "classroomId": 2,
     "userId": null
   },
   {
     "workstationId": 6,
     "state": "OCCUPIED",
     "dateTime": null,
-    "classroomId": 3,
-    "userId": null
+    "classroomId": 2,
+    "userId": 4
   },
   {
     "workstationId": 7,
     "state": "AVAILABLE",
     "dateTime": null,
-    "classroomId": 4,
+    "classroomId": 3,
     "userId": null
   },
   {
     "workstationId": 8,
-    "state": "AVAILABLE",
+    "state": "OCCUPIED",
     "dateTime": null,
-    "classroomId": 4,
-    "userId": null
+    "classroomId": 3,
+    "userId": 5
   },
   {
     "workstationId": 9,
-    "state": "AVAILABLE",
+    "state": "OCCUPIED",
     "dateTime": null,
-    "classroomId": 5,
-    "userId": null
+    "classroomId": 3,
+    "userId": 6
   },
   {
     "workstationId": 10,
-    "state": "AVAILABLE",
+    "state": "BOOKED",
     "dateTime": null,
-    "classroomId": 5,
-    "userId": null
+    "classroomId": 4,
+    "userId": 7
   },
   {
     "workstationId": 11,
-    "state": "OCCUPIED",
+    "state": "BOOKED",
     "dateTime": null,
-    "classroomId": 6,
-    "userId": null
+    "classroomId": 4,
+    "userId": 8
   },
   {
     "workstationId": 12,
     "state": "AVAILABLE",
     "dateTime": null,
-    "classroomId": 6,
+    "classroomId": 4,
     "userId": null
   }
 ]
