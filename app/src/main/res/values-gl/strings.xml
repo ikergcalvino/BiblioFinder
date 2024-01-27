@@ -1,80 +1,75 @@
 <resources>
-
-    <!-- Nome da aplicación -->
     <string name="app_name" translatable="false">BiblioFinder</string>
 
-    <!-- Menús -->
-    <string name="menu_library">Bibliotecas</string>
-    <string name="menu_classroom">Aulas</string>
-    <string name="menu_workstation">Postos de Traballo</string>
-    <string name="menu_login">Iniciar sesión</string>
-    <string name="menu_profile">Perfil</string>
-    <string name="menu_logout">Pechar sesión</string>
-    <string name="menu_register_nfc">Rexistrar NFC</string>
-
-    <!-- Conta -->
     <string name="account">Conta</string>
-    <string name="password">Contrasinal</string>
-    <string name="username">Nome de usuario</string>
-    <string name="login">Iniciar sesión</string>
-    <string name="email">Correo electrónico</string>
-
-    <!-- Rexistro -->
-    <string name="dont_have_an_account">¿Non tes unha conta?</string>
+    <string name="adapted_for_disabilities">Adaptado para discapacidades</string>
+    <string name="address">Enderezo</string>
+    <string name="already_have_reservation">Xa fixeches unha reserva</string>
+    <string name="available">DISPOÑIBLE</string>
+    <string name="book_button_description">Realizar unha reserva</string>
+    <string name="booked">RESERVADO</string>
+    <string name="booked_nfc_button_description">Escanexa o NFC para confirmar a reserva</string>
+    <string name="booking_icon">Ícono de reserva</string>
+    <string name="by_institution">Por institución</string>
+    <string name="cancel">Cancelar</string>
+    <string name="cancel_button_description">Cancelar reserva</string>
+    <string name="capacity">Capacidade</string>
+    <string name="classroom_banner">Banner da aula</string>
+    <string name="classroom_map">Mapa da aula</string>
+    <string name="classrooms">Aulas</string>
+    <string name="closing_time">Hora de peche</string>
     <string name="create_one_now"><u>¡Crea unha agora!</u></string>
-    <string name="or">Ou</string>
-    <string name="repeat_password">Repetir contrasinal</string>
-    <string name="sign_up">Rexistrarse</string>
-
-    <!-- Perfil -->
-    <string name="profile_picture">Foto de perfil: Avatar de usuario</string>
-    <string name="full_name">Nome completo</string>
-    <string name="phone_number">Número de teléfono</string>
     <string name="current_booking">Reserva actual</string>
-    <string name="occupied_site">Sitio ocupado</string>
-    <string name="save_changes">Gardar cambios</string>
-    <string name="no_reservations_or_occupancy">Non hai reservas nin ocupación.</string>
-
-    <!-- Biblioteca -->
-    <string name="library_banner">Banner de Biblioteca</string>
-    <string name="library_isAdapted">Adaptada</string>
-    <string name="library_info">Información da Biblioteca</string>
-    <string name="schedule_format">Horario: %s - %s</string>
-
-    <!-- Aula -->
-    <string name="classroom_banner">Banner de Aula</string>
+    <string name="dont_have_an_account">¿Non tes unha conta?</string>
+    <string name="email">Correo electrónico</string>
+    <string name="email_already_in_use">Este correo xa está en uso</string>
+    <string name="empty_nfc_button_description">Escanexa o NFC para ocupar a estación de traballo</string>
+    <string name="enable_nfc">Para usar esta aplicación, debes habilitar o NFC no teu dispositivo.</string>
+    <string name="enter_phone_hint">Introduce o teu número de teléfono</string>
+    <string name="enter_username_hint">Introduce o teu nome de usuario</string>
+    <string name="free_spaces">Espazos libres</string>
     <string name="free_spaces_format">Espazos libres: %1$d / %2$d</string>
-
-    <!-- Estado -->
-    <string name="AVAILABLE">DISPOÑIBLE</string>
-    <string name="OCCUPIED">OCUPADO</string>
-    <string name="BOOKED">RESERVADO</string>
-
-    <!-- Contacto -->
-    <string name="address">Dirección</string>
-    <string name="phone">Teléfono</string>
+    <string name="full_name">Nome completo</string>
+    <string name="incorrect_email_password">Correo ou contrasinal incorrecto</string>
     <string name="institution">Institución</string>
-
-    <string name="invalid_email_format">Formato de correo electrónico non válido</string>
-    <string name="invalid_password_format">O contrasinal debe ter polo menos 12 caracteres, incluíndo maiúsculas, minúsculas e números</string>
-    <string name="email_already_in_use">O correo electrónico xa está en uso</string>
-    <string name="registration_successful">Rexistro con éxito. Benvido!</string>
-    <string name="please_enter_email_password">Por favor, introduce o teu correo electrónico e contrasinal</string>
-    <string name="login_successful">Iniciaches sesión con éxito</string>
-    <string name="incorrect_email_password">Correo electrónico ou contrasinal incorrectos</string>
-    <string name="must_be_logged_in">Debes estar conectado para facer unha reserva.</string>
-    <string name="already_have_reservation">Xa tes unha reserva.</string>
-    <string name="reservation_outside_allowed_hours">A reserva non se pode facer fóra das horas permitidas.</string>
-    <string name="workstation_already_occupied_or_reserved">Este sitio xa está ocupado ou previamente reservado.</string>
-    <string name="libraries_name_ascending">Nome (Ascendente)</string>
-    <string name="libraries_name_descending">Nome (Descendente)</string>
-    <string name="libraries_opening_time">Hora de Apertura</string>
-    <string name="libraries_closing_time">Hora de Peche</string>
-    <string name="libraries_capacity">Capacidade</string>
-    <string name="libraries_free_spaces">Espazos libres</string>
-    <string name="libraries_adapted_for_disabilities">Adaptado para Discapacidades</string>
-    <string name="libraries_by_institution">Por Institución</string>
-    <string name="nfc_reading">Lectura NFC</string>
-    <string name="scan_an_nfc_tag_to_continue">Escanea unha etiqueta NFC para continuar</string>
-
+    <string name="invalid_email_format">Formato de correo incorrecto</string>
+    <string name="invalid_password_format">A contrasinal debe ter polo menos 12 caracteres, incluíndo maiúsculas, minúsculas e números</string>
+    <string name="is_adapted">Está adaptado</string>
+    <string name="leave_button_description">Deixa a estación de traballo actual</string>
+    <string name="libraries">Bibliotecas</string>
+    <string name="library_banner">Banner da biblioteca</string>
+    <string name="library_info">Información da biblioteca</string>
+    <string name="log_in">Iniciar sesión</string>
+    <string name="log_in_successful">Accediches correctamente</string>
+    <string name="log_out">Pechar sesión</string>
+    <string name="must_be_logged_in">Debes estar conectado para facer unha reserva</string>
+    <string name="name_ascending">Nome (ascendente)</string>
+    <string name="name_descending">Nome (descendente)</string>
+    <string name="nfc_disabled">NFC desactivado</string>
+    <string name="no_reservations_or_occupancy">Sen reservas ou ocupación</string>
+    <string name="occupied">OCUPADO</string>
+    <string name="occupied_site">Sitio ocupado</string>
+    <string name="opening_time">Hora de apertura</string>
+    <string name="or">Ou</string>
+    <string name="password">Contrasinal</string>
+    <string name="phone">Teléfono</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="please_enter_email_password">Introduce o teu correo e contrasinal</string>
+    <string name="profile">Perfil</string>
+    <string name="profile_picture">Imaxe de perfil: Avatar do usuario</string>
+    <string name="registration_successful">Rexistro exitoso. ¡Benvido/a!</string>
+    <string name="repeat_password">Repite o teu contrasinal</string>
+    <string name="reservation_outside_allowed_hours">Non se pode facer unha reserva fóra das horas permitidas</string>
+    <string name="save_changes">Gardar cambios</string>
+    <string name="scan_nfc_tag">Escanexa unha etiqueta NFC para continuar</string>
+    <string name="schedule_format">Horario: %s - %s</string>
+    <string name="settings">Axustes</string>
+    <string name="sign_up">Rexistrarse</string>
+    <string name="unsupported_nfc_device">Este dispositivo non admite NFC</string>
+    <string name="username">Nome de usuario</string>
+    <string name="workstation_already_occupied_reserved">Este sitio xa está ocupado ou previamente reservado</string>
+    <string name="workstation_icon">Ícono de estación de traballo</string>
+    <string name="workstation_not_occupied">A estación de traballo está actualmente reservada ou ocupada por outro usuario</string>
+    <string name="workstation_occupied">Estación de traballo ocupada con éxito</string>
+    <string name="workstations">Estacións de traballo</string>
 </resources>

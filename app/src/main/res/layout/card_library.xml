@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/library_card_front"
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@drawable/selector_card_background"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="16dp">
 
         <LinearLayout
@@ -71,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"
-                        android:contentDescription="@string/library_isAdapted"
+                        android:contentDescription="@string/is_adapted"
                         android:src="@drawable/ic_accessible" />
 
                     <ImageButton
@@ -91,13 +92,13 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/library_card_back"
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:layout_margin="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:visibility="gone"
-        app:cardBackgroundColor="@drawable/selector_card_background"
         app:cardCornerRadius="16dp">
 
         <LinearLayout

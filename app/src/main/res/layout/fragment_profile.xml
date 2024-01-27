@@ -43,8 +43,10 @@
                 <EditText
                     android:id="@+id/usernameValue"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="64dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="username"
+                    android:hint="@string/enter_username_hint"
                     android:inputType="textPersonName"
                     android:textStyle="italic" />
 
@@ -74,8 +76,10 @@
                 <EditText
                     android:id="@+id/phoneValue"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="64dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="phone"
+                    android:hint="@string/enter_phone_hint"
                     android:inputType="phone"
                     android:textStyle="italic" />
 
@@ -112,6 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:visibility="gone"
             app:cardBackgroundColor="?attr/colorSecondary"
             app:cardCornerRadius="16dp">
 
@@ -134,9 +139,10 @@
                     android:layout_height="wrap_content" />
 
                 <ImageButton
-                    android:id="@+id/nfc_button"
+                    android:id="@+id/empty_nfc_button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/empty_nfc_button_description"
                     android:padding="16dp"
                     android:src="@drawable/ic_nfc" />
 
@@ -149,6 +155,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:visibility="gone"
             app:cardBackgroundColor="?attr/colorSecondary"
             app:cardCornerRadius="16dp">
 
@@ -160,6 +167,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/booking_icon"
                     android:padding="16dp"
                     android:src="@drawable/ic_booking" />
 
@@ -202,13 +210,15 @@
                     android:id="@+id/cancel_button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/cancel_button_description"
                     android:padding="16dp"
                     android:src="@drawable/ic_cancel" />
 
                 <ImageButton
-                    android:id="@id/nfc_button"
+                    android:id="@+id/booked_nfc_button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/booked_nfc_button_description"
                     android:padding="16dp"
                     android:src="@drawable/ic_nfc" />
 
@@ -221,6 +231,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:visibility="gone"
             app:cardBackgroundColor="?attr/colorSecondary"
             app:cardCornerRadius="16dp">
 
@@ -232,6 +243,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/workstation_icon"
                     android:padding="16dp"
                     android:src="@drawable/ic_occupancy" />
 
@@ -274,6 +286,7 @@
                     android:id="@+id/leave_button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/leave_button_description"
                     android:padding="16dp"
                     android:src="@drawable/ic_leave" />
 

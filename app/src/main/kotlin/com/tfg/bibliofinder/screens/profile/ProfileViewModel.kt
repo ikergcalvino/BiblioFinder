@@ -35,16 +35,22 @@ class ProfileViewModel : ViewModel(), KoinComponent {
 
     fun updateUserDetails(userId: Long, newName: String, newPhone: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val updatedUser =
-                database.userDao().getUserById(userId)?.copy(name = newName, phone = newPhone)
+            val user = database.userDao().getUserById(userId)
 
-            updatedUser?.let { database.userDao().updateUser(it) }
+            user?.name = newName
+            user?.phone = newPhone
+
+            user?.let { database.userDao().updateUser(it) }
         }
     }
 
-    fun updateWorkstationDetails(updatedWorkstation: Workstation?) {
+    fun updateWorkstationDetails(workstation: Workstation?) {
         viewModelScope.launch(Dispatchers.IO) {
-            updatedWorkstation?.let { database.workstationDao().updateWorkstation(it) }
+            workstation?.state = Workstation.WorkstationState.AVAILABLE
+            workstation?.dateTime = null
+            workstation?.userId = null
+
+            workstation?.let { database.workstationDao().updateWorkstation(it) }
         }
     }
 }

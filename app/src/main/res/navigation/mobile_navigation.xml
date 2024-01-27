@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_library"
         android:name="com.tfg.bibliofinder.screens.library.LibraryFragment"
-        android:label="@string/menu_library"
+        android:label="@string/libraries"
         tools:layout="@layout/fragment_library" />
 
     <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/nav_classroom"
         android:name="com.tfg.bibliofinder.screens.classroom.ClassroomFragment"
-        android:label="@string/menu_classroom"
+        android:label="@string/classrooms"
         tools:layout="@layout/fragment_classroom" />
 
     <action
@@ -28,13 +28,13 @@
     <fragment
         android:id="@+id/nav_workstation"
         android:name="com.tfg.bibliofinder.screens.workstation.WorkstationFragment"
-        android:label="@string/menu_workstation"
+        android:label="@string/workstations"
         tools:layout="@layout/fragment_workstation" />
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.tfg.bibliofinder.screens.profile.ProfileFragment"
-        android:label="@string/menu_profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 
 </navigation>

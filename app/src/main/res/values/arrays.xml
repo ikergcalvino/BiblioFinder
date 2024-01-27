@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="library_sorting_options">
-        <item>@string/libraries_name_ascending</item>
-        <item>@string/libraries_name_descending</item>
-        <item>@string/libraries_opening_time</item>
-        <item>@string/libraries_closing_time</item>
-        <item>@string/libraries_capacity</item>
-        <item>@string/libraries_adapted_for_disabilities</item>
-        <item>@string/libraries_by_institution</item>
+        <item>@string/name_ascending</item>
+        <item>@string/name_descending</item>
+        <item>@string/opening_time</item>
+        <item>@string/closing_time</item>
+        <item>@string/free_spaces</item>
+        <item>@string/adapted_for_disabilities</item>
+        <item>@string/by_institution</item>
     </array>
 </resources>

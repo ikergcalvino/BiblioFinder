@@ -80,7 +80,12 @@ class ProfileFragment : Fragment() {
             MessageUtil.showToast(requireContext(), "Data saved successfully.")
         }
 
-        binding.nfcButton.setOnClickListener {
+        binding.emptyNfcButton.setOnClickListener {
+            val nfcIntent = Intent(requireContext(), NfcActivity::class.java)
+            startActivity(nfcIntent)
+        }
+
+        binding.bookedNfcButton.setOnClickListener {
             val nfcIntent = Intent(requireContext(), NfcActivity::class.java)
             startActivity(nfcIntent)
         }
@@ -97,10 +102,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun releaseWorkstation() {
-        val updatedWorkstation = viewModel.workstation.value?.copy(
-            state = Workstation.WorkstationState.AVAILABLE, dateTime = null, userId = null
-        )
-        viewModel.updateWorkstationDetails(updatedWorkstation)
+        viewModel.updateWorkstationDetails(viewModel.workstation.value)
 
         findNavController().navigate(R.id.nav_profile)
     }

@@ -69,12 +69,20 @@ class WorkstationFragment : Fragment() {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            val hasBooking = viewModel.hasUserBooking(loggedInUserId)
+            when {
+                viewModel.hasUserBooking(loggedInUserId) -> {
+                    MessageUtil.showSnackbar(
+                        binding.root, getString(R.string.already_have_reservation)
+                    )
+                }
 
-            if (hasBooking) {
-                MessageUtil.showSnackbar(binding.root, getString(R.string.already_have_reservation))
-            } else {
-                reserveWorkstationTimeSlot(workstation, loggedInUserId)
+                workstation.state != Workstation.WorkstationState.AVAILABLE -> {
+                    MessageUtil.showSnackbar(
+                        binding.root, getString(R.string.workstation_already_occupied_reserved)
+                    )
+                }
+
+                else -> reserveWorkstationTimeSlot(workstation, loggedInUserId)
             }
         }
     }
@@ -94,32 +102,25 @@ class WorkstationFragment : Fragment() {
                     set(Calendar.MINUTE, selectedMinute)
                 }
 
+                // Si la hora seleccionada está fuera del horario de apertura y cierre
                 if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
-                    // Si la hora seleccionada está fuera del horario de apertura y cierre
                     MessageUtil.showSnackbar(
                         binding.root, getString(R.string.reservation_outside_allowed_hours)
                     )
                     return@TimePickerDialog
                 }
 
+                // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
                 if (selectedTime.before(currentTime)) {
-                    // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
                     selectedTime.add(Calendar.DAY_OF_MONTH, 1)
                 }
 
-                workstation.dateTime = selectedTime.time.toString()
+                viewModel.reserveWorkstation(workstation, selectedTime.time.toString(), userId)
+                MessageUtil.showToast(requireContext(), "OK")
 
-                if (workstation.state == Workstation.WorkstationState.AVAILABLE) {
-                    viewModel.reserveWorkstation(workstation, userId)
-
-                    MessageUtil.showToast(requireContext(), "OK")
-                } else {
-                    MessageUtil.showSnackbar(
-                        binding.root, getString(R.string.workstation_already_occupied_or_reserved)
-                    )
-                }
             }, currentHour, currentMinute, true
         )
+
         timePickerDialog.show()
     }
 

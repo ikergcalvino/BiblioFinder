@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             if (authManager.isValidCredentials(username, password)) {
                 authManager.performLogin(username, password)
-                MessageUtil.showToast(applicationContext, getString(R.string.login_successful))
+                MessageUtil.showToast(applicationContext, getString(R.string.log_in_successful))
                 finish()
             } else {
                 MessageUtil.showSnackbar(binding.root, getString(R.string.incorrect_email_password))

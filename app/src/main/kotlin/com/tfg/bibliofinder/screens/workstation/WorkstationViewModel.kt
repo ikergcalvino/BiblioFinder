@@ -53,12 +53,13 @@ class WorkstationViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun reserveWorkstation(workstation: Workstation, userId: Long) {
+    fun reserveWorkstation(workstation: Workstation, dateTime: String, userId: Long) {
         viewModelScope.launch {
-            val updatedWorkstation =
-                workstation.copy(state = Workstation.WorkstationState.BOOKED, userId = userId)
+            workstation.state = Workstation.WorkstationState.BOOKED
+            workstation.dateTime = dateTime
+            workstation.userId = userId
 
-            database.workstationDao().updateWorkstation(updatedWorkstation)
+            database.workstationDao().updateWorkstation(workstation)
         }
     }
 }

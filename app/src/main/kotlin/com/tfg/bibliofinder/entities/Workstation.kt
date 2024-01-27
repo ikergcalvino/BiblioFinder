@@ -16,10 +16,10 @@ import androidx.room.PrimaryKey
 )
 data class Workstation(
     @PrimaryKey(autoGenerate = true) val workstationId: Long = 0,
-    val state: WorkstationState = WorkstationState.AVAILABLE,
+    var state: WorkstationState = WorkstationState.AVAILABLE,
     var dateTime: String? = null,
     val classroomId: Long,
-    val userId: Long? = null
+    var userId: Long? = null
 ) {
     enum class WorkstationState {
         AVAILABLE, OCCUPIED, BOOKED
