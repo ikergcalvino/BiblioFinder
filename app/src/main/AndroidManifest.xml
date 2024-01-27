@@ -45,7 +45,6 @@
         <activity
             android:name=".screens.activities.NfcActivity"
             android:exported="true"
-            android:mimeType="text/plain"
             android:theme="@style/Theme.BiblioFinder.NoActionBar">
 
             <intent-filter>
