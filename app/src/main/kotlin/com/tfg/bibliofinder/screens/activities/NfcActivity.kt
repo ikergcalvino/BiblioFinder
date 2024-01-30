@@ -59,16 +59,17 @@ class NfcActivity : Activity() {
             finish()
         }
 
-        if (!nfcAdapter!!.isEnabled) {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle(getString(R.string.nfc_disabled))
-            builder.setMessage(getString(R.string.enable_nfc))
-            builder.setPositiveButton(getString(R.string.settings)) { _, _ ->
-                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
-                startActivity(intent)
+        if (nfcAdapter?.isEnabled != true) {
+            val builder = AlertDialog.Builder(this).apply {
+                setTitle(getString(R.string.nfc_disabled))
+                setMessage(getString(R.string.enable_nfc))
+                setPositiveButton(getString(R.string.settings)) { _, _ ->
+                    val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                    startActivity(intent)
+                }
+                setNegativeButton(getString(R.string.cancel)) { _, _ -> finish() }
+                setCancelable(false)
             }
-            builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> finish() }
-            builder.setCancelable(false)
             builder.show()
         }
     }
@@ -98,16 +99,11 @@ class NfcActivity : Activity() {
         val loggedInUserId = sharedPrefs.getLong("userId", 0L)
 
         if (intent.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
-            val rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
-
-            if (rawMessages != null) {
-                val messages = arrayOfNulls<NdefMessage>(rawMessages.size)
-                for (i in rawMessages.indices) {
-                    messages[i] = rawMessages[i] as NdefMessage
-                }
+            intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->
+                val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
 
                 if (messages.isNotEmpty()) {
-                    val records = messages[0]?.records
+                    val records = messages[0].records
 
                     if (!records.isNullOrEmpty()) {
                         val payload = records[0].payload
@@ -117,23 +113,40 @@ class NfcActivity : Activity() {
                             String(payloadWithoutHeader, Charsets.UTF_8).toLongOrNull()
 
                         GlobalScope.launch(Dispatchers.Main) {
-                            val workstation = withContext(Dispatchers.IO) {
+                            val nfcWorkstation = withContext(Dispatchers.IO) {
                                 workstationId?.let {
                                     database.workstationDao().getWorkstationById(it)
                                 }
                             }
 
-                            if (workstation?.state == Workstation.WorkstationState.AVAILABLE || (workstation?.state == Workstation.WorkstationState.BOOKED && workstation.userId == loggedInUserId)) {
-                                workstation.state = Workstation.WorkstationState.OCCUPIED
-                                workstation.userId = loggedInUserId
+                            val userWorkstation =
+                                database.workstationDao().getWorkstationByUser(loggedInUserId)
 
-                                database.workstationDao().updateWorkstation(workstation)
+                            when {
+                                nfcWorkstation?.state == Workstation.WorkstationState.AVAILABLE && userWorkstation == null -> {
+                                    nfcWorkstation.state = Workstation.WorkstationState.OCCUPIED
+                                    nfcWorkstation.userId = loggedInUserId
 
-                                binding.nfcText.setText(R.string.workstation_occupied)
-                                binding.nfcIcon.setAnimation(R.raw.nfc_success)
-                            } else {
-                                binding.nfcText.setText(R.string.workstation_not_occupied)
-                                binding.nfcIcon.setAnimation(R.raw.nfc_fail)
+                                    database.workstationDao().updateWorkstation(nfcWorkstation)
+
+                                    binding.nfcText.setText(R.string.workstation_occupied)
+                                    binding.nfcIcon.setAnimation(R.raw.nfc_success)
+                                }
+
+                                nfcWorkstation?.state == Workstation.WorkstationState.BOOKED && nfcWorkstation.userId == loggedInUserId -> {
+                                    nfcWorkstation.state = Workstation.WorkstationState.OCCUPIED
+                                    nfcWorkstation.userId = loggedInUserId
+
+                                    database.workstationDao().updateWorkstation(nfcWorkstation)
+
+                                    binding.nfcText.setText(R.string.workstation_occupied)
+                                    binding.nfcIcon.setAnimation(R.raw.nfc_success)
+                                }
+
+                                else -> {
+                                    binding.nfcText.setText(R.string.workstation_not_occupied)
+                                    binding.nfcIcon.setAnimation(R.raw.nfc_fail)
+                                }
                             }
 
                             binding.nfcIcon.playAnimation()
