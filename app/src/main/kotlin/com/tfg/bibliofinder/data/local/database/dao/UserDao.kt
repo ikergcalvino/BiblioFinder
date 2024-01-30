@@ -20,9 +20,6 @@ interface UserDao {
     @Query("SELECT * FROM User WHERE email = :email")
     suspend fun getUserByEmail(email: String): User?
 
-    @Query("SELECT COUNT(*) FROM Workstation WHERE userId = :userId AND state = 'OCCUPIED'")
-    suspend fun isUserOccupyingWorkstation(userId: Long): Boolean
-
     @Update
     suspend fun updateUser(user: User)
 
