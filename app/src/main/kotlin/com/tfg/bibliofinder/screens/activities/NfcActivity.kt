@@ -64,8 +64,8 @@ class NfcActivity : Activity() {
                 setTitle(getString(R.string.nfc_disabled))
                 setMessage(getString(R.string.enable_nfc))
                 setPositiveButton(getString(R.string.settings)) { _, _ ->
-                    val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
-                    startActivity(intent)
+                    val settingsIntent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                    startActivity(settingsIntent)
                 }
                 setNegativeButton(getString(R.string.cancel)) { _, _ -> finish() }
                 setCancelable(false)
@@ -152,8 +152,8 @@ class NfcActivity : Activity() {
                             binding.nfcIcon.playAnimation()
 
                             Handler().postDelayed({
-                                val intentMain = Intent(this@NfcActivity, MainActivity::class.java)
-                                startActivity(intentMain)
+                                val mainIntent = Intent(this@NfcActivity, MainActivity::class.java)
+                                startActivity(mainIntent)
                                 finish()
                             }, 2500)
                         }

@@ -1,16 +1,13 @@
 package com.tfg.bibliofinder.util
 
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.User
-import com.tfg.bibliofinder.screens.activities.MainActivity
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.mindrot.jbcrypt.BCrypt
 
-class AuthenticationManager(private val context: Context) : KoinComponent {
+class AuthenticationManager : KoinComponent {
 
     private val database: AppDatabase by inject()
     private val sharedPrefs: SharedPreferences by inject()
@@ -22,9 +19,12 @@ class AuthenticationManager(private val context: Context) : KoinComponent {
 
     suspend fun getUserByEmail(email: String): User? = database.userDao().getUserByEmail(email)
 
-    suspend fun insertUser(newUser: User) = database.userDao().insertUser(newUser)
+    suspend fun insertUser(email: String, password: String) {
+        val newUser = User(email = email, password = hashPassword(password))
+        database.userDao().insertUser(newUser)
+    }
 
-    fun hashPassword(password: String): String = BCrypt.hashpw(password, BCrypt.gensalt())
+    private fun hashPassword(password: String): String = BCrypt.hashpw(password, BCrypt.gensalt())
 
     suspend fun isValidCredentials(email: String, password: String): Boolean {
         val user = getUserByEmail(email)
@@ -40,7 +40,6 @@ class AuthenticationManager(private val context: Context) : KoinComponent {
                 putString("userEmail", user.email)
                 apply()
             }
-            startMainActivity()
         }
     }
 
@@ -51,13 +50,5 @@ class AuthenticationManager(private val context: Context) : KoinComponent {
             remove("userEmail")
             apply()
         }
-        startMainActivity()
-    }
-
-    private fun startMainActivity() {
-        val intent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        context.startActivity(intent)
     }
 }

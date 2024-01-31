@@ -9,18 +9,18 @@ import com.tfg.bibliofinder.databinding.ActivityLoginBinding
 import com.tfg.bibliofinder.util.AuthenticationManager
 import com.tfg.bibliofinder.util.MessageUtil
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var authManager: AuthenticationManager
+
+    private val authManager: AuthenticationManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        authManager = AuthenticationManager(this)
 
         binding.buttonLogin.setOnClickListener {
             attemptLogin()
@@ -44,7 +44,12 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             if (authManager.isValidCredentials(username, password)) {
                 authManager.performLogin(username, password)
+
+                val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(mainIntent)
+
                 MessageUtil.showToast(applicationContext, getString(R.string.log_in_successful))
+
                 finish()
             } else {
                 MessageUtil.showSnackbar(binding.root, getString(R.string.incorrect_email_password))

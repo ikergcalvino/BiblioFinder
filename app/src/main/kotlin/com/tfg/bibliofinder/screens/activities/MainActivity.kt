@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    private val authManager: AuthenticationManager by inject()
     private val sharedPrefs: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,35 +49,36 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_login -> {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    drawerLayout.closeDrawers()
+                    val loginIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(loginIntent)
                     true
                 }
 
                 R.id.nav_logout -> {
-                    val authManager = AuthenticationManager(this)
                     authManager.performLogout()
+                    val logoutIntent = Intent(this, MainActivity::class.java)
+                    startActivity(logoutIntent)
                     true
                 }
 
                 else -> {
                     navController.navigate(menuItem.itemId)
-                    drawerLayout.closeDrawers()
                     true
                 }
-            }
+            }.also { drawerLayout.closeDrawers() }
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        val isLoggedIn = sharedPrefs.contains("userId")
-        updateDrawer(isLoggedIn)
+        updateDrawer()
     }
 
-    private fun updateDrawer(isLoggedIn: Boolean) {
+    private fun updateDrawer() {
+        val isLoggedIn = sharedPrefs.contains("userId")
+
+        val menu = binding.navView.menu
         val header = binding.navView.getHeaderView(0)
         val userName = header.findViewById<TextView>(R.id.user_name)
         val userEmail = header.findViewById<TextView>(R.id.user_email)
@@ -84,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         userName.text = sharedPrefs.getString("userName", "")
         userEmail.text = sharedPrefs.getString("userEmail", "")
 
-        val menu = binding.navView.menu
         menu.findItem(R.id.nav_login).isVisible = !isLoggedIn
         menu.findItem(R.id.nav_profile).isVisible = isLoggedIn
         menu.findItem(R.id.nav_logout).isVisible = isLoggedIn
