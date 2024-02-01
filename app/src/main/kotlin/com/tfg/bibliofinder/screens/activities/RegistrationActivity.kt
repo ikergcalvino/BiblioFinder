@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityRegistrationBinding
+import com.tfg.bibliofinder.exceptions.EmailAlreadyInUseException
+import com.tfg.bibliofinder.exceptions.InvalidEmailFormatException
+import com.tfg.bibliofinder.exceptions.InvalidPasswordException
 import com.tfg.bibliofinder.util.AuthenticationManager
 import com.tfg.bibliofinder.util.MessageUtil
 import kotlinx.coroutines.launch
@@ -27,37 +30,25 @@ class RegistrationActivity : AppCompatActivity() {
             val password = binding.textPassword.text.toString()
 
             lifecycleScope.launch {
-                registerUser(email, password)
-            }
-        }
-    }
+                try {
+                    authManager.registerUser(email, password)
+                    authManager.performLogin(email, password)
 
-    private suspend fun registerUser(email: String, password: String) {
-        when {
-            !authManager.isValidEmail(email) -> {
-                MessageUtil.showSnackbar(binding.root, getString(R.string.invalid_email_format))
-            }
+                    MessageUtil.showToast(
+                        applicationContext, getString(R.string.registration_successful)
+                    )
 
-            !authManager.isValidPassword(password) -> {
-                MessageUtil.showSnackbar(binding.root, getString(R.string.invalid_password_format))
-            }
+                    val mainIntent = Intent(this@RegistrationActivity, MainActivity::class.java)
+                    startActivity(mainIntent)
 
-            authManager.getUserByEmail(email) != null -> {
-                MessageUtil.showSnackbar(binding.root, getString(R.string.email_already_in_use))
-            }
-
-            else -> {
-                authManager.insertUser(email, password)
-                authManager.performLogin(email, password)
-
-                MessageUtil.showToast(
-                    applicationContext, getString(R.string.registration_successful)
-                )
-
-                val mainIntent = Intent(this@RegistrationActivity, MainActivity::class.java)
-                startActivity(mainIntent)
-
-                finish()
+                    finish()
+                } catch (e: InvalidEmailFormatException) {
+                    MessageUtil.showSnackbar(binding.root, getString(R.string.invalid_email_format))
+                } catch (e: InvalidPasswordException) {
+                    MessageUtil.showSnackbar(binding.root, getString(R.string.invalid_password))
+                } catch (e: EmailAlreadyInUseException) {
+                    MessageUtil.showSnackbar(binding.root, getString(R.string.email_already_in_use))
+                }
             }
         }
     }

@@ -30,10 +30,10 @@
     <string name="free_spaces">Espacios libres</string>
     <string name="free_spaces_format">Espacios libres: %1$d / %2$d</string>
     <string name="full_name">Nombre completo</string>
-    <string name="incorrect_email_password">Correo electrónico o contraseña incorrectos</string>
     <string name="institution">Institución</string>
+    <string name="invalid_credentials">Correo electrónico o contraseña incorrectos</string>
     <string name="invalid_email_format">Formato de correo electrónico no válido</string>
-    <string name="invalid_password_format">La contraseña debe tener al menos 12 caracteres, incluyendo mayúsculas, minúsculas y números</string>
+    <string name="invalid_password">La contraseña debe tener al menos 12 caracteres, incluyendo mayúsculas, minúsculas y números</string>
     <string name="is_adapted">Adaptado</string>
     <string name="leave_button_description">Dejar el puesto de trabajo actual</string>
     <string name="libraries">Bibliotecas</string>

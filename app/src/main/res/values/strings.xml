@@ -30,10 +30,10 @@
     <string name="free_spaces">Free spaces</string>
     <string name="free_spaces_format">Free spaces: %1$d / %2$d</string>
     <string name="full_name">Full name</string>
-    <string name="incorrect_email_password">Incorrect email or password</string>
     <string name="institution">Institution</string>
+    <string name="invalid_credentials">Incorrect email or password</string>
     <string name="invalid_email_format">Invalid email format</string>
-    <string name="invalid_password_format">Password must have at least 12 characters including uppercase, lowercase, and numbers</string>
+    <string name="invalid_password">Password must have at least 12 characters including uppercase, lowercase, and numbers</string>
     <string name="is_adapted">Is adapted</string>
     <string name="leave_button_description">Leave actual workstation</string>
     <string name="libraries">Libraries</string>

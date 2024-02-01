@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityLoginBinding
+import com.tfg.bibliofinder.exceptions.InvalidCredentialsException
 import com.tfg.bibliofinder.util.AuthenticationManager
 import com.tfg.bibliofinder.util.MessageUtil
 import kotlinx.coroutines.launch
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            if (authManager.isValidCredentials(username, password)) {
+            try {
                 authManager.performLogin(username, password)
 
                 val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -51,8 +52,8 @@ class LoginActivity : AppCompatActivity() {
                 MessageUtil.showToast(applicationContext, getString(R.string.log_in_successful))
 
                 finish()
-            } else {
-                MessageUtil.showSnackbar(binding.root, getString(R.string.incorrect_email_password))
+            } catch (e: InvalidCredentialsException) {
+                MessageUtil.showSnackbar(binding.root, getString(R.string.invalid_credentials))
             }
         }
     }

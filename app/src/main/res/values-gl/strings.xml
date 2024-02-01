@@ -30,10 +30,10 @@
     <string name="free_spaces">Espazos libres</string>
     <string name="free_spaces_format">Espazos libres: %1$d / %2$d</string>
     <string name="full_name">Nome completo</string>
-    <string name="incorrect_email_password">Correo ou contrasinal incorrecto</string>
     <string name="institution">Institución</string>
+    <string name="invalid_credentials">Correo ou contrasinal incorrectos</string>
     <string name="invalid_email_format">Formato de correo incorrecto</string>
-    <string name="invalid_password_format">A contrasinal debe ter polo menos 12 caracteres, incluíndo maiúsculas, minúsculas e números</string>
+    <string name="invalid_password">A contrasinal debe ter polo menos 12 caracteres, incluíndo maiúsculas, minúsculas e números</string>
     <string name="is_adapted">Está adaptado</string>
     <string name="leave_button_description">Deixa a estación de traballo actual</string>
     <string name="libraries">Bibliotecas</string>
