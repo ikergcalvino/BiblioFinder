@@ -26,7 +26,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun workstationDao(): WorkstationDao
 
     companion object {
-        // Implementación del patrón Singleton para obtener una instancia de la base de datos
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
@@ -48,17 +47,14 @@ abstract class AppDatabase : RoomDatabase() {
         val classroomDao = classroomDao()
         val workstationDao = workstationDao()
 
-        // Insert libraries
         for (library in libraries) {
             libraryDao.insertLibrary(library)
         }
 
-        // Insert classrooms
         for (classroom in classrooms) {
             classroomDao.insertClassroom(classroom)
         }
 
-        // Insert workstations
         for (workstation in workstations) {
             workstationDao.insertWorkstation(workstation)
         }
