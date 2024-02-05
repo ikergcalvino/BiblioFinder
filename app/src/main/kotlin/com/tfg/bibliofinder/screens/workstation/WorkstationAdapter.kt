@@ -6,10 +6,11 @@ import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.CardWorkstationBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.util.BaseAdapter
+import com.tfg.bibliofinder.util.ItemClickListener
 
 class WorkstationAdapter(
-    workstations: List<Workstation>, onBookClick: (Workstation) -> Unit
-) : BaseAdapter<Workstation>(workstations, null, onBookClick, R.layout.card_workstation) {
+    workstations: List<Workstation>, clickListener: ItemClickListener<Workstation>
+) : BaseAdapter<Workstation>(workstations, clickListener, R.layout.card_workstation) {
 
     override fun bindItem(view: View, item: Workstation) {
         val binding = CardWorkstationBinding.bind(view)

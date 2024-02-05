@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentLibraryBinding
 import com.tfg.bibliofinder.entities.Library
+import com.tfg.bibliofinder.util.ItemClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LibraryFragment : Fragment() {
+class LibraryFragment : Fragment(), ItemClickListener<Library> {
 
     private val libraries = mutableListOf<Library>()
     private var _binding: FragmentLibraryBinding? = null
@@ -34,11 +35,7 @@ class LibraryFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = LibraryAdapter(libraries) { library ->
-            val bundle = Bundle().apply { putLong("libraryId", library.libraryId) }
-
-            findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
-        }
+        adapter = LibraryAdapter(libraries, this)
         recyclerView.adapter = adapter
 
         initializeLibrarySortingSpinner()
@@ -87,5 +84,19 @@ class LibraryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(item: Library) {
+        val bundle = Bundle().apply { putLong("libraryId", item.libraryId) }
+        findNavController().navigate(R.id.action_nav_library_to_nav_classroom, bundle)
+    }
+
+    override fun onInfoButtonClick(item: Library) {
+        val bottomSheetFragment = LibraryBottomSheetFragment(item)
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    }
+
+    override fun onBookButtonClick(item: Library) {
+        TODO("Not yet implemented")
     }
 }

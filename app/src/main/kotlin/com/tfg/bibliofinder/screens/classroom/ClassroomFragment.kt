@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentClassroomBinding
 import com.tfg.bibliofinder.entities.Classroom
+import com.tfg.bibliofinder.util.ItemClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ClassroomFragment : Fragment() {
+class ClassroomFragment : Fragment(), ItemClickListener<Classroom> {
 
     private val classrooms = mutableListOf<Classroom>()
     private var _binding: FragmentClassroomBinding? = null
@@ -32,11 +33,7 @@ class ClassroomFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = ClassroomAdapter(classrooms) { classroom ->
-            val bundle = Bundle().apply { putLong("classroomId", classroom.classroomId) }
-
-            findNavController().navigate(R.id.action_nav_classroom_to_nav_workstation, bundle)
-        }
+        adapter = ClassroomAdapter(classrooms, this)
         recyclerView.adapter = adapter
 
         val libraryId = arguments?.getLong("libraryId", 0L)
@@ -54,5 +51,18 @@ class ClassroomFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(item: Classroom) {
+        val bundle = Bundle().apply { putLong("classroomId", item.classroomId) }
+        findNavController().navigate(R.id.action_nav_classroom_to_nav_workstation, bundle)
+    }
+
+    override fun onInfoButtonClick(item: Classroom) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBookButtonClick(item: Classroom) {
+        TODO("Not yet implemented")
     }
 }

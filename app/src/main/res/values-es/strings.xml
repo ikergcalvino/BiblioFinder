@@ -23,10 +23,9 @@
     <string name="dont_have_an_account">¿No tienes una cuenta?</string>
     <string name="email">Correo electrónico</string>
     <string name="email_already_in_use">Este correo electrónico ya está en uso</string>
+    <string name="empty_credentials"></string>
     <string name="empty_nfc_button_description">Escanea el NFC para ocupar el puesto de trabajo</string>
     <string name="enable_nfc">Para utilizar esta aplicación, debes habilitar el NFC en tu dispositivo.</string>
-    <string name="enter_phone_hint">Ingresa tu número de teléfono</string>
-    <string name="enter_username_hint">Ingresa tu nombre de usuario</string>
     <string name="free_spaces">Espacios libres</string>
     <string name="free_spaces_format">Espacios libres: %1$d / %2$d</string>
     <string name="full_name">Nombre completo</string>
@@ -52,6 +51,7 @@
     <string name="opening_time">Hora de apertura</string>
     <string name="or">O</string>
     <string name="password">Contraseña</string>
+    <string name="password_mismatch"></string>
     <string name="phone">Teléfono</string>
     <string name="phone_number">Número de teléfono</string>
     <string name="please_enter_email_password">Por favor, ingresa tu correo electrónico y contraseña</string>

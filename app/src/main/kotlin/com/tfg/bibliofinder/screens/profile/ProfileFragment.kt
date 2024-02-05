@@ -6,13 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.screens.activities.NfcActivity
-import com.tfg.bibliofinder.util.MessageUtil
+import com.tfg.bibliofinder.util.Constants
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,7 +30,7 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val loggedInUserId = sharedPrefs.getLong("userId", 0L)
+        val loggedInUserId = sharedPrefs.getLong(Constants.USER_ID, 0L)
 
         viewModel.loadUserAndWorkstationData(loggedInUserId)
 
@@ -73,11 +74,11 @@ class ProfileFragment : Fragment() {
             val newName = binding.usernameValue.text.toString()
             val newPhone = binding.phoneValue.text.toString()
 
-            sharedPrefs.edit().putString("userName", newName).apply()
+            sharedPrefs.edit().putString(Constants.USER_NAME, newName).apply()
 
             viewModel.updateUserDetails(loggedInUserId, newName, newPhone)
 
-            MessageUtil.showToast(requireContext(), "Data saved successfully.")
+            Toast.makeText(requireContext(), "Data saved successfully.", Toast.LENGTH_SHORT).show()
         }
 
         binding.emptyNfcButton.setOnClickListener {

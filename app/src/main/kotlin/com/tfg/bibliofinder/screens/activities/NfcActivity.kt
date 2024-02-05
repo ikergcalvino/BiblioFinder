@@ -13,11 +13,12 @@ import android.nfc.tech.Ndef
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
+import android.widget.Toast
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.ActivityNfcBinding
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.util.MessageUtil
+import com.tfg.bibliofinder.util.Constants
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,6 +36,7 @@ class NfcActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityNfcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -55,7 +57,11 @@ class NfcActivity : Activity() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
         if (nfcAdapter == null) {
-            MessageUtil.showToast(applicationContext, getString(R.string.unsupported_nfc_device))
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.unsupported_nfc_device),
+                Toast.LENGTH_SHORT
+            ).show()
             finish()
         }
 
@@ -96,7 +102,7 @@ class NfcActivity : Activity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
-        val loggedInUserId = sharedPrefs.getLong("userId", 0L)
+        val loggedInUserId = sharedPrefs.getLong(Constants.USER_ID, 0L)
 
         if (intent.action == NfcAdapter.ACTION_TECH_DISCOVERED) {
             intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->

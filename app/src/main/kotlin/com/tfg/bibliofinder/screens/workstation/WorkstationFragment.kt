@@ -1,26 +1,30 @@
 package com.tfg.bibliofinder.screens.workstation
 
-import android.app.TimePickerDialog
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.util.MessageUtil
+import com.tfg.bibliofinder.util.Constants
+import com.tfg.bibliofinder.util.ItemClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class WorkstationFragment : Fragment() {
+class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
 
     private val workstations = mutableListOf<Workstation>()
     private var _binding: FragmentWorkstationBinding? = null
@@ -41,9 +45,7 @@ class WorkstationFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = WorkstationAdapter(workstations) { workstation ->
-            handleWorkstationReservation(workstation)
-        }
+        adapter = WorkstationAdapter(workstations, this)
         recyclerView.adapter = adapter
 
         val classroomId = arguments?.getLong("classroomId", 0L)
@@ -61,25 +63,31 @@ class WorkstationFragment : Fragment() {
     }
 
     private fun handleWorkstationReservation(workstation: Workstation) {
-        val loggedInUserId = sharedPrefs.getLong("userId", 0L)
+        val loggedInUserId = sharedPrefs.getLong(Constants.USER_ID, 0L)
 
         if (loggedInUserId == 0L) {
-            MessageUtil.showSnackbar(binding.root, getString(R.string.must_be_logged_in))
+            Snackbar.make(
+                binding.root, getString(R.string.must_be_logged_in), Snackbar.LENGTH_SHORT
+            ).show()
             return
         }
 
         CoroutineScope(Dispatchers.Main).launch {
             when {
                 viewModel.hasUserBooking(loggedInUserId) -> {
-                    MessageUtil.showSnackbar(
-                        binding.root, getString(R.string.already_have_reservation)
-                    )
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.already_have_reservation),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
 
                 workstation.state != Workstation.WorkstationState.AVAILABLE -> {
-                    MessageUtil.showSnackbar(
-                        binding.root, getString(R.string.workstation_already_occupied_reserved)
-                    )
+                    Snackbar.make(
+                        binding.root,
+                        getString(R.string.workstation_already_occupied_reserved),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
 
                 else -> reserveWorkstationTimeSlot(workstation, loggedInUserId)
@@ -95,37 +103,56 @@ class WorkstationFragment : Fragment() {
         val libraryOpeningTime = viewModel.openingTime
         val libraryClosingTime = viewModel.closingTime
 
-        val timePickerDialog = TimePickerDialog(
-            requireContext(), { _, selectedHour, selectedMinute ->
-                val selectedTime = Calendar.getInstance().apply {
-                    set(Calendar.HOUR_OF_DAY, selectedHour)
-                    set(Calendar.MINUTE, selectedMinute)
-                }
+        val timePicker =
+            MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(currentHour)
+                .setMinute(currentMinute).setTitleText("Selecciona la hora").build()
 
-                // Si la hora seleccionada está fuera del horario de apertura y cierre
-                if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
-                    MessageUtil.showSnackbar(
-                        binding.root, getString(R.string.reservation_outside_allowed_hours)
-                    )
-                    return@TimePickerDialog
-                }
+        timePicker.addOnPositiveButtonClickListener {
+            val selectedHour = timePicker.hour
+            val selectedMinute = timePicker.minute
 
-                // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
-                if (selectedTime.before(currentTime)) {
-                    selectedTime.add(Calendar.DAY_OF_MONTH, 1)
-                }
+            val selectedTime = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, selectedHour)
+                set(Calendar.MINUTE, selectedMinute)
+            }
 
-                viewModel.reserveWorkstation(workstation, selectedTime.time.toString(), userId)
-                MessageUtil.showToast(requireContext(), "OK")
+            // Si la hora seleccionada está fuera del horario de apertura o cierre
+            if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.reservation_outside_allowed_hours),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@addOnPositiveButtonClickListener
+            }
 
-            }, currentHour, currentMinute, true
-        )
+            // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
+            if (selectedTime.before(currentTime)) {
+                selectedTime.add(Calendar.DAY_OF_MONTH, 1)
+            }
 
-        timePickerDialog.show()
+            viewModel.reserveWorkstation(workstation, selectedTime.time.toString(), userId)
+
+            Toast.makeText(requireContext(), "OK", Toast.LENGTH_SHORT).show()
+        }
+
+        timePicker.show(parentFragmentManager, "tag")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(item: Workstation) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onInfoButtonClick(item: Workstation) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBookButtonClick(item: Workstation) {
+        handleWorkstationReservation(item)
     }
 }

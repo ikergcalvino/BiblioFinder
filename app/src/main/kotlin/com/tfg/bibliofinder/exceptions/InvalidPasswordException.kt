@@ -1,3 +1,3 @@
 package com.tfg.bibliofinder.exceptions
 
-class InvalidPasswordException : Exception()
+class InvalidPasswordException : IllegalArgumentException()

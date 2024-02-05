@@ -1,3 +1,3 @@
 package com.tfg.bibliofinder.exceptions
 
-class InvalidEmailFormatException : Exception()
+class InvalidEmailFormatException : IllegalArgumentException()
