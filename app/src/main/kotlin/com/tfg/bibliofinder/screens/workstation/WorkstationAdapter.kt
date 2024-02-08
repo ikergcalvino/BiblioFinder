@@ -16,15 +16,16 @@ class WorkstationAdapter(
         val binding = CardWorkstationBinding.bind(view)
         val context = view.context
 
-        binding.workstationTitle.text = item.workstationId.toString()
+        binding.workstationTitle.text = context.getString(R.string.workstation, item.workstationId)
 
         val workstationText = binding.workstationState
-        val colorResId = when (item.state) {
-            Workstation.WorkstationState.AVAILABLE -> R.color.available
-            Workstation.WorkstationState.OCCUPIED -> R.color.occupied
-            Workstation.WorkstationState.BOOKED -> R.color.booked
+        val (textResId, colorResId) = when (item.state) {
+            Workstation.WorkstationState.AVAILABLE -> R.string.available to android.R.color.holo_green_light
+            Workstation.WorkstationState.OCCUPIED -> R.string.occupied to android.R.color.holo_red_light
+            Workstation.WorkstationState.BOOKED -> R.string.booked to android.R.color.holo_orange_light
         }
+
+        workstationText.text = context.getString(textResId)
         workstationText.setTextColor(ContextCompat.getColor(context, colorResId))
-        workstationText.text = item.state.toString()
     }
 }

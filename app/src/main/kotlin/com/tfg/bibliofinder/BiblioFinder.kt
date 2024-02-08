@@ -16,7 +16,7 @@ import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class MyApplication : Application() {
+class BiblioFinder : Application() {
 
     private val database: AppDatabase by inject()
 
@@ -24,7 +24,7 @@ class MyApplication : Application() {
         super.onCreate()
 
         startKoin {
-            androidContext(this@MyApplication)
+            androidContext(this@BiblioFinder)
             modules(biblioFinderModule)
         }
 

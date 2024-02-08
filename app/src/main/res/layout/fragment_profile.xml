@@ -33,7 +33,7 @@
                 android:padding="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/full_name">
@@ -43,27 +43,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="username"
-                        android:inputType="textPersonName"
-                        android:textStyle="italic" />
+                        android:inputType="textPersonName" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.BiblioFinder.BodyLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:text="@string/email"
-                    android:textStyle="bold" />
+                    android:text="@string/email" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/email_value"
+                    style="@style/TextAppearance.BiblioFinder.BodySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:textStyle="italic" />
+                    android:layout_margin="4dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone_number">
@@ -73,8 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="phone"
-                        android:inputType="phone"
-                        android:textStyle="italic" />
+                        android:inputType="phone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,12 +97,11 @@
 
         <TextView
             android:id="@+id/info_text"
+            style="@style/TextAppearance.BiblioFinder.HeadlineSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="8dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/empty_card"
@@ -112,9 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="?attr/colorSecondary"
-            android:visibility="gone"
-            app:cardCornerRadius="16dp">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,25 +117,26 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/TextAppearance.BiblioFinder.BodyLarge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:padding="16dp"
-                    android:text="@string/no_reservations_or_occupancy"
-                    android:textStyle="bold" />
+                    android:text="@string/no_bookings_or_occupancy" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/empty_nfc_button"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/empty_nfc_button_description"
                     android:padding="16dp"
-                    android:src="@drawable/ic_nfc" />
+                    app:icon="@drawable/ic_nfc" />
 
             </LinearLayout>
 
@@ -152,9 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="?attr/colorSecondary"
-            android:visibility="gone"
-            app:cardCornerRadius="16dp">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -180,13 +174,14 @@
 
                     <TextView
                         android:id="@+id/booked_title"
+                        style="@style/TextAppearance.BiblioFinder.BodyLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:textStyle="bold" />
+                        android:padding="4dp" />
 
                     <TextView
                         android:id="@+id/booked_text"
+                        style="@style/TextAppearance.BiblioFinder.BodySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp" />
@@ -197,21 +192,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/cancel_button"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/cancel_button_description"
                     android:padding="16dp"
-                    android:src="@drawable/ic_delete" />
+                    app:icon="@drawable/ic_delete" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/booked_nfc_button"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/booked_nfc_button_description"
                     android:padding="16dp"
-                    android:src="@drawable/ic_nfc" />
+                    app:icon="@drawable/ic_nfc" />
 
             </LinearLayout>
 
@@ -223,9 +220,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="?attr/colorSecondary"
-            android:visibility="gone"
-            app:cardCornerRadius="16dp">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -251,13 +246,14 @@
 
                     <TextView
                         android:id="@+id/occupied_title"
+                        style="@style/TextAppearance.BiblioFinder.BodyLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:textStyle="bold" />
+                        android:padding="4dp" />
 
                     <TextView
                         android:id="@+id/occupied_text"
+                        style="@style/TextAppearance.BiblioFinder.BodySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp" />
@@ -268,13 +264,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/leave_button"
+                    style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/leave_button_description"
                     android:padding="16dp"
-                    android:src="@drawable/ic_door_open" />
+                    app:icon="@drawable/ic_door_open" />
 
             </LinearLayout>
 

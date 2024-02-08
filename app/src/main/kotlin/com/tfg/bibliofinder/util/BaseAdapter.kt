@@ -3,7 +3,7 @@ package com.tfg.bibliofinder.util
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.tfg.bibliofinder.R
 
@@ -40,8 +40,8 @@ abstract class BaseAdapter<T>(
             }
         }
 
-        val libraryInfoButton: ImageButton? = holder.itemView.findViewById(R.id.library_info)
-        val bookButton: ImageButton? = holder.itemView.findViewById(R.id.book_button)
+        val libraryInfoButton: Button? = holder.itemView.findViewById(R.id.library_info)
+        val bookButton: Button? = holder.itemView.findViewById(R.id.book_button)
 
         libraryInfoButton?.setOnClickListener {
             clickListener?.onInfoButtonClick(item)

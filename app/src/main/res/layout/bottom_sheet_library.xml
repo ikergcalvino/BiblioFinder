@@ -6,59 +6,59 @@
     android:padding="16dp">
 
     <TextView
+        style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/address"
-        android:textStyle="bold" />
+        android:text="@string/address" />
 
     <TextView
         android:id="@+id/library_address"
+        style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        android:layout_height="wrap_content" />
 
     <TextView
+        style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/phone"
-        android:textStyle="bold" />
+        android:text="@string/phone" />
 
     <TextView
         android:id="@+id/library_phone"
+        style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        android:layout_height="wrap_content" />
 
     <TextView
+        style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/email"
-        android:textStyle="bold" />
+        android:text="@string/email" />
 
     <TextView
         android:id="@+id/library_email"
+        style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        android:layout_height="wrap_content" />
 
     <TextView
+        style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/institution"
-        android:textStyle="bold" />
+        android:text="@string/institution" />
 
     <TextView
         android:id="@+id/library_institution"
+        style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

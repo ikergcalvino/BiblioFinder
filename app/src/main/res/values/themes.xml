@@ -1,25 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme. -->
-    <style name="Theme.BiblioFinder" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/medium_violet_red</item>
-        <item name="colorPrimaryVariant">@color/imperial_purple</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/platinum</item>
-        <item name="colorSecondaryVariant">@color/chinese_silver</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+    <style name="Theme.BiblioFinder" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/bf_theme_primary</item>
+        <item name="colorOnPrimary">@color/bf_theme_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/bf_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/bf_theme_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/bf_theme_secondary</item>
+        <item name="colorOnSecondary">@color/bf_theme_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/bf_theme_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/bf_theme_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/bf_theme_tertiary</item>
+        <item name="colorOnTertiary">@color/bf_theme_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/bf_theme_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/bf_theme_onTertiaryContainer</item>
+        <item name="colorError">@color/bf_theme_error</item>
+        <item name="colorOnError">@color/bf_theme_onError</item>
+        <item name="colorErrorContainer">@color/bf_theme_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/bf_theme_onErrorContainer</item>
+        <item name="android:colorBackground">@color/bf_theme_background</item>
+        <item name="colorOnBackground">@color/bf_theme_onBackground</item>
+        <item name="colorSurface">@color/bf_theme_surface</item>
+        <item name="colorOnSurface">@color/bf_theme_onSurface</item>
+        <item name="colorSurfaceVariant">@color/bf_theme_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/bf_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/bf_theme_outline</item>
+        <item name="colorOutlineVariant">@color/bf_theme_outlineVariant</item>
+        <item name="colorSurfaceInverse">@color/bf_theme_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/bf_theme_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/bf_theme_inversePrimary</item>
+        <item name="colorPrimaryFixed">@color/bf_theme_primaryFixed</item>
+        <item name="colorOnPrimaryFixed">@color/bf_theme_onPrimaryFixed</item>
+        <item name="colorPrimaryFixedDim">@color/bf_theme_primaryFixedDim</item>
+        <item name="colorOnPrimaryFixedVariant">@color/bf_theme_onPrimaryFixedVariant</item>
+        <item name="colorSecondaryFixed">@color/bf_theme_secondaryFixed</item>
+        <item name="colorOnSecondaryFixed">@color/bf_theme_onSecondaryFixed</item>
+        <item name="colorSecondaryFixedDim">@color/bf_theme_secondaryFixedDim</item>
+        <item name="colorOnSecondaryFixedVariant">@color/bf_theme_onSecondaryFixedVariant</item>
+        <item name="colorTertiaryFixed">@color/bf_theme_tertiaryFixed</item>
+        <item name="colorOnTertiaryFixed">@color/bf_theme_onTertiaryFixed</item>
+        <item name="colorTertiaryFixedDim">@color/bf_theme_tertiaryFixedDim</item>
+        <item name="colorOnTertiaryFixedVariant">@color/bf_theme_onTertiaryFixedVariant</item>
+        <item name="colorSurfaceDim">@color/bf_theme_surfaceDim</item>
+        <item name="colorSurfaceBright">@color/bf_theme_surfaceBright</item>
+        <item name="colorSurfaceContainerLowest">@color/bf_theme_surfaceContainerLowest</item>
+        <item name="colorSurfaceContainerLow">@color/bf_theme_surfaceContainerLow</item>
+        <item name="colorSurfaceContainer">@color/bf_theme_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/bf_theme_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/bf_theme_surfaceContainerHighest</item>
     </style>
 
-    <style name="Theme.BiblioFinder.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.BiblioFinder.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.BiblioFinder.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -16,6 +16,9 @@ import com.google.android.material.timepicker.TimeFormat
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
 import com.tfg.bibliofinder.entities.Workstation
+import com.tfg.bibliofinder.exceptions.UserAlreadyHasBookingException
+import com.tfg.bibliofinder.exceptions.UserNotLoggedInException
+import com.tfg.bibliofinder.exceptions.WorkstationNotAvailableException
 import com.tfg.bibliofinder.util.Constants
 import com.tfg.bibliofinder.util.ItemClickListener
 import kotlinx.coroutines.CoroutineScope
@@ -62,81 +65,69 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
         return binding.root
     }
 
-    private fun handleWorkstationReservation(workstation: Workstation) {
-        val loggedInUserId = sharedPrefs.getLong(Constants.USER_ID, 0L)
+    private suspend fun reserveWorkstationTimeSlot(workstation: Workstation) {
+        val userId = sharedPrefs.getLong(Constants.USER_ID, 0L)
 
-        if (loggedInUserId == 0L) {
-            Snackbar.make(
-                binding.root, getString(R.string.must_be_logged_in), Snackbar.LENGTH_SHORT
-            ).show()
-            return
+        if (userId == 0L) {
+            throw UserNotLoggedInException()
         }
 
-        CoroutineScope(Dispatchers.Main).launch {
-            when {
-                viewModel.hasUserBooking(loggedInUserId) -> {
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.already_have_reservation),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+        when {
+            viewModel.hasUserBooking(userId) -> {
+                throw UserAlreadyHasBookingException()
+            }
+
+            workstation.state != Workstation.WorkstationState.AVAILABLE -> {
+                throw WorkstationNotAvailableException()
+            }
+
+            else -> {
+                val currentTime = Calendar.getInstance()
+                val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+                val currentMinute = currentTime.get(Calendar.MINUTE)
+
+                val libraryOpeningTime = viewModel.openingTime
+                val libraryClosingTime = viewModel.closingTime
+
+                val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                    .setHour(currentHour).setMinute(currentMinute)
+                    .setTitleText("Selecciona la hora").build()
+
+                timePicker.addOnPositiveButtonClickListener {
+                    val selectedHour = timePicker.hour
+                    val selectedMinute = timePicker.minute
+
+                    val selectedTime = Calendar.getInstance().apply {
+                        set(Calendar.HOUR_OF_DAY, selectedHour)
+                        set(Calendar.MINUTE, selectedMinute)
+                    }
+
+                    // Si la hora seleccionada está fuera del horario de apertura o cierre
+                    if (selectedTime.before(libraryOpeningTime) || selectedTime.after(
+                            libraryClosingTime
+                        )
+                    ) {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.booking_outside_allowed_hours),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        return@addOnPositiveButtonClickListener
+                    }
+
+                    // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
+                    if (selectedTime.before(currentTime)) {
+                        selectedTime.add(Calendar.DAY_OF_MONTH, 1)
+                    }
+
+                    viewModel.reserveWorkstation(workstation, selectedTime.time.toString(), userId)
+
+                    Toast.makeText(requireContext(), "OK", Toast.LENGTH_SHORT).show()
                 }
 
-                workstation.state != Workstation.WorkstationState.AVAILABLE -> {
-                    Snackbar.make(
-                        binding.root,
-                        getString(R.string.workstation_already_occupied_reserved),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-
-                else -> reserveWorkstationTimeSlot(workstation, loggedInUserId)
+                timePicker.show(parentFragmentManager, "tag")
             }
         }
-    }
-
-    private fun reserveWorkstationTimeSlot(workstation: Workstation, userId: Long) {
-        val currentTime = Calendar.getInstance()
-        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
-        val currentMinute = currentTime.get(Calendar.MINUTE)
-
-        val libraryOpeningTime = viewModel.openingTime
-        val libraryClosingTime = viewModel.closingTime
-
-        val timePicker =
-            MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H).setHour(currentHour)
-                .setMinute(currentMinute).setTitleText("Selecciona la hora").build()
-
-        timePicker.addOnPositiveButtonClickListener {
-            val selectedHour = timePicker.hour
-            val selectedMinute = timePicker.minute
-
-            val selectedTime = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, selectedHour)
-                set(Calendar.MINUTE, selectedMinute)
-            }
-
-            // Si la hora seleccionada está fuera del horario de apertura o cierre
-            if (selectedTime.before(libraryOpeningTime) || selectedTime.after(libraryClosingTime)) {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.reservation_outside_allowed_hours),
-                    Snackbar.LENGTH_SHORT
-                ).show()
-                return@addOnPositiveButtonClickListener
-            }
-
-            // Si la hora seleccionada ya pasó hoy, reservamos para el día siguiente
-            if (selectedTime.before(currentTime)) {
-                selectedTime.add(Calendar.DAY_OF_MONTH, 1)
-            }
-
-            viewModel.reserveWorkstation(workstation, selectedTime.time.toString(), userId)
-
-            Toast.makeText(requireContext(), "OK", Toast.LENGTH_SHORT).show()
-        }
-
-        timePicker.show(parentFragmentManager, "tag")
     }
 
     override fun onDestroyView() {
@@ -153,6 +144,24 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
     }
 
     override fun onBookButtonClick(item: Workstation) {
-        handleWorkstationReservation(item)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                reserveWorkstationTimeSlot(item)
+            } catch (e: UserNotLoggedInException) {
+                Snackbar.make(
+                    binding.root, getString(R.string.must_be_logged_in), Snackbar.LENGTH_SHORT
+                ).show()
+            } catch (e: UserAlreadyHasBookingException) {
+                Snackbar.make(
+                    binding.root, getString(R.string.already_have_booking), Snackbar.LENGTH_SHORT
+                ).show()
+            } catch (e: WorkstationNotAvailableException) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.workstation_already_occupied_reserved),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_email_layout"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -32,6 +33,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_password_layout"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -50,6 +52,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_repeat_password_layout"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -72,8 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:text="@string/sign_up"
-            app:cornerRadius="4dp" />
+            android:text="@string/sign_up" />
 
     </LinearLayout>
 
