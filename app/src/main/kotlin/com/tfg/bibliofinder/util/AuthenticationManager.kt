@@ -19,32 +19,22 @@ class AuthenticationManager : KoinComponent {
     private val sharedPrefs: SharedPreferences by inject()
 
     suspend fun registerUser(email: String, password: String, repeatPassword: String) {
-        if (!isValidEmail(email)) {
-            throw InvalidEmailFormatException()
-        }
+        if (!isValidEmail(email)) throw InvalidEmailFormatException()
 
-        if (!isValidPassword(password)) {
-            throw InvalidPasswordException()
-        }
+        if (!isValidPassword(password)) throw InvalidPasswordException()
 
         val user = database.userDao().getUserByEmail(email)
 
-        if (user != null) {
-            throw EmailAlreadyInUseException()
-        }
+        if (user != null) throw EmailAlreadyInUseException()
 
-        if (password != repeatPassword) {
-            throw PasswordMismatchException()
-        }
+        if (password != repeatPassword) throw PasswordMismatchException()
 
         val newUser = User(email = email, password = hashPassword(password))
         database.userDao().insertUser(newUser)
     }
 
     suspend fun logIn(email: String, password: String) {
-        if (email.isEmpty() || password.isEmpty()) {
-            throw EmptyCredentialsException()
-        }
+        if (email.isEmpty() || password.isEmpty()) throw EmptyCredentialsException()
 
         val user = database.userDao().getUserByEmail(email)
 
