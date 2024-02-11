@@ -1,56 +1,52 @@
 package com.tfg.bibliofinder.screens.profile
 
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.User
 import com.tfg.bibliofinder.entities.Workstation
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class ProfileViewModel : ViewModel(), KoinComponent {
     private val database: AppDatabase by inject()
+    private val sharedPrefs: SharedPreferences by inject()
 
-    val user = MutableLiveData<User?>()
-    val workstation = MutableLiveData<Workstation?>()
-    val libraryAndClassroom = MutableLiveData<Pair<String?, String?>>()
+    var libraryName: String? = ""
+    var classroomName: String? = ""
+    var user = MutableLiveData<User?>()
+    var workstation = MutableLiveData<Workstation?>()
 
-    fun loadUserAndWorkstationData(userId: Long) {
-        viewModelScope.launch {
-            val user = database.userDao().getUserById(userId)
-            this@ProfileViewModel.user.value = user
+    suspend fun loadUserAndWorkstationData() {
+        val userId = sharedPrefs.getLong(Constants.USER_ID, 0L)
+        val user = database.userDao().getUserById(userId)
 
-            val workstation = database.workstationDao().getWorkstationByUser(userId)
-            val classroom =
-                workstation?.let { database.classroomDao().getClassroomById(it.classroomId) }
-            val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
+        val workstation = database.workstationDao().getWorkstationByUser(userId)
+        val classroom =
+            workstation?.classroomId?.let { database.classroomDao().getClassroomById(it) }
+        val library = classroom?.libraryId?.let { database.libraryDao().getLibraryById(it) }
 
-            libraryAndClassroom.postValue(Pair(library?.name, classroom?.name))
-            this@ProfileViewModel.workstation.postValue(workstation)
-        }
+        libraryName = library?.name
+        classroomName = classroom?.name
+        this@ProfileViewModel.user.value = user
+        this@ProfileViewModel.workstation.postValue(workstation)
     }
 
-    fun updateUserDetails(userId: Long, newName: String, newPhone: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val user = database.userDao().getUserById(userId)
+    suspend fun updateUserDetails(newName: String, newPhone: String) {
+        sharedPrefs.edit().putString(Constants.USER_NAME, newName).apply()
+        user.value?.name = newName
+        user.value?.phone = newPhone
 
-            user?.name = newName
-            user?.phone = newPhone
-
-            user?.let { database.userDao().updateUser(it) }
-        }
+        user.value?.let { database.userDao().updateUser(it) }
     }
 
-    fun updateWorkstationDetails(workstation: Workstation?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            workstation?.state = Workstation.WorkstationState.AVAILABLE
-            workstation?.dateTime = null
-            workstation?.userId = null
+    suspend fun updateWorkstationDetails() {
+        workstation.value?.state = Workstation.WorkstationState.AVAILABLE
+        workstation.value?.dateTime = null
+        workstation.value?.userId = null
 
-            workstation?.let { database.workstationDao().updateWorkstation(it) }
-        }
+        workstation.value?.let { database.workstationDao().updateWorkstation(it) }
     }
 }

@@ -19,9 +19,9 @@ import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.databinding.ActivityNfcBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.util.Constants
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
@@ -58,9 +58,7 @@ class NfcActivity : Activity() {
 
         if (nfcAdapter == null) {
             Toast.makeText(
-                applicationContext,
-                getString(R.string.unsupported_nfc_device),
-                Toast.LENGTH_SHORT
+                applicationContext, getString(R.string.unsupported_nfc_device), Toast.LENGTH_SHORT
             ).show()
             finish()
         }
@@ -118,7 +116,7 @@ class NfcActivity : Activity() {
                         val workstationId =
                             String(payloadWithoutHeader, Charsets.UTF_8).toLongOrNull()
 
-                        GlobalScope.launch(Dispatchers.Main) {
+                        CoroutineScope(Dispatchers.Main).launch {
                             val nfcWorkstation = withContext(Dispatchers.IO) {
                                 workstationId?.let {
                                     database.workstationDao().getWorkstationById(it)

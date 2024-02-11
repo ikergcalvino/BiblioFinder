@@ -11,7 +11,6 @@ import com.tfg.bibliofinder.entities.Workstation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -47,9 +46,7 @@ class BiblioFinder : Application() {
             val workstationsType = object : TypeToken<List<Workstation>>() {}.type
             val workstations = gson.fromJson<List<Workstation>>(workstationsJson, workstationsType)
 
-            withContext(Dispatchers.Main) {
-                database.loadInitialData(libraries, classrooms, workstations)
-            }
+            database.loadInitialData(libraries, classrooms, workstations)
         }
     }
 

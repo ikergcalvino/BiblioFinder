@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         val profilePicture = headerView.findViewById<ImageView>(R.id.profile_picture)
 
         userName.text = sharedPrefs.getString(Constants.USER_NAME, getString(R.string.app_name))
-        userEmail.text = sharedPrefs.getString(Constants.USER_EMAIL, "")
+        userEmail.text = sharedPrefs.getString(Constants.USER_EMAIL, getString(R.string.welcome))
 
         binding.navView.menu.clear()
 

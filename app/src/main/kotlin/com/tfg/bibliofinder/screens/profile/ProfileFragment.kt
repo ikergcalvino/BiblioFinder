@@ -1,7 +1,6 @@
 package com.tfg.bibliofinder.screens.profile
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,9 @@ import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.entities.Workstation
 import com.tfg.bibliofinder.screens.activities.NfcActivity
-import com.tfg.bibliofinder.util.Constants
-import org.koin.android.ext.android.inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
@@ -22,7 +22,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedPrefs: SharedPreferences by inject()
     private val viewModel: ProfileViewModel by viewModel()
 
     override fun onCreateView(
@@ -30,9 +29,9 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val loggedInUserId = sharedPrefs.getLong(Constants.USER_ID, 0L)
-
-        viewModel.loadUserAndWorkstationData(loggedInUserId)
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.loadUserAndWorkstationData()
+        }
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
             binding.usernameValue.setText(user?.name ?: "")
@@ -41,31 +40,27 @@ class ProfileFragment : Fragment() {
         }
 
         viewModel.workstation.observe(viewLifecycleOwner) { workstation ->
-            if (workstation?.userId == null) {
-                binding.infoText.text = getString(R.string.current_booking)
-
-                binding.emptyCard.visibility = View.VISIBLE
-                binding.bookedCard.visibility = View.GONE
-                binding.occupiedCard.visibility = View.GONE
-            } else {
-                if (workstation.state == Workstation.WorkstationState.BOOKED) {
+            when {
+                workstation?.userId == null -> {
                     binding.infoText.text = getString(R.string.current_booking)
 
-                    binding.emptyCard.visibility = View.GONE
+                    binding.emptyCard.visibility = View.VISIBLE
+                }
+
+                workstation.state == Workstation.WorkstationState.BOOKED -> {
+                    binding.infoText.text = getString(R.string.current_booking)
+                    binding.bookedTitle.text = viewModel.libraryName
+                    binding.bookedText.text = viewModel.classroomName
+
                     binding.bookedCard.visibility = View.VISIBLE
-                    binding.occupiedCard.visibility = View.GONE
+                }
 
-                    binding.bookedTitle.text = viewModel.libraryAndClassroom.value?.first
-                    binding.bookedText.text = viewModel.libraryAndClassroom.value?.second
-                } else if (workstation.state == Workstation.WorkstationState.OCCUPIED) {
+                workstation.state == Workstation.WorkstationState.OCCUPIED -> {
                     binding.infoText.text = getString(R.string.occupied_site)
+                    binding.occupiedTitle.text = viewModel.libraryName
+                    binding.occupiedText.text = viewModel.classroomName
 
-                    binding.emptyCard.visibility = View.GONE
-                    binding.bookedCard.visibility = View.GONE
                     binding.occupiedCard.visibility = View.VISIBLE
-
-                    binding.occupiedTitle.text = viewModel.libraryAndClassroom.value?.first
-                    binding.occupiedText.text = viewModel.libraryAndClassroom.value?.second
                 }
             }
         }
@@ -74,9 +69,9 @@ class ProfileFragment : Fragment() {
             val newName = binding.usernameValue.text.toString()
             val newPhone = binding.phoneValue.text.toString()
 
-            sharedPrefs.edit().putString(Constants.USER_NAME, newName).apply()
-
-            viewModel.updateUserDetails(loggedInUserId, newName, newPhone)
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.updateUserDetails(newName, newPhone)
+            }
 
             Toast.makeText(requireContext(), "Data saved successfully.", Toast.LENGTH_SHORT).show()
         }
@@ -103,7 +98,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun releaseWorkstation() {
-        viewModel.updateWorkstationDetails(viewModel.workstation.value)
+        CoroutineScope(Dispatchers.IO).launch {
+            viewModel.updateWorkstationDetails()
+        }
 
         findNavController().navigate(R.id.nav_profile)
     }

@@ -68,8 +68,9 @@
     <string name="sign_up">Rexistrarse</string>
     <string name="unsupported_nfc_device">Este dispositivo non admite NFC</string>
     <string name="username">Nome de usuario</string>
+    <string name="welcome">Benvido!</string>
     <string name="workstation">Estación de traballo %d</string>
-    <string name="workstation_already_occupied_reserved">Este sitio xa está ocupado ou previamente reservado</string>
+    <string name="workstation_already_occupied_booked">Este sitio xa está ocupado ou previamente reservado</string>
     <string name="workstation_icon">Ícono de estación de traballo</string>
     <string name="workstation_not_occupied">A estación de traballo está actualmente reservada ou ocupada por outro usuario</string>
     <string name="workstation_occupied">Estación de traballo ocupada con éxito</string>

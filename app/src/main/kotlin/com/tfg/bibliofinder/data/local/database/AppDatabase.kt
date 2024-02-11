@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.tfg.bibliofinder.data.local.database.dao.ClassroomDao
 import com.tfg.bibliofinder.data.local.database.dao.LibraryDao
 import com.tfg.bibliofinder.data.local.database.dao.UserDao
@@ -18,6 +19,7 @@ import com.tfg.bibliofinder.entities.Workstation
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun classroomDao(): ClassroomDao
@@ -43,20 +45,16 @@ abstract class AppDatabase : RoomDatabase() {
     suspend fun loadInitialData(
         libraries: List<Library>, classrooms: List<Classroom>, workstations: List<Workstation>
     ) {
-        val libraryDao = libraryDao()
-        val classroomDao = classroomDao()
-        val workstationDao = workstationDao()
-
         for (library in libraries) {
-            libraryDao.insertLibrary(library)
+            libraryDao().insertLibrary(library)
         }
 
         for (classroom in classrooms) {
-            classroomDao.insertClassroom(classroom)
+            classroomDao().insertClassroom(classroom)
         }
 
         for (workstation in workstations) {
-            workstationDao.insertWorkstation(workstation)
+            workstationDao().insertWorkstation(workstation)
         }
     }
 }

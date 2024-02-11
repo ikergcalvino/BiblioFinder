@@ -68,10 +68,11 @@
     <string name="sign_up">Sign up</string>
     <string name="unsupported_nfc_device">This device does not support NFC</string>
     <string name="username">Username</string>
+    <string name="welcome">Welcome!</string>
     <string name="workstation">Workstation %d</string>
-    <string name="workstation_already_occupied_reserved">This site is already occupied or previously reserved</string>
+    <string name="workstation_already_occupied_booked">This site is already occupied or previously booked</string>
     <string name="workstation_icon">Workstation icon</string>
-    <string name="workstation_not_occupied">Workstation is currently reserved or occupied by another user</string>
+    <string name="workstation_not_occupied">Workstation is currently booked or occupied by another user</string>
     <string name="workstation_occupied">Workstation occupied successfully</string>
     <string name="workstations">Workstations</string>
 </resources>

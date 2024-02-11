@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.time.LocalDateTime
 
 @Entity(
     foreignKeys = [ForeignKey(
@@ -11,13 +12,12 @@ import androidx.room.PrimaryKey
         parentColumns = ["classroomId"],
         childColumns = ["classroomId"],
         onDelete = ForeignKey.CASCADE
-    )],
-    indices = [Index("classroomId")]
+    )], indices = [Index("classroomId")]
 )
 data class Workstation(
     @PrimaryKey(autoGenerate = true) val workstationId: Long = 0,
     var state: WorkstationState = WorkstationState.AVAILABLE,
-    var dateTime: String? = null,
+    var dateTime: LocalDateTime? = null,
     val classroomId: Long,
     var userId: Long? = null
 ) {
