@@ -11,15 +11,14 @@ import com.tfg.bibliofinder.exceptions.EmailAlreadyInUseException
 import com.tfg.bibliofinder.exceptions.InvalidEmailFormatException
 import com.tfg.bibliofinder.exceptions.InvalidPasswordException
 import com.tfg.bibliofinder.exceptions.PasswordMismatchException
-import com.tfg.bibliofinder.util.AuthenticationManager
+import com.tfg.bibliofinder.services.AuthenticationService
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
 
-    private val authManager: AuthenticationManager by inject()
+    private val authenticationService: AuthenticationService = AuthenticationService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +37,8 @@ class RegistrationActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 try {
-                    authManager.registerUser(email, password, repeatPassword)
-                    authManager.logIn(email, password)
+                    authenticationService.registerUser(email, password, repeatPassword)
+                    authenticationService.logIn(email, password)
 
                     Toast.makeText(
                         applicationContext,

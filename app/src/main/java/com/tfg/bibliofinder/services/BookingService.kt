@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.util
+package com.tfg.bibliofinder.services
 
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
@@ -7,6 +7,7 @@ import com.tfg.bibliofinder.exceptions.BookingOutsideAllowedHoursException
 import com.tfg.bibliofinder.exceptions.UserAlreadyHasBookingException
 import com.tfg.bibliofinder.exceptions.UserNotLoggedInException
 import com.tfg.bibliofinder.exceptions.WorkstationNotAvailableException
+import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.LocalDate
@@ -14,15 +15,14 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class BookingManager : KoinComponent {
-
-    private val database: AppDatabase by inject()
-    private val sharedPrefs: SharedPreferences by inject()
-
-    private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+class BookingService : KoinComponent {
 
     private lateinit var opening: LocalDateTime
     private lateinit var closing: LocalDateTime
+
+    private val database: AppDatabase by inject()
+    private val sharedPrefs: SharedPreferences by inject()
+    private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
     suspend fun initializeBookingManager(classroomId: Long) {
         val classroom = database.classroomDao().getClassroomById(classroomId)

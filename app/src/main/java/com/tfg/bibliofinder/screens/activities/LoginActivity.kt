@@ -9,15 +9,14 @@ import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityLoginBinding
 import com.tfg.bibliofinder.exceptions.EmptyCredentialsException
 import com.tfg.bibliofinder.exceptions.InvalidCredentialsException
-import com.tfg.bibliofinder.util.AuthenticationManager
+import com.tfg.bibliofinder.services.AuthenticationService
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    private val authManager: AuthenticationManager by inject()
+    private val authenticationService: AuthenticationService = AuthenticationService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 try {
-                    authManager.logIn(email, password)
+                    authenticationService.logIn(email, password)
 
                     Toast.makeText(
                         applicationContext,

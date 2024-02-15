@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.util
+package com.tfg.bibliofinder.services
 
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
@@ -9,11 +9,12 @@ import com.tfg.bibliofinder.exceptions.InvalidCredentialsException
 import com.tfg.bibliofinder.exceptions.InvalidEmailFormatException
 import com.tfg.bibliofinder.exceptions.InvalidPasswordException
 import com.tfg.bibliofinder.exceptions.PasswordMismatchException
+import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.mindrot.jbcrypt.BCrypt
 
-class AuthenticationManager : KoinComponent {
+class AuthenticationService : KoinComponent {
 
     private val database: AppDatabase by inject()
     private val sharedPrefs: SharedPreferences by inject()
@@ -69,7 +70,6 @@ class AuthenticationManager : KoinComponent {
 
     private suspend fun isValidCredentials(email: String, password: String): Boolean {
         val user = database.userDao().getUserByEmail(email)
-
         return user != null && BCrypt.checkpw(password, user.password)
     }
 }

@@ -16,7 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityMainBinding
-import com.tfg.bibliofinder.util.AuthenticationManager
+import com.tfg.bibliofinder.services.AuthenticationService
 import com.tfg.bibliofinder.util.Constants
 import org.koin.android.ext.android.inject
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val authManager: AuthenticationManager by inject()
+    private val authenticationService: AuthenticationService = AuthenticationService()
     private val sharedPrefs: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_logout -> {
-                    authManager.logOut()
+                    authenticationService.logOut()
                     val logoutIntent = Intent(this, MainActivity::class.java)
                     startActivity(logoutIntent)
                     true

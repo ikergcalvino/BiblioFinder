@@ -4,30 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.util.BookingManager
+import com.tfg.bibliofinder.services.BookingService
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.LocalDateTime
 
 class WorkstationViewModel : ViewModel(), KoinComponent {
+
+    private val bookingService: BookingService = BookingService()
     private val database: AppDatabase by inject()
-    private val bookManager: BookingManager = BookingManager()
 
     fun getWorkstationsByClassroom(classroomId: Long): LiveData<List<Workstation>> {
         return database.workstationDao().getWorkstationsByClassroom(classroomId)
     }
 
     suspend fun initializeBookingsInClassroom(classroomId: Long) {
-        bookManager.initializeBookingManager(classroomId)
+        bookingService.initializeBookingManager(classroomId)
     }
 
     suspend fun validateWorkstationBooking(workstation: Workstation) {
-        bookManager.prebookingValidations(workstation)
+        bookingService.prebookingValidations(workstation)
     }
 
     suspend fun bookWorkstationAtSelectedTime(
         workstation: Workstation, selectedTime: LocalDateTime
     ) {
-        bookManager.bookWorkstation(workstation, selectedTime)
+        bookingService.bookWorkstation(workstation, selectedTime)
     }
 }
