@@ -13,12 +13,12 @@ class ClassroomAdapter(
 
     override fun bindItem(view: View, item: Classroom) {
         val binding = CardClassroomBinding.bind(view)
-        val context = view.context
 
-        binding.classroomName.text = item.name
-        binding.classroomCapacity.text = context.getString(
-            R.string.free_spaces_format, item.freeSpaces, item.capacity
-        )
-        binding.classroomType.text = item.type
+        binding.apply {
+            classroomName.text = item.name
+            classroomCapacity.text =
+                view.context.getString(R.string.free_spaces_format, item.freeSpaces, item.capacity)
+            classroomType.text = item.type
+        }
     }
 }

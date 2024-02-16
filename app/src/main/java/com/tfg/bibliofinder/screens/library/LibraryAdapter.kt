@@ -15,14 +15,14 @@ class LibraryAdapter(
         val binding = CardLibraryBinding.bind(view)
         val context = view.context
 
-        binding.libraryName.text = item.name
-        binding.librarySchedule.text = context.getString(
-            R.string.schedule_format, item.openingTime, item.closingTime
-        )
-        binding.libraryFreeSpaces.text = context.getString(
-            R.string.free_spaces_format, item.freeSpaces, item.capacity
-        )
+        binding.apply {
+            libraryName.text = item.name
+            librarySchedule.text =
+                context.getString(R.string.schedule_format, item.openingTime, item.closingTime)
+            libraryFreeSpaces.text =
+                context.getString(R.string.free_spaces_format, item.freeSpaces, item.capacity)
 
-        binding.libraryIsAdapted.visibility = if (item.isAdapted) View.VISIBLE else View.INVISIBLE
+            libraryIsAdapted.visibility = if (item.isAdapted) View.VISIBLE else View.INVISIBLE
+        }
     }
 }

@@ -18,14 +18,15 @@ class WorkstationAdapter(
 
         binding.workstationTitle.text = context.getString(R.string.workstation, item.workstationId)
 
-        val workstationText = binding.workstationState
         val (textResId, colorResId) = when (item.state) {
             Workstation.WorkstationState.AVAILABLE -> R.string.available to android.R.color.holo_green_light
             Workstation.WorkstationState.OCCUPIED -> R.string.occupied to android.R.color.holo_red_light
             Workstation.WorkstationState.BOOKED -> R.string.booked to android.R.color.holo_orange_light
         }
 
-        workstationText.text = context.getString(textResId)
-        workstationText.setTextColor(ContextCompat.getColor(context, colorResId))
+        binding.workstationState.apply {
+            text = context.getString(textResId)
+            setTextColor(ContextCompat.getColor(context, colorResId))
+        }
     }
 }
