@@ -7,18 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityRegistrationBinding
-import com.tfg.bibliofinder.exceptions.EmailAlreadyInUseException
-import com.tfg.bibliofinder.exceptions.InvalidEmailFormatException
-import com.tfg.bibliofinder.exceptions.InvalidPasswordException
-import com.tfg.bibliofinder.exceptions.PasswordMismatchException
 import com.tfg.bibliofinder.services.AuthenticationService
+import com.tfg.bibliofinder.services.exceptions.EmailAlreadyInUseException
+import com.tfg.bibliofinder.services.exceptions.InvalidEmailFormatException
+import com.tfg.bibliofinder.services.exceptions.InvalidPasswordException
+import com.tfg.bibliofinder.services.exceptions.PasswordMismatchException
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
 
-    private val authenticationService: AuthenticationService = AuthenticationService()
+    private val authenticationService: AuthenticationService by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +28,11 @@ class RegistrationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonSignUp.setOnClickListener {
-            binding.textEmail.error = null
-            binding.textPasswordLayout.error = null
-            binding.textRepeatPasswordLayout.error = null
+            binding.apply {
+                textEmail.error = null
+                textPasswordLayout.error = null
+                textRepeatPasswordLayout.error = null
+            }
 
             val email = binding.textEmail.text.toString()
             val password = binding.textPassword.text.toString()

@@ -7,12 +7,24 @@ import com.tfg.bibliofinder.screens.classroom.ClassroomViewModel
 import com.tfg.bibliofinder.screens.library.LibraryViewModel
 import com.tfg.bibliofinder.screens.profile.ProfileViewModel
 import com.tfg.bibliofinder.screens.workstation.WorkstationViewModel
+import com.tfg.bibliofinder.services.AuthenticationService
+import com.tfg.bibliofinder.services.BookingService
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val biblioFinderModule = module {
-    single { AppDatabase.getInstance(get()) }
+    single<AppDatabase> {
+        AppDatabase.getInstance(androidContext())
+    }
+
+    single<AuthenticationService> {
+        AuthenticationService()
+    }
+
+    single<BookingService> {
+        BookingService()
+    }
 
     single<SharedPreferences> {
         androidContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)

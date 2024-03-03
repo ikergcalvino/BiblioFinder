@@ -8,6 +8,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class LibraryViewModel : ViewModel(), KoinComponent {
+
     private val database: AppDatabase by inject()
 
     val allLibraries: LiveData<List<Library>> = database.libraryDao().getLibraries()

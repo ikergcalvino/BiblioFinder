@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
@@ -29,7 +30,7 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        CoroutineScope(Dispatchers.Main).launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.loadUserAndWorkstationData()
         }
 
@@ -76,33 +77,26 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "Data saved successfully.", Toast.LENGTH_SHORT).show()
         }
 
-        binding.emptyNfcButton.setOnClickListener {
+        val nfcButtonClickListener = View.OnClickListener {
             val nfcIntent = Intent(requireContext(), NfcActivity::class.java)
             startActivity(nfcIntent)
         }
 
-        binding.bookedNfcButton.setOnClickListener {
-            val nfcIntent = Intent(requireContext(), NfcActivity::class.java)
-            startActivity(nfcIntent)
+        binding.emptyNfcButton.setOnClickListener(nfcButtonClickListener)
+        binding.bookedNfcButton.setOnClickListener(nfcButtonClickListener)
+
+        val exitButtonClickListener = View.OnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                viewModel.updateWorkstationDetails()
+            }
+
+            findNavController().navigate(R.id.nav_profile)
         }
 
-        binding.cancelButton.setOnClickListener {
-            releaseWorkstation()
-        }
-
-        binding.leaveButton.setOnClickListener {
-            releaseWorkstation()
-        }
+        binding.cancelButton.setOnClickListener(exitButtonClickListener)
+        binding.leaveButton.setOnClickListener(exitButtonClickListener)
 
         return binding.root
-    }
-
-    private fun releaseWorkstation() {
-        CoroutineScope(Dispatchers.IO).launch {
-            viewModel.updateWorkstationDetails()
-        }
-
-        findNavController().navigate(R.id.nav_profile)
     }
 
     override fun onDestroyView() {

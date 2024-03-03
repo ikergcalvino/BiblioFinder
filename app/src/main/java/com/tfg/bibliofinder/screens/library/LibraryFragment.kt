@@ -17,13 +17,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LibraryFragment : Fragment(), ItemClickListener<Library> {
 
-    private val libraries = mutableListOf<Library>()
     private var _binding: FragmentLibraryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: LibraryAdapter
-    private lateinit var recyclerView: RecyclerView
+    private val libraries = mutableListOf<Library>()
+
+    private val adapter: LibraryAdapter by lazy { LibraryAdapter(libraries, this) }
     private val viewModel: LibraryViewModel by viewModel()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,11 +32,11 @@ class LibraryFragment : Fragment(), ItemClickListener<Library> {
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
 
         recyclerView = binding.recyclerView
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        adapter = LibraryAdapter(libraries, this)
-        recyclerView.adapter = adapter
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@LibraryFragment.adapter
+        }
 
         initializeLibrarySortingExposedDropdown()
 
@@ -58,18 +59,17 @@ class LibraryFragment : Fragment(), ItemClickListener<Library> {
         exposedDropdownMenu.setAdapter(exposedDropdownAdapter)
         exposedDropdownMenu.setText(sortingOptions[0], false)
 
-        val sortingFunctions = mapOf(
-            getString(R.string.name_ascending) to { libraries.sortBy { it.name } },
-            getString(R.string.name_descending) to { libraries.sortByDescending { it.name } },
-            getString(R.string.opening_time) to { libraries.sortBy { it.openingTime } },
-            getString(R.string.closing_time) to { libraries.sortBy { it.closingTime } },
-            getString(R.string.free_spaces) to { libraries.sortByDescending { it.freeSpaces } },
-            getString(R.string.adapted_for_disabilities) to { libraries.sortByDescending { it.isAdapted } },
-            getString(R.string.by_institution) to { libraries.sortBy { it.institution } }
-        )
+        val sortingFunctions =
+            mapOf(getString(R.string.name_ascending) to { libraries.sortBy { it.name } },
+                getString(R.string.name_descending) to { libraries.sortByDescending { it.name } },
+                getString(R.string.opening_time) to { libraries.sortBy { it.openingTime } },
+                getString(R.string.closing_time) to { libraries.sortBy { it.closingTime } },
+                getString(R.string.free_spaces) to { libraries.sortByDescending { it.freeSpaces } },
+                getString(R.string.adapted_for_disabilities) to { libraries.sortByDescending { it.isAdapted } },
+                getString(R.string.by_institution) to { libraries.sortBy { it.institution } })
 
-        exposedDropdownMenu.setOnItemClickListener { parent, _, position, _ ->
-            val selectedOption = parent.getItemAtPosition(position) as String
+        exposedDropdownMenu.setOnItemClickListener { _, _, position, _ ->
+            val selectedOption = sortingOptions[position]
             sortingFunctions[selectedOption]?.invoke()
             adapter.notifyDataSetChanged()
         }
@@ -77,7 +77,6 @@ class LibraryFragment : Fragment(), ItemClickListener<Library> {
 
     override fun onResume() {
         super.onResume()
-
         initializeLibrarySortingExposedDropdown()
     }
 

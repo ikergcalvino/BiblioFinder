@@ -7,16 +7,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityLoginBinding
-import com.tfg.bibliofinder.exceptions.EmptyCredentialsException
-import com.tfg.bibliofinder.exceptions.InvalidCredentialsException
 import com.tfg.bibliofinder.services.AuthenticationService
+import com.tfg.bibliofinder.services.exceptions.EmptyCredentialsException
+import com.tfg.bibliofinder.services.exceptions.InvalidCredentialsException
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    private val authenticationService: AuthenticationService = AuthenticationService()
+    private val authenticationService: AuthenticationService by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

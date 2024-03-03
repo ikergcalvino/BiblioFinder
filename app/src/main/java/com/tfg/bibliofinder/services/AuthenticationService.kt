@@ -3,12 +3,12 @@ package com.tfg.bibliofinder.services
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.User
-import com.tfg.bibliofinder.exceptions.EmailAlreadyInUseException
-import com.tfg.bibliofinder.exceptions.EmptyCredentialsException
-import com.tfg.bibliofinder.exceptions.InvalidCredentialsException
-import com.tfg.bibliofinder.exceptions.InvalidEmailFormatException
-import com.tfg.bibliofinder.exceptions.InvalidPasswordException
-import com.tfg.bibliofinder.exceptions.PasswordMismatchException
+import com.tfg.bibliofinder.services.exceptions.EmailAlreadyInUseException
+import com.tfg.bibliofinder.services.exceptions.EmptyCredentialsException
+import com.tfg.bibliofinder.services.exceptions.InvalidCredentialsException
+import com.tfg.bibliofinder.services.exceptions.InvalidEmailFormatException
+import com.tfg.bibliofinder.services.exceptions.InvalidPasswordException
+import com.tfg.bibliofinder.services.exceptions.PasswordMismatchException
 import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -40,7 +40,7 @@ class AuthenticationService : KoinComponent {
         val user = database.userDao().getUserByEmail(email)
 
         if (isValidCredentials(email, password)) {
-            with(sharedPrefs.edit()) {
+            sharedPrefs.edit().apply {
                 putLong(Constants.USER_ID, user!!.userId)
                 putString(Constants.USER_NAME, user.name)
                 putString(Constants.USER_EMAIL, user.email)
@@ -52,7 +52,7 @@ class AuthenticationService : KoinComponent {
     }
 
     fun logOut() {
-        with(sharedPrefs.edit()) {
+        sharedPrefs.edit().apply {
             remove(Constants.USER_ID)
             remove(Constants.USER_NAME)
             remove(Constants.USER_EMAIL)

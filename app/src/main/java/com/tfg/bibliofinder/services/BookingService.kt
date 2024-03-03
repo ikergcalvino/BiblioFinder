@@ -3,10 +3,10 @@ package com.tfg.bibliofinder.services
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.exceptions.BookingOutsideAllowedHoursException
-import com.tfg.bibliofinder.exceptions.UserAlreadyHasBookingException
-import com.tfg.bibliofinder.exceptions.UserNotLoggedInException
-import com.tfg.bibliofinder.exceptions.WorkstationNotAvailableException
+import com.tfg.bibliofinder.services.exceptions.BookingOutsideAllowedHoursException
+import com.tfg.bibliofinder.services.exceptions.UserAlreadyHasBookingException
+import com.tfg.bibliofinder.services.exceptions.UserNotLoggedInException
+import com.tfg.bibliofinder.services.exceptions.WorkstationNotAvailableException
 import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

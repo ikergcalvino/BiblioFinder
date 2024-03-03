@@ -36,17 +36,20 @@ class ProfileViewModel : ViewModel(), KoinComponent {
 
     suspend fun updateUserDetails(newName: String, newPhone: String) {
         sharedPrefs.edit().putString(Constants.USER_NAME, newName).apply()
-        user.value?.name = newName
-        user.value?.phone = newPhone
-
-        user.value?.let { database.userDao().updateUser(it) }
+        user.value?.apply {
+            name = newName
+            phone = newPhone
+            database.userDao().updateUser(this)
+        }
     }
 
     suspend fun updateWorkstationDetails() {
-        workstation.value?.state = Workstation.WorkstationState.AVAILABLE
-        workstation.value?.dateTime = null
-        workstation.value?.userId = null
+        workstation.value?.apply {
+            state = Workstation.WorkstationState.AVAILABLE
+            dateTime = null
+            userId = null
 
-        workstation.value?.let { database.workstationDao().updateWorkstation(it) }
+            database.workstationDao().updateWorkstation(this)
+        }
     }
 }

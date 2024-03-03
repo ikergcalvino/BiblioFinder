@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val authenticationService: AuthenticationService = AuthenticationService()
+    private val authenticationService: AuthenticationService by inject()
     private val sharedPrefs: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         selectDrawerMenu()
 
-        appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_library, R.id.nav_profile), drawerLayout
-        )
+        appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.nav_library, R.id.nav_profile), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -74,7 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         selectDrawerMenu()
     }
 

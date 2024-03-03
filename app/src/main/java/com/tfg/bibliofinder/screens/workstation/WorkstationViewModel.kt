@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 
 class WorkstationViewModel : ViewModel(), KoinComponent {
 
-    private val bookingService: BookingService = BookingService()
+    private val bookingService: BookingService by inject()
     private val database: AppDatabase by inject()
 
     fun getWorkstationsByClassroom(classroomId: Long): LiveData<List<Workstation>> {

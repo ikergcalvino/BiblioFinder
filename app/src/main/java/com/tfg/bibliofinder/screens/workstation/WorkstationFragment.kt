@@ -19,10 +19,10 @@ import com.google.android.material.timepicker.TimeFormat
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.exceptions.BookingOutsideAllowedHoursException
-import com.tfg.bibliofinder.exceptions.UserAlreadyHasBookingException
-import com.tfg.bibliofinder.exceptions.UserNotLoggedInException
-import com.tfg.bibliofinder.exceptions.WorkstationNotAvailableException
+import com.tfg.bibliofinder.services.exceptions.BookingOutsideAllowedHoursException
+import com.tfg.bibliofinder.services.exceptions.UserAlreadyHasBookingException
+import com.tfg.bibliofinder.services.exceptions.UserNotLoggedInException
+import com.tfg.bibliofinder.services.exceptions.WorkstationNotAvailableException
 import com.tfg.bibliofinder.util.ItemClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,14 +34,14 @@ import java.time.LocalTime
 
 class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
 
-    private val workstations = mutableListOf<Workstation>()
     private var _binding: FragmentWorkstationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: WorkstationAdapter
-    private lateinit var recyclerView: RecyclerView
+    private val workstations = mutableListOf<Workstation>()
 
+    private val adapter: WorkstationAdapter by lazy { WorkstationAdapter(workstations, this) }
     private val viewModel: WorkstationViewModel by viewModel()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,11 +49,11 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
         _binding = FragmentWorkstationBinding.inflate(inflater, container, false)
 
         recyclerView = binding.recyclerView
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        adapter = WorkstationAdapter(workstations, this)
-        recyclerView.adapter = adapter
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@WorkstationFragment.adapter
+        }
 
         val classroomId = arguments?.getLong("classroomId", 0L)
         if (classroomId != null && classroomId != 0L) {
@@ -150,7 +150,7 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
         notificationManager.createNotificationChannel(channel)
 
         val notificationBuilder = NotificationCompat.Builder(requireContext(), "channel_id")
-            .setSmallIcon(R.mipmap.ic_profile_picture).setContentTitle("Notificación de reserva")
+            .setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Notificación de reserva")
             .setContentText("OK").setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         notificationManager.notify(1, notificationBuilder.build())

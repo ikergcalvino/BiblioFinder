@@ -8,9 +8,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class ClassroomViewModel : ViewModel(), KoinComponent {
+
     private val database: AppDatabase by inject()
 
-    fun getClassroomsByLibrary(libraryId: Long): LiveData<List<Classroom>> {
-        return database.classroomDao().getClassroomsByLibrary(libraryId)
-    }
+    fun getClassroomsByLibrary(libraryId: Long): LiveData<List<Classroom>> =
+        database.classroomDao().getClassroomsByLibrary(libraryId)
 }

@@ -16,13 +16,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ClassroomFragment : Fragment(), ItemClickListener<Classroom> {
 
-    private val classrooms = mutableListOf<Classroom>()
     private var _binding: FragmentClassroomBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: ClassroomAdapter
-    private lateinit var recyclerView: RecyclerView
+    private val classrooms = mutableListOf<Classroom>()
+
+    private val adapter: ClassroomAdapter by lazy { ClassroomAdapter(classrooms, this) }
     private val viewModel: ClassroomViewModel by viewModel()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -30,11 +31,11 @@ class ClassroomFragment : Fragment(), ItemClickListener<Classroom> {
         _binding = FragmentClassroomBinding.inflate(inflater, container, false)
 
         recyclerView = binding.recyclerView
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        adapter = ClassroomAdapter(classrooms, this)
-        recyclerView.adapter = adapter
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@ClassroomFragment.adapter
+        }
 
         val libraryId = arguments?.getLong("libraryId", 0L)
         if (libraryId != null && libraryId != 0L) {
