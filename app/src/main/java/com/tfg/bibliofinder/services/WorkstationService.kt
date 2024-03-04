@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class BookingService : KoinComponent {
+class WorkstationService : KoinComponent {
 
     private lateinit var opening: LocalDateTime
     private lateinit var closing: LocalDateTime
@@ -58,6 +58,33 @@ class BookingService : KoinComponent {
         workstation.state = Workstation.WorkstationState.BOOKED
         workstation.dateTime = adjustedTime
         workstation.userId = userId
+
+        database.workstationDao().updateWorkstation(workstation)
+    }
+
+    suspend fun occupyWorkstation(nfcId: Long) {
+        val userId = sharedPrefs.getLong(Constants.USER_ID, 0L)
+        val nfcWorkstation = database.workstationDao().getWorkstationById(nfcId)
+        val userWorkstation = database.workstationDao().getWorkstationByUser(userId)
+
+        if (nfcWorkstation?.state == Workstation.WorkstationState.AVAILABLE && userWorkstation == null) {
+            nfcWorkstation.state = Workstation.WorkstationState.OCCUPIED
+            nfcWorkstation.userId = userId
+
+            database.workstationDao().updateWorkstation(nfcWorkstation)
+        } else if (nfcWorkstation?.state == Workstation.WorkstationState.BOOKED && nfcWorkstation.userId == userId) {
+            nfcWorkstation.state = Workstation.WorkstationState.OCCUPIED
+
+            database.workstationDao().updateWorkstation(nfcWorkstation)
+        } else {
+            throw WorkstationNotAvailableException()
+        }
+    }
+
+    suspend fun releaseWorkstation(workstation: Workstation) {
+        workstation.state = Workstation.WorkstationState.AVAILABLE
+        workstation.dateTime = null
+        workstation.userId = null
 
         database.workstationDao().updateWorkstation(workstation)
     }

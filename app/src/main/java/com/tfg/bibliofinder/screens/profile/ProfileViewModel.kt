@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.User
 import com.tfg.bibliofinder.entities.Workstation
+import com.tfg.bibliofinder.services.WorkstationService
 import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -13,6 +14,7 @@ import org.koin.core.component.inject
 class ProfileViewModel : ViewModel(), KoinComponent {
     private val database: AppDatabase by inject()
     private val sharedPrefs: SharedPreferences by inject()
+    private val workstationService: WorkstationService by inject()
 
     var libraryName: String? = ""
     var classroomName: String? = ""
@@ -44,12 +46,6 @@ class ProfileViewModel : ViewModel(), KoinComponent {
     }
 
     suspend fun updateWorkstationDetails() {
-        workstation.value?.apply {
-            state = Workstation.WorkstationState.AVAILABLE
-            dateTime = null
-            userId = null
-
-            database.workstationDao().updateWorkstation(this)
-        }
+        workstation.value?.let { workstationService.releaseWorkstation(it) }
     }
 }
