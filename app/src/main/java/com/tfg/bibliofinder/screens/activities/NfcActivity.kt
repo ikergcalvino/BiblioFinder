@@ -90,15 +90,15 @@ class NfcActivity : Activity() {
                             binding.nfcText.setText(R.string.workstation_not_occupied)
                             binding.nfcIcon.setAnimation(R.raw.nfc_fail)
                         }
+
+                        binding.nfcIcon.playAnimation()
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            val mainIntent = Intent(this@NfcActivity, MainActivity::class.java)
+                            startActivity(mainIntent)
+                            finish()
+                        }, 2500)
                     }
-
-                    binding.nfcIcon.playAnimation()
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        val mainIntent = Intent(this@NfcActivity, MainActivity::class.java)
-                        startActivity(mainIntent)
-                        finish()
-                    }, 2500)
                 }
             }
         }
