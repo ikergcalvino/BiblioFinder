@@ -51,7 +51,6 @@ class RegistrationActivity : AppCompatActivity() {
 
                     val mainIntent = Intent(this@RegistrationActivity, MainActivity::class.java)
                     startActivity(mainIntent)
-
                     finish()
                 } catch (e: InvalidEmailFormatException) {
                     binding.textEmail.error = getString(R.string.invalid_email_format)

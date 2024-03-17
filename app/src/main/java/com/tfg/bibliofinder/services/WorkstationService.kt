@@ -81,12 +81,15 @@ class WorkstationService : KoinComponent {
         }
     }
 
-    suspend fun releaseWorkstation(workstation: Workstation) {
-        workstation.state = Workstation.WorkstationState.AVAILABLE
-        workstation.dateTime = null
-        workstation.userId = null
+    suspend fun releaseWorkstation() {
+        val userId = sharedPrefs.getLong(Constants.USER_ID, 0L)
+        val workstation = database.workstationDao().getWorkstationByUser(userId)
 
-        database.workstationDao().updateWorkstation(workstation)
+        workstation?.state = Workstation.WorkstationState.AVAILABLE
+        workstation?.dateTime = null
+        workstation?.userId = null
+
+        workstation?.let { database.workstationDao().updateWorkstation(it) }
     }
 
     private fun isUserLoggedIn(userId: Long): Boolean = userId != 0L

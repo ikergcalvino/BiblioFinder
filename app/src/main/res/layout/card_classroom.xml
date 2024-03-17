@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/classroom_banner"
             android:layout_width="175dp"
             android:layout_height="match_parent"
@@ -24,20 +24,20 @@
             android:layout_weight="0.5"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/classroom_name"
                 style="@style/TextAppearance.BiblioFinder.HeadlineMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorPrimary" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/classroom_type"
                 style="@style/TextAppearance.BiblioFinder.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/classroom_capacity"
                 style="@style/TextAppearance.BiblioFinder.BodySmall"
                 android:layout_width="wrap_content"

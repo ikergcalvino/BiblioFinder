@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/nfc_text"
             style="@style/TextAppearance.BiblioFinder.HeadlineLarge"
             android:layout_width="match_parent"

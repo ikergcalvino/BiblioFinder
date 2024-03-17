@@ -46,6 +46,6 @@ class ProfileViewModel : ViewModel(), KoinComponent {
     }
 
     suspend fun updateWorkstationDetails() {
-        workstation.value?.let { workstationService.releaseWorkstation(it) }
+        workstationService.releaseWorkstation()
     }
 }

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/library_banner"
             android:layout_width="match_parent"
             android:layout_height="128dp"
@@ -31,20 +31,20 @@
                 android:layout_weight="0.5"
                 android:orientation="vertical">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/library_name"
                     style="@style/TextAppearance.BiblioFinder.HeadlineMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorPrimary" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/library_schedule"
                     style="@style/TextAppearance.BiblioFinder.BodyLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/library_free_spaces"
                     style="@style/TextAppearance.BiblioFinder.BodySmall"
                     android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/library_is_adapted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                     android:contentDescription="@string/is_adapted"
                     android:src="@drawable/ic_accessible" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/library_info"
                     style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
                     android:layout_width="wrap_content"

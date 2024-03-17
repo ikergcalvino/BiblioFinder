@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,13 +13,13 @@
         android:layout_marginBottom="4dp"
         android:text="@string/address" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/library_address"
         style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,13 +27,13 @@
         android:layout_marginBottom="4dp"
         android:text="@string/phone" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/library_phone"
         style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,13 +41,13 @@
         android:layout_marginBottom="4dp"
         android:text="@string/email" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/library_email"
         style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         style="@style/TextAppearance.BiblioFinder.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         android:layout_marginBottom="4dp"
         android:text="@string/institution" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/library_institution"
         style="@style/TextAppearance.BiblioFinder.BodySmall"
         android:layout_width="wrap_content"

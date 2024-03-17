@@ -1,14 +1,10 @@
 package com.tfg.bibliofinder.screens.workstation
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,8 +103,6 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
                                 requireContext(), selectedTime.toString(), Toast.LENGTH_SHORT
                             ).show()
 
-                            showNotification()
-
                         } catch (e: BookingOutsideAllowedHoursException) {
                             Snackbar.make(
                                 binding.root,
@@ -137,22 +131,5 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
                 ).show()
             }
         }
-    }
-
-    private fun showNotification() {
-        val notificationManager =
-            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val channel = NotificationChannel(
-            "channel_id", "Channel Name", NotificationManager.IMPORTANCE_DEFAULT
-        )
-
-        notificationManager.createNotificationChannel(channel)
-
-        val notificationBuilder = NotificationCompat.Builder(requireContext(), "channel_id")
-            .setSmallIcon(R.mipmap.ic_launcher).setContentTitle("Notificación de reserva")
-            .setContentText("OK").setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        notificationManager.notify(1, notificationBuilder.build())
     }
 }

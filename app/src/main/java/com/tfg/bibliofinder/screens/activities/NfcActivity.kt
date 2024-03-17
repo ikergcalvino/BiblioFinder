@@ -1,7 +1,6 @@
 package com.tfg.bibliofinder.screens.activities
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
@@ -14,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityNfcBinding
 import com.tfg.bibliofinder.services.WorkstationService
@@ -115,16 +115,16 @@ class NfcActivity : Activity() {
         }
 
         if (nfcAdapter?.isEnabled != true) {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.nfc_disabled))
-                setMessage(getString(R.string.enable_nfc))
-                setPositiveButton(getString(R.string.settings)) { _, _ ->
+            MaterialAlertDialogBuilder(this).setTitle(getString(R.string.nfc_disabled))
+                .setMessage(getString(R.string.enable_nfc))
+                .setPositiveButton(getString(R.string.settings)) { dialog, _ ->
                     val settingsIntent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
                     startActivity(settingsIntent)
-                }
-                setNegativeButton(getString(R.string.cancel)) { _, _ -> finish() }
-                setCancelable(false)
-            }.show()
+                    dialog.dismiss()
+                }.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                    finish()
+                }.show()
         }
     }
 }

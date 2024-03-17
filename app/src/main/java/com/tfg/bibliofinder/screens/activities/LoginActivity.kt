@@ -44,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
 
                     val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(mainIntent)
-
                     finish()
                 } catch (e: EmptyCredentialsException) {
                     binding.textEmail.error = getString(R.string.empty_credentials)
@@ -57,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
         binding.createNewAccount.setOnClickListener {
             val registrationIntent = Intent(this, RegistrationActivity::class.java)
             startActivity(registrationIntent)
+            finish()
         }
     }
 }

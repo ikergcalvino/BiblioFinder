@@ -71,7 +71,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/or" />
@@ -89,23 +89,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:gravity="center"
                 android:padding="4dp"
                 android:text="@string/dont_have_an_account" />
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/create_new_account"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@string/create_one_now"
-                android:textColor="?android:attr/colorPrimary" />
+                android:layout_height="wrap_content"
+                android:text="@string/create_one_now" />
 
         </LinearLayout>
 

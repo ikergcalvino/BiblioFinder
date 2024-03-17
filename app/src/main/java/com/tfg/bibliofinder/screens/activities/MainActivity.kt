@@ -4,8 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -13,7 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.textview.MaterialTextView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityMainBinding
 import com.tfg.bibliofinder.services.AuthenticationService
@@ -50,23 +50,33 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.nav_library -> {
+                    navController.navigate(R.id.nav_library)
+                    true
+                }
+
                 R.id.nav_login -> {
-                    val loginIntent = Intent(this, LoginActivity::class.java)
+                    val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
                     startActivity(loginIntent)
+                    finish()
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    navController.navigate(R.id.nav_profile)
                     true
                 }
 
                 R.id.nav_logout -> {
                     authenticationService.logOut()
-                    val logoutIntent = Intent(this, MainActivity::class.java)
+                    val logoutIntent = Intent(this@MainActivity, MainActivity::class.java)
                     startActivity(logoutIntent)
+                    finish()
                     true
                 }
 
-                else -> {
-                    navController.navigate(menuItem.itemId)
-                    true
-                }
+                else -> false
+
             }.also { drawerLayout.closeDrawers() }
         }
     }
@@ -79,9 +89,9 @@ class MainActivity : AppCompatActivity() {
     private fun selectDrawerMenu() {
         val headerView = binding.navView.getHeaderView(0)
 
-        val userName = headerView.findViewById<TextView>(R.id.user_name)
-        val userEmail = headerView.findViewById<TextView>(R.id.user_email)
-        val profilePicture = headerView.findViewById<ImageView>(R.id.profile_picture)
+        val userName = headerView.findViewById<MaterialTextView>(R.id.user_name)
+        val userEmail = headerView.findViewById<MaterialTextView>(R.id.user_email)
+        val profilePicture = headerView.findViewById<ShapeableImageView>(R.id.profile_picture)
 
         userName.text = sharedPrefs.getString(Constants.USER_NAME, getString(R.string.app_name))
         userEmail.text = sharedPrefs.getString(Constants.USER_EMAIL, getString(R.string.welcome))

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.Workstation
+import com.tfg.bibliofinder.services.NotificationService
 import com.tfg.bibliofinder.services.WorkstationService
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -12,6 +13,7 @@ import java.time.LocalDateTime
 class WorkstationViewModel : ViewModel(), KoinComponent {
 
     private val database: AppDatabase by inject()
+    private val notificationService: NotificationService by inject()
     private val workstationService: WorkstationService by inject()
 
     fun getWorkstationsByClassroom(classroomId: Long): LiveData<List<Workstation>> {
@@ -27,8 +29,9 @@ class WorkstationViewModel : ViewModel(), KoinComponent {
     }
 
     suspend fun bookWorkstationAtSelectedTime(
-        workstation: Workstation, selectedTime: LocalDateTime
+        workstation: Workstation, bookingTime: LocalDateTime
     ) {
-        workstationService.bookWorkstation(workstation, selectedTime)
+        workstationService.bookWorkstation(workstation, bookingTime)
+        notificationService.scheduleNotification(bookingTime)
     }
 }

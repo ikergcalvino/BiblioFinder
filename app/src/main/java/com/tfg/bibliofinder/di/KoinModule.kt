@@ -8,6 +8,7 @@ import com.tfg.bibliofinder.screens.library.LibraryViewModel
 import com.tfg.bibliofinder.screens.profile.ProfileViewModel
 import com.tfg.bibliofinder.screens.workstation.WorkstationViewModel
 import com.tfg.bibliofinder.services.AuthenticationService
+import com.tfg.bibliofinder.services.NotificationService
 import com.tfg.bibliofinder.services.WorkstationService
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,6 +21,10 @@ val biblioFinderModule = module {
 
     single<AuthenticationService> {
         AuthenticationService()
+    }
+
+    single<NotificationService> {
+        NotificationService(androidContext())
     }
 
     single<WorkstationService> {
