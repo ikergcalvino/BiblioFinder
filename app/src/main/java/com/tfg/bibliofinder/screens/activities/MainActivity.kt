@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_login -> {
                     val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
                     startActivity(loginIntent)
-                    finish()
                     true
                 }
 

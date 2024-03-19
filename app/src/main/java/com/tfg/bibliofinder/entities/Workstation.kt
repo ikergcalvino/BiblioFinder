@@ -19,8 +19,11 @@ data class Workstation(
     var state: WorkstationState = WorkstationState.AVAILABLE,
     var dateTime: LocalDateTime? = null,
     val classroomId: Long,
+    val location: Coordinates,
     var userId: Long? = null
 ) {
+    data class Coordinates(val x: Int, val y: Int)
+
     enum class WorkstationState {
         AVAILABLE, OCCUPIED, BOOKED
     }

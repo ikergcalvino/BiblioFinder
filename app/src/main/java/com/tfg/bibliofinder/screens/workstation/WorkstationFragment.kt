@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -74,7 +76,16 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
     }
 
     override fun onItemClick(item: Workstation) {
-        TODO("Not yet implemented")
+        val workstationLocationIcon =
+            view?.findViewById<ShapeableImageView>(R.id.workstation_location)
+
+        workstationLocationIcon?.let {
+            val layoutParams = it.layoutParams as FrameLayout.LayoutParams
+            layoutParams.leftMargin = item.location.x
+            layoutParams.topMargin = item.location.y
+            it.layoutParams = layoutParams
+            it.visibility = View.VISIBLE
+        }
     }
 
     override fun onInfoButtonClick(item: Workstation) {

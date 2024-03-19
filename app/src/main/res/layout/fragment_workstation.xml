@@ -11,12 +11,27 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <FrameLayout
             android:layout_width="283dp"
             android:layout_height="283dp"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/classroom_map"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_margin="16dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/classroom_map"
+                android:scaleType="fitXY"
+                android:src="@drawable/classroom_map" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/workstation_location"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person_pin_circle"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
