@@ -1,5 +1,6 @@
 package com.tfg.bibliofinder.screens.workstation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +18,11 @@ import com.google.android.material.timepicker.TimeFormat
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentWorkstationBinding
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.services.exceptions.BookingOutsideAllowedHoursException
-import com.tfg.bibliofinder.services.exceptions.UserAlreadyHasBookingException
-import com.tfg.bibliofinder.services.exceptions.UserNotLoggedInException
-import com.tfg.bibliofinder.services.exceptions.WorkstationNotAvailableException
+import com.tfg.bibliofinder.model.NotificationService
+import com.tfg.bibliofinder.model.exceptions.BookingOutsideAllowedHoursException
+import com.tfg.bibliofinder.model.exceptions.UserAlreadyHasBookingException
+import com.tfg.bibliofinder.model.exceptions.UserNotLoggedInException
+import com.tfg.bibliofinder.model.exceptions.WorkstationNotAvailableException
 import com.tfg.bibliofinder.util.ItemClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +31,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
 
@@ -108,10 +111,23 @@ class WorkstationFragment : Fragment(), ItemClickListener<Workstation> {
 
                     lifecycleScope.launch {
                         try {
-                            viewModel.bookWorkstationAtSelectedTime(item, selectedTime)
+                            val bookingTime =
+                                viewModel.bookWorkstationAtSelectedTime(item, selectedTime)
+
+                            val notification =
+                                Intent(requireContext(), NotificationService::class.java).apply {
+                                    putExtra("bookingTime", bookingTime.toString())
+                                }
+
+                            requireContext().startService(notification)
+
+                            val day = bookingTime.format(DateTimeFormatter.ofPattern("dd/MM"))
+                            val time = bookingTime.format(DateTimeFormatter.ofPattern("HH:mm"))
 
                             Toast.makeText(
-                                requireContext(), selectedTime.toString(), Toast.LENGTH_SHORT
+                                requireContext(), getString(
+                                    R.string.workstation_successfully_booked_for_at, day, time
+                                ), Toast.LENGTH_LONG
                             ).show()
 
                         } catch (e: BookingOutsideAllowedHoursException) {

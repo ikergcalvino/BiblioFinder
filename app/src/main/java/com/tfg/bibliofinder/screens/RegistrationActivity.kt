@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.screens.activities
+package com.tfg.bibliofinder.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityRegistrationBinding
-import com.tfg.bibliofinder.services.AuthenticationService
-import com.tfg.bibliofinder.services.exceptions.EmailAlreadyInUseException
-import com.tfg.bibliofinder.services.exceptions.InvalidEmailFormatException
-import com.tfg.bibliofinder.services.exceptions.InvalidPasswordException
-import com.tfg.bibliofinder.services.exceptions.PasswordMismatchException
+import com.tfg.bibliofinder.model.AuthenticationManager
+import com.tfg.bibliofinder.model.exceptions.EmailAlreadyInUseException
+import com.tfg.bibliofinder.model.exceptions.InvalidEmailFormatException
+import com.tfg.bibliofinder.model.exceptions.InvalidPasswordException
+import com.tfg.bibliofinder.model.exceptions.PasswordMismatchException
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -19,7 +19,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
 
-    private val authenticationService: AuthenticationService by inject()
+    private val authenticationManager: AuthenticationManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +40,8 @@ class RegistrationActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 try {
-                    authenticationService.registerUser(email, password, repeatPassword)
-                    authenticationService.logIn(email, password)
+                    authenticationManager.registerUser(email, password, repeatPassword)
+                    authenticationManager.logIn(email, password)
 
                     Toast.makeText(
                         applicationContext,

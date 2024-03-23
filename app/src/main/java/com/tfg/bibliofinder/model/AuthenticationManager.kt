@@ -1,20 +1,20 @@
-package com.tfg.bibliofinder.services
+package com.tfg.bibliofinder.model
 
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.User
-import com.tfg.bibliofinder.services.exceptions.EmailAlreadyInUseException
-import com.tfg.bibliofinder.services.exceptions.EmptyCredentialsException
-import com.tfg.bibliofinder.services.exceptions.InvalidCredentialsException
-import com.tfg.bibliofinder.services.exceptions.InvalidEmailFormatException
-import com.tfg.bibliofinder.services.exceptions.InvalidPasswordException
-import com.tfg.bibliofinder.services.exceptions.PasswordMismatchException
+import com.tfg.bibliofinder.model.exceptions.EmailAlreadyInUseException
+import com.tfg.bibliofinder.model.exceptions.EmptyCredentialsException
+import com.tfg.bibliofinder.model.exceptions.InvalidCredentialsException
+import com.tfg.bibliofinder.model.exceptions.InvalidEmailFormatException
+import com.tfg.bibliofinder.model.exceptions.InvalidPasswordException
+import com.tfg.bibliofinder.model.exceptions.PasswordMismatchException
 import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.mindrot.jbcrypt.BCrypt
 
-class AuthenticationService : KoinComponent {
+class AuthenticationManager : KoinComponent {
 
     private val database: AppDatabase by inject()
     private val sharedPrefs: SharedPreferences by inject()

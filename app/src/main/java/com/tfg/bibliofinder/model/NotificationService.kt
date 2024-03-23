@@ -1,16 +1,18 @@
-package com.tfg.bibliofinder.services
+package com.tfg.bibliofinder.model
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.os.IBinder
 import android.os.Looper
 import androidx.core.app.NotificationCompat
 import com.tfg.bibliofinder.R
-import com.tfg.bibliofinder.screens.activities.MainActivity
+import com.tfg.bibliofinder.screens.MainActivity
 import com.tfg.bibliofinder.util.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +22,12 @@ import org.koin.core.component.inject
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-class NotificationService(private val context: Context) {
+class NotificationService : Service() {
 
-    fun scheduleNotification(notificationTime: LocalDateTime) {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val notificationTime =
+            LocalDateTime.parse(intent?.getStringExtra("bookingTime")).minusMinutes(5L)
+
         val notificationTimeMillis =
             notificationTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
         val delay = notificationTimeMillis - System.currentTimeMillis()
@@ -30,11 +35,17 @@ class NotificationService(private val context: Context) {
         Handler(Looper.getMainLooper()).postDelayed({
             makeBookingNotification()
         }, delay)
+
+        return START_STICKY
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 
     private fun makeBookingNotification() {
         val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         notificationManager.createNotificationChannel(
             NotificationChannel(
@@ -42,27 +53,29 @@ class NotificationService(private val context: Context) {
             )
         )
 
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
         val pendingIntent = PendingIntent.getActivity(
-            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+            this, 0, intent, PendingIntent.FLAG_IMMUTABLE
         )
 
         val yesPendingIntent = PendingIntent.getBroadcast(
-            context, 0, Intent(context, YesReceiver::class.java), PendingIntent.FLAG_IMMUTABLE
+            this, 0, Intent(this, YesReceiver::class.java), PendingIntent.FLAG_IMMUTABLE
         )
 
         val noPendingIntent = PendingIntent.getBroadcast(
-            context, 0, Intent(context, NoReceiver::class.java), PendingIntent.FLAG_IMMUTABLE
+            this, 0, Intent(this, NoReceiver::class.java), PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notificationBuilder = NotificationCompat.Builder(context, Constants.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_calendar_clock).setContentTitle("Booking notification")
-            .setContentText("You have a booking, will you attend?")
+        val notificationBuilder = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_calendar_clock)
+            .setContentTitle(getString(R.string.booking_notification))
+            .setContentText(getString(R.string.you_have_a_booking_will_you_attend))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent)
-            .addAction(R.drawable.ic_door_open, "No, cancel booking", noPendingIntent)
-            .addAction(R.drawable.ic_event_available, "Yes", yesPendingIntent)
+            .addAction(
+                R.drawable.ic_door_open, getString(R.string.no_cancel_booking), noPendingIntent
+            ).addAction(R.drawable.ic_event_available, getString(R.string.yes), yesPendingIntent)
 
         notificationManager.notify(1, notificationBuilder.build())
     }
@@ -77,11 +90,11 @@ class NotificationService(private val context: Context) {
 
     class NoReceiver : BroadcastReceiver(), KoinComponent {
 
-        private val workstationService: WorkstationService by inject()
+        private val workstationManager: WorkstationManager by inject()
 
         override fun onReceive(context: Context?, intent: Intent?) {
             CoroutineScope(Dispatchers.IO).launch {
-                workstationService.releaseWorkstation()
+                workstationManager.releaseWorkstation()
             }
 
             val notificationManager =

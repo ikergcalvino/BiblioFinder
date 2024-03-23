@@ -11,6 +11,7 @@
     <string name="booked">BOOKED</string>
     <string name="booked_nfc_button_description">Scan NFC to confirm the booking</string>
     <string name="booking_icon">Booking icon</string>
+    <string name="booking_notification">Booking notification</string>
     <string name="booking_outside_allowed_hours">Booking cannot be made outside of allowed hours</string>
     <string name="by_institution">By institution</string>
     <string name="cancel">Cancel</string>
@@ -48,10 +49,12 @@
     <string name="name_descending">Name (descending)</string>
     <string name="nfc_disabled">NFC disabled</string>
     <string name="no_bookings_or_occupancy">No bookings or occupancy</string>
+    <string name="no_cancel_booking">No, cancel booking</string>
     <string name="occupied">OCCUPIED</string>
     <string name="occupied_site">Occupied site</string>
     <string name="opening_time">Opening time</string>
     <string name="or">Or</string>
+    <string name="order_by">Order by:</string>
     <string name="password">Password</string>
     <string name="password_mismatch">Password mismatch. Please make sure your passwords match.</string>
     <string name="phone">Phone</string>
@@ -74,5 +77,8 @@
     <string name="workstation_icon">Workstation icon</string>
     <string name="workstation_not_occupied">Workstation is currently booked or occupied by another user</string>
     <string name="workstation_occupied">Workstation occupied successfully</string>
+    <string name="workstation_successfully_booked_for_at">Workstation successfully booked for %1$s at %2$s</string>
     <string name="workstations">Workstations</string>
+    <string name="yes">Yes</string>
+    <string name="you_have_a_booking_will_you_attend">You have a booking, will you attend?</string>
 </resources>

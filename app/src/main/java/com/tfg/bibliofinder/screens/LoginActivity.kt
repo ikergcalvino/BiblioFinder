@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.screens.activities
+package com.tfg.bibliofinder.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityLoginBinding
-import com.tfg.bibliofinder.services.AuthenticationService
-import com.tfg.bibliofinder.services.exceptions.EmptyCredentialsException
-import com.tfg.bibliofinder.services.exceptions.InvalidCredentialsException
+import com.tfg.bibliofinder.model.AuthenticationManager
+import com.tfg.bibliofinder.model.exceptions.EmptyCredentialsException
+import com.tfg.bibliofinder.model.exceptions.InvalidCredentialsException
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    private val authenticationService: AuthenticationService by inject()
+    private val authenticationManager: AuthenticationManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 try {
-                    authenticationService.logIn(email, password)
+                    authenticationManager.logIn(email, password)
 
                     Toast.makeText(
                         applicationContext,

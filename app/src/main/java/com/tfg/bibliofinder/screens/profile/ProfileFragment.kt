@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.FragmentProfileBinding
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.screens.activities.NfcActivity
+import com.tfg.bibliofinder.screens.NfcActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

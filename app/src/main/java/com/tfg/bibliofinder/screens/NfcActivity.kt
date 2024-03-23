@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.screens.activities
+package com.tfg.bibliofinder.screens
 
 import android.app.Activity
 import android.app.PendingIntent
@@ -16,8 +16,8 @@ import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityNfcBinding
-import com.tfg.bibliofinder.services.WorkstationService
-import com.tfg.bibliofinder.services.exceptions.WorkstationNotAvailableException
+import com.tfg.bibliofinder.model.WorkstationManager
+import com.tfg.bibliofinder.model.exceptions.WorkstationNotAvailableException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +28,7 @@ class NfcActivity : Activity() {
     private lateinit var binding: ActivityNfcBinding
 
     private var nfcAdapter: NfcAdapter? = null
-    private val workstationService: WorkstationService by inject()
+    private val workstationManager: WorkstationManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +82,7 @@ class NfcActivity : Activity() {
 
                     CoroutineScope(Dispatchers.Main).launch {
                         try {
-                            workstationId?.let { workstationService.occupyWorkstation(it) }
+                            workstationId?.let { workstationManager.occupyWorkstation(it) }
 
                             binding.nfcText.setText(R.string.workstation_occupied)
                             binding.nfcIcon.setAnimation(R.raw.nfc_success)

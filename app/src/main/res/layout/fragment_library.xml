@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:hint="Sorting Options"
+                android:hint="@string/order_by"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -11,6 +11,7 @@
     <string name="booked">RESERVADO</string>
     <string name="booked_nfc_button_description">Escanea el NFC para confirmar la reserva</string>
     <string name="booking_icon">Icono de reserva</string>
+    <string name="booking_notification">Notificación de reserva</string>
     <string name="booking_outside_allowed_hours">No se puede hacer una reserva fuera del horario permitido</string>
     <string name="by_institution">Por institución</string>
     <string name="cancel">Cancelar</string>
@@ -25,9 +26,9 @@
     <string name="dont_have_an_account">¿No tienes una cuenta?</string>
     <string name="email">Correo electrónico</string>
     <string name="email_already_in_use">Este correo electrónico ya está en uso</string>
-    <string name="empty_credentials">Por favor, ingrese tanto el correo electrónico como la contraseña.</string>
+    <string name="empty_credentials">Por favor, introduce tanto el correo electrónico como la contraseña.</string>
     <string name="empty_nfc_button_description">Escanea el NFC para ocupar el puesto de trabajo</string>
-    <string name="enable_nfc">Para utilizar esta aplicación, debes habilitar el NFC en tu dispositivo.</string>
+    <string name="enable_nfc">Para usar esta aplicación, debes habilitar NFC en tu dispositivo.</string>
     <string name="free_spaces">Espacios libres</string>
     <string name="free_spaces_format">Espacios libres: %1$d / %2$d</string>
     <string name="full_name">Nombre completo</string>
@@ -47,16 +48,18 @@
     <string name="name_ascending">Nombre (ascendente)</string>
     <string name="name_descending">Nombre (descendente)</string>
     <string name="nfc_disabled">NFC desactivado</string>
-    <string name="no_bookings_or_occupancy">Sin reservas u ocupación</string>
+    <string name="no_bookings_or_occupancy">No hay reservas o ocupación</string>
+    <string name="no_cancel_booking">No, cancelar reserva</string>
     <string name="occupied">OCUPADO</string>
     <string name="occupied_site">Sitio ocupado</string>
     <string name="opening_time">Hora de apertura</string>
     <string name="or">O</string>
+    <string name="order_by">Ordenar por:</string>
     <string name="password">Contraseña</string>
-    <string name="password_mismatch">Contraseña incorrecta. Asegúrese de que las contraseñas coincidan.</string>
+    <string name="password_mismatch">Contraseña incorrecta. Asegúrate de que las contraseñas coincidan.</string>
     <string name="phone">Teléfono</string>
     <string name="phone_number">Número de teléfono</string>
-    <string name="please_enter_email_password">Por favor, ingresa tu correo electrónico y contraseña</string>
+    <string name="please_enter_email_password">Por favor, introduce tu correo electrónico y contraseña</string>
     <string name="profile">Perfil</string>
     <string name="profile_picture">Imagen de perfil: Avatar de usuario</string>
     <string name="registration_successful">Registro exitoso. ¡Bienvenido!</string>
@@ -74,5 +77,8 @@
     <string name="workstation_icon">Icono del puesto de trabajo</string>
     <string name="workstation_not_occupied">El puesto de trabajo está actualmente reservado u ocupado por otro usuario</string>
     <string name="workstation_occupied">Puesto de trabajo ocupado con éxito</string>
+    <string name="workstation_successfully_booked_for_at">Reservado con éxito para el %1$s a las %2$s</string>
     <string name="workstations">Puestos de trabajo</string>
+    <string name="yes">Sí</string>
+    <string name="you_have_a_booking_will_you_attend">Tienes una reserva, ¿vas a ir?</string>
 </resources>

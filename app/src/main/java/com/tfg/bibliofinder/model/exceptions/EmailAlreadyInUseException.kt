@@ -1,3 +1,3 @@
-package com.tfg.bibliofinder.services.exceptions
+package com.tfg.bibliofinder.model.exceptions
 
 class EmailAlreadyInUseException : IllegalArgumentException()

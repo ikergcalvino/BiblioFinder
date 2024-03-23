@@ -23,7 +23,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".screens.activities.MainActivity"
+            android:name=".screens.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar">
 
@@ -35,17 +35,17 @@
         </activity>
 
         <activity
-            android:name=".screens.activities.LoginActivity"
+            android:name=".screens.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar" />
 
         <activity
-            android:name=".screens.activities.RegistrationActivity"
+            android:name=".screens.RegistrationActivity"
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar" />
 
         <activity
-            android:name=".screens.activities.NfcActivity"
+            android:name=".screens.NfcActivity"
             android:exported="true"
             android:theme="@style/Theme.BiblioFinder.NoActionBar">
 
@@ -57,9 +57,11 @@
 
         </activity>
 
-        <receiver android:name=".services.NotificationService$YesReceiver" />
+        <service android:name=".model.NotificationService" />
 
-        <receiver android:name=".services.NotificationService$NoReceiver" />
+        <receiver android:name=".model.NotificationService$YesReceiver" />
+
+        <receiver android:name=".model.NotificationService$NoReceiver" />
 
     </application>
 

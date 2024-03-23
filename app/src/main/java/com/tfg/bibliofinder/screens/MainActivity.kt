@@ -1,4 +1,4 @@
-package com.tfg.bibliofinder.screens.activities
+package com.tfg.bibliofinder.screens
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textview.MaterialTextView
 import com.tfg.bibliofinder.R
 import com.tfg.bibliofinder.databinding.ActivityMainBinding
-import com.tfg.bibliofinder.services.AuthenticationService
+import com.tfg.bibliofinder.model.AuthenticationManager
 import com.tfg.bibliofinder.util.Constants
 import org.koin.android.ext.android.inject
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    private val authenticationService: AuthenticationService by inject()
+    private val authenticationManager: AuthenticationManager by inject()
     private val sharedPrefs: SharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_logout -> {
-                    authenticationService.logOut()
+                    authenticationManager.logOut()
                     val logoutIntent = Intent(this@MainActivity, MainActivity::class.java)
                     startActivity(logoutIntent)
                     finish()

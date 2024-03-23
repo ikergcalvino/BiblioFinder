@@ -1,12 +1,12 @@
-package com.tfg.bibliofinder.services
+package com.tfg.bibliofinder.model
 
 import android.content.SharedPreferences
 import com.tfg.bibliofinder.data.local.database.AppDatabase
 import com.tfg.bibliofinder.entities.Workstation
-import com.tfg.bibliofinder.services.exceptions.BookingOutsideAllowedHoursException
-import com.tfg.bibliofinder.services.exceptions.UserAlreadyHasBookingException
-import com.tfg.bibliofinder.services.exceptions.UserNotLoggedInException
-import com.tfg.bibliofinder.services.exceptions.WorkstationNotAvailableException
+import com.tfg.bibliofinder.model.exceptions.BookingOutsideAllowedHoursException
+import com.tfg.bibliofinder.model.exceptions.UserAlreadyHasBookingException
+import com.tfg.bibliofinder.model.exceptions.UserNotLoggedInException
+import com.tfg.bibliofinder.model.exceptions.WorkstationNotAvailableException
 import com.tfg.bibliofinder.util.Constants
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class WorkstationService : KoinComponent {
+class WorkstationManager : KoinComponent {
 
     private lateinit var opening: LocalDateTime
     private lateinit var closing: LocalDateTime
@@ -45,7 +45,9 @@ class WorkstationService : KoinComponent {
         if (!isWorkstationAvailable(workstation.state)) throw WorkstationNotAvailableException()
     }
 
-    suspend fun bookWorkstation(workstation: Workstation, selectedTime: LocalDateTime) {
+    suspend fun bookWorkstation(
+        workstation: Workstation, selectedTime: LocalDateTime
+    ): LocalDateTime {
         val userId = sharedPrefs.getLong(Constants.USER_ID, 0L)
 
         if (isOutsideAllowedHours(selectedTime)) throw BookingOutsideAllowedHoursException()
@@ -60,6 +62,8 @@ class WorkstationService : KoinComponent {
         workstation.userId = userId
 
         database.workstationDao().updateWorkstation(workstation)
+
+        return adjustedTime
     }
 
     suspend fun occupyWorkstation(nfcId: Long) {

@@ -11,6 +11,7 @@
     <string name="booked">RESERVADO</string>
     <string name="booked_nfc_button_description">Escanexa o NFC para confirmar a reserva</string>
     <string name="booking_icon">Ícono de reserva</string>
+    <string name="booking_notification">Notificación de reserva</string>
     <string name="booking_outside_allowed_hours">Non se pode facer unha reserva fóra das horas permitidas</string>
     <string name="by_institution">Por institución</string>
     <string name="cancel">Cancelar</string>
@@ -48,10 +49,12 @@
     <string name="name_descending">Nome (descendente)</string>
     <string name="nfc_disabled">NFC desactivado</string>
     <string name="no_bookings_or_occupancy">Sen reservas ou ocupación</string>
+    <string name="no_cancel_booking">No, cancelar a reserva</string>
     <string name="occupied">OCUPADO</string>
     <string name="occupied_site">Sitio ocupado</string>
     <string name="opening_time">Hora de apertura</string>
     <string name="or">Ou</string>
+    <string name="order_by">Ordear por:</string>
     <string name="password">Contrasinal</string>
     <string name="password_mismatch">Contrasinal incorrecto. Asegúrese de que os contrasinais coincidan.</string>
     <string name="phone">Teléfono</string>
@@ -74,5 +77,8 @@
     <string name="workstation_icon">Ícono de estación de traballo</string>
     <string name="workstation_not_occupied">A estación de traballo está actualmente reservada ou ocupada por outro usuario</string>
     <string name="workstation_occupied">Estación de traballo ocupada con éxito</string>
+    <string name="workstation_successfully_booked_for_at">Reserva con éxito para o %1$s ás %2$s</string>
     <string name="workstations">Estacións de traballo</string>
+    <string name="yes">Sí</string>
+    <string name="you_have_a_booking_will_you_attend">Tes unha reserva, vas ir?</string>
 </resources>
